@@ -111,39 +111,65 @@ export function RaceCalendarWithPodium({ initialSeason = 2026 }: RaceCalendarWit
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-mono text-[#E10600] font-bold">2026 WORLD CHAMPIONSHIP CALENDAR</span>
+                <span className="text-xs font-mono text-[#E10600] font-bold">
+                  {activeSeason} WORLD CHAMPIONSHIP CALENDAR
+                </span>
                 <span className="text-xs text-neutral-500">•</span>
-                <span className="text-xs font-mono text-neutral-400">24 OFFICIAL GRANDS PRIX</span>
+                <span className="text-xs font-mono text-neutral-400">{races.length} OFFICIAL GRANDS PRIX</span>
               </div>
               <h3 className="text-lg font-bold font-mono text-white tracking-tight">
-                Select Any Race to Inspect Podium & Telemetry
+                {activeSeason >= 2025
+                  ? 'Scheduled Grand Prix Calendar & Event Briefings'
+                  : 'Official FIA Race Classifications & Podiums'}
               </h3>
             </div>
           </div>
 
-          {/* Quick Featured Round Jump Buttons */}
-          <div className="flex flex-wrap items-center gap-1.5">
-            <span className="text-[11px] font-mono text-neutral-400 font-semibold mr-1">
-              KEY RACES:
-            </span>
-            {featuredRounds.map((rd) => {
-              const target = races.find((r) => r.round_number === rd);
-              if (!target) return null;
-              const isSelected = activeRaceId === target.id;
-              return (
-                <button
-                  key={rd}
-                  onClick={() => handleSelectRace(target)}
-                  className={`px-2.5 py-1 rounded text-[11px] font-mono font-bold transition-all cursor-pointer ${
-                    isSelected
-                      ? 'bg-[#E10600] text-white shadow-md shadow-red-600/30'
-                      : 'bg-white/[0.04] text-neutral-300 hover:bg-white/[0.1] border border-white/[0.06]'
-                  }`}
-                >
-                  R{rd < 10 ? `0${rd}` : rd} {target.circuit.country_code}
-                </button>
-              );
-            })}
+          {/* Quick Season Switcher & Featured Round Jump Buttons */}
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="flex items-center gap-1.5 px-2 py-1 rounded bg-[#121622] border border-white/10 text-xs font-mono">
+              <span className="text-neutral-400 font-bold">SEASON:</span>
+              <select
+                value={activeSeason}
+                onChange={(e) => {
+                  const newSeason = Number(e.target.value);
+                  setActiveSeason(newSeason);
+                  setSeason(newSeason);
+                }}
+                aria-label="Select Season"
+                className="bg-transparent text-[#E10600] font-bold font-mono text-xs focus:outline-none cursor-pointer"
+              >
+                <option value={2026} className="bg-[#0D1017] text-white">2026 (Upcoming)</option>
+                <option value={2024} className="bg-[#0D1017] text-white">2024 (Completed)</option>
+                <option value={2023} className="bg-[#0D1017] text-white">2023</option>
+                <option value={2022} className="bg-[#0D1017] text-white">2022</option>
+                <option value={2021} className="bg-[#0D1017] text-white">2021</option>
+              </select>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-1">
+              <span className="text-[11px] font-mono text-neutral-400 font-semibold mr-1">
+                KEY RACES:
+              </span>
+              {featuredRounds.map((rd) => {
+                const target = races.find((r) => r.round_number === rd);
+                if (!target) return null;
+                const isSelected = activeRaceId === target.id;
+                return (
+                  <button
+                    key={rd}
+                    onClick={() => handleSelectRace(target)}
+                    className={`px-2.5 py-1 rounded text-[11px] font-mono font-bold transition-all cursor-pointer ${
+                      isSelected
+                        ? 'bg-[#E10600] text-white shadow-md shadow-red-600/30'
+                        : 'bg-white/[0.04] text-neutral-300 hover:bg-white/[0.1] border border-white/[0.06]'
+                    }`}
+                  >
+                    R{rd < 10 ? `0${rd}` : rd} {target.circuit.country_code}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
 
