@@ -8,6 +8,8 @@ from app.db.session import get_db
 from app.db import models
 from app.schemas.driver import DriverOut, ConstructorOut, HeadToHeadStat, DriverStandingOut, ConstructorStandingOut
 
+from app.services import jolpica_service
+
 router = APIRouter()
 
 
@@ -159,7 +161,41 @@ def get_driver_standings(season: int = 2024, db: Session = Depends(get_db)):
                 driver=DriverOut.model_validate(driver),
                 constructor=ConstructorOut.model_validate(constructor) if constructor else None,
             ))
-    return results
+    if results:
+        return results
+
+    # Fetch verified live/historical standings from Jolpica F1 API
+    live_standings = jolpica_service.get_driver_standings(season)
+    if live_standings:
+        api_results = []
+        for d in live_standings:
+            first_name = d["driver"]["full_name"].split(" ")[0]
+            last_name = " ".join(d["driver"]["full_name"].split(" ")[1:]) if " " in d["driver"]["full_name"] else d["driver"]["full_name"]
+            driver_obj = DriverOut(
+                id=abs(hash(d["driver"]["id"])) % 100000,
+                ref=d["driver"]["id"],
+                code=d["driver"].get("code"),
+                permanent_number=d["driver"].get("driver_number"),
+                first_name=first_name,
+                last_name=last_name,
+                nationality=d["driver"].get("nationality"),
+            )
+            const_obj = None
+            if d.get("constructor"):
+                const_obj = ConstructorOut(
+                    id=abs(hash(d["constructor"]["id"])) % 100000,
+                    ref=d["constructor"]["id"],
+                    name=d["constructor"]["name"],
+                )
+            api_results.append(DriverStandingOut(
+                position=d["position"],
+                points=d["points"],
+                driver=driver_obj,
+                constructor=const_obj,
+            ))
+        return api_results
+
+    return []
 
 
 @router.get("/constructors/", response_model=List[ConstructorOut])
@@ -170,6 +206,23 @@ def list_constructors(db: Session = Depends(get_db)):
 @router.get("/constructors/standings", response_model=List[ConstructorStandingOut])
 def get_constructor_standings(season: int = 2024, db: Session = Depends(get_db)):
     """Constructor championship standings for the season."""
+    # First try fetching from jolpica for official standings
+    live_c_standings = jolpica_service.get_constructor_standings(season)
+    if live_c_standings:
+        return [
+            ConstructorStandingOut(
+                position=c["position"],
+                points=c["points"],
+                constructor=ConstructorOut(
+                    id=abs(hash(c["constructor"]["id"])) % 100000,
+                    ref=c["constructor"]["id"],
+                    name=c["constructor"]["name"],
+                    nationality=c["constructor"].get("nationality"),
+                ),
+            )
+            for c in live_c_standings
+        ]
+
     driver_standings = get_driver_standings(season=season, db=db)
     team_points = {}
     team_map = {}

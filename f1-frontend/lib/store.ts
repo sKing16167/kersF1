@@ -48,8 +48,8 @@ interface TelemetryStoreState {
 export const useTelemetryStore = create<TelemetryStoreState>((set) => ({
   season: 2026,
   races: MOCK_RACES,
-  selectedRace: MOCK_RACES[0],
-  selectedSession: MOCK_RACES[0]?.sessions?.[3] || null, // Qualifying
+  selectedRace: MOCK_RACES.find((r) => r.status === 'UPCOMING') || MOCK_RACES[16] || MOCK_RACES[0],
+  selectedSession: (MOCK_RACES.find((r) => r.status === 'UPCOMING') || MOCK_RACES[16])?.sessions?.[3] || null,
   drivers: MOCK_DRIVERS,
 
   driverA: MOCK_DRIVERS[0], // Lando Norris (McLaren #FF8000)

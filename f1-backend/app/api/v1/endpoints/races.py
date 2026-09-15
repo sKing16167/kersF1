@@ -7,7 +7,33 @@ from app.db.session import get_db
 from app.db import models
 from app.schemas.race import RaceOut, LapTimeOut, CircuitOut
 
+from app.services import jolpica_service
+
 router = APIRouter()
+
+
+@router.get("/current/next")
+def get_current_next_race():
+    """Fetch the next scheduled Formula 1 Grand Prix weekend."""
+    next_race = jolpica_service.get_next_race()
+    if next_race:
+        return next_race
+    return {
+        "season": "2026",
+        "round": "15",
+        "raceName": "Azerbaijan Grand Prix",
+        "Circuit": {"circuitName": "Baku City Circuit", "Location": {"country": "Azerbaijan"}},
+        "date": "2026-09-26",
+    }
+
+
+@router.get("/{season}/{round_num}/results")
+def get_official_race_results(season: int, round_num: int):
+    """Fetch official FIA race classification for any round and season."""
+    res = jolpica_service.get_race_result(season, round_num)
+    if res:
+        return res
+    raise HTTPException(status_code=404, detail="Race result not found or pending session")
 
 
 @router.get("/", response_model=List[RaceOut])
