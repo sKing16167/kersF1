@@ -1,0 +1,419 @@
+@import "tailwindcss";
+
+:root {
+  --bg-core: #06080C;
+  --bg-gradient: radial-gradient(130% 120% at 50% 0%, rgba(24, 34, 53, 0.22) 0%, rgba(6, 8, 12, 0.98) 65%);
+  --glass-bg: rgba(16, 21, 32, 0.72);
+  --glass-bg-hover: rgba(22, 29, 44, 0.85);
+  --glass-panel: rgba(12, 16, 24, 0.78);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --glass-border-highlight: rgba(225, 6, 0, 0.6);
+  --glass-specular: rgba(255, 255, 255, 0.18);
+  --text-primary: #FFFFFF;
+  --text-secondary: #94A3B8;
+  --text-tertiary: #64748B;
+  --accent-f1: #E10600;
+  --accent-f1-glow: rgba(225, 6, 0, 0.35);
+}
+
+[data-theme='scuderia'] {
+  --bg-core: #070304;
+  --bg-gradient: radial-gradient(130% 120% at 50% 0%, rgba(232, 0, 32, 0.2) 0%, rgba(7, 3, 4, 0.98) 65%);
+  --glass-bg: rgba(26, 12, 14, 0.75);
+  --glass-bg-hover: rgba(36, 15, 18, 0.88);
+  --glass-panel: rgba(20, 8, 10, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --glass-border-highlight: rgba(232, 0, 32, 0.65);
+  --glass-specular: rgba(255, 255, 255, 0.2);
+  --accent-f1: #E80020;
+  --accent-f1-glow: rgba(232, 0, 32, 0.4);
+}
+
+[data-theme='petronas'] {
+  --bg-core: #04080A;
+  --bg-gradient: radial-gradient(130% 120% at 50% 0%, rgba(39, 244, 210, 0.16) 0%, rgba(4, 8, 10, 0.98) 65%);
+  --glass-bg: rgba(10, 24, 26, 0.72);
+  --glass-bg-hover: rgba(14, 34, 38, 0.85);
+  --glass-panel: rgba(8, 18, 20, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --glass-border-highlight: rgba(39, 244, 210, 0.65);
+  --glass-specular: rgba(255, 255, 255, 0.2);
+  --accent-f1: #27F4D2;
+  --accent-f1-glow: rgba(39, 244, 210, 0.4);
+}
+
+[data-theme='monaco'] {
+  --bg-core: #06070B;
+  --bg-gradient: radial-gradient(130% 120% at 50% 0%, rgba(229, 184, 105, 0.16) 0%, rgba(6, 7, 11, 0.98) 65%);
+  --glass-bg: rgba(22, 21, 28, 0.75);
+  --glass-bg-hover: rgba(30, 28, 38, 0.88);
+  --glass-panel: rgba(16, 16, 22, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --glass-border-highlight: rgba(229, 184, 105, 0.65);
+  --glass-specular: rgba(255, 255, 255, 0.2);
+  --accent-f1: #E5B869;
+  --accent-f1-glow: rgba(229, 184, 105, 0.4);
+}
+
+body {
+  background-color: var(--bg-core);
+  background-image: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  letter-spacing: -0.011em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   PRO MOTORSPORT MULTI-TIER GLASSMORPHISM
+   High-depth carbon frosted glass with crisp specular top rim highlights
+   ========================================================================== */
+
+/* Main Navigation & Studio Panels */
+.ios-glass,
+.f1-glass {
+  background: linear-gradient(135deg, rgba(14, 18, 28, 0.78) 0%, rgba(8, 10, 16, 0.86) 100%);
+  backdrop-filter: blur(28px) saturate(200%) contrast(105%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%) contrast(105%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 16px 40px -8px rgba(0, 0, 0, 0.8),
+    0 2px 6px 0 rgba(0, 0, 0, 0.4);
+  position: relative;
+}
+
+/* Motorsport Card with Deep Ambient Sheen */
+.ios-card,
+.f1-glass-card {
+  background: linear-gradient(135deg, rgba(18, 23, 34, 0.6) 0%, rgba(10, 13, 20, 0.75) 100%);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.08),
+    0 10px 30px -8px rgba(0, 0, 0, 0.75);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.ios-card:hover,
+.f1-glass-card:hover {
+  background: linear-gradient(135deg, rgba(24, 31, 46, 0.75) 0%, rgba(14, 18, 28, 0.88) 100%);
+  border-color: rgba(255, 255, 255, 0.15);
+  border-top-color: rgba(255, 255, 255, 0.32);
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.16),
+    0 18px 45px -10px rgba(0, 0, 0, 0.88),
+    0 0 24px -4px rgba(225, 6, 0, 0.12);
+}
+
+/* F1 Angled Red Header Notch (From Reference Screenshot) */
+.f1-header-notch {
+  position: relative;
+  background: linear-gradient(135deg, #E10600 0%, #B30000 100%);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%);
+  box-shadow: 0 4px 20px rgba(225, 6, 0, 0.4);
+}
+
+.f1-header-bar {
+  background: linear-gradient(90deg, rgba(225, 6, 0, 0.85) 0%, rgba(225, 6, 0, 0.15) 25%, transparent 60%);
+  height: 2px;
+}
+
+/* F1 Outlined Display Typography */
+.font-outline-f1 {
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.85);
+  color: transparent;
+  letter-spacing: -0.02em;
+}
+
+.font-outline-f1-sm {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.7);
+  color: transparent;
+}
+
+/* Crisp Solid Red Line Border for Selected / Active Items */
+.ios-card-selected,
+.f1-selected,
+.ios-card:active {
+  border-color: #E10600 !important;
+  border-width: 1.5px !important;
+  background: linear-gradient(135deg, rgba(22, 28, 42, 0.95) 0%, rgba(12, 15, 24, 0.98) 100%) !important;
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.15),
+    0 0 20px rgba(225, 6, 0, 0.25) !important;
+}
+
+/* F1 Telemetry Segmented Tags & Switches */
+.ios-pill,
+.f1-pill {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top-color: rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ios-pill:hover,
+.f1-pill:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.04) 100%);
+  border-color: rgba(255, 255, 255, 0.22);
+  border-top-color: rgba(255, 255, 255, 0.3);
+}
+
+.ios-pill-active,
+.f1-pill-active {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%) !important;
+  border-color: #E10600 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 0 12px rgba(225, 6, 0, 0.3) !important;
+}
+
+/* F1 Primary Red Action CTA Button */
+.f1-btn-primary {
+  background: #E10600;
+  color: #FFFFFF;
+  font-family: monospace;
+  font-weight: 700;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 18px rgba(225, 6, 0, 0.45);
+}
+
+.f1-btn-primary:hover {
+  background: #FF1801;
+  box-shadow: 0 6px 24px rgba(225, 6, 0, 0.65);
+  transform: translateY(-1px);
+}
+
+.f1-btn-primary:active {
+  transform: scale(0.98);
+}
+
+/* F1 Outline Pill Button */
+.f1-btn-outline {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #FFFFFF;
+  font-family: monospace;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.f1-btn-outline:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+/* Minimalist Scrollbars */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(225, 6, 0, 0.5);
+}
+
+/* Subtle Glowing Splines */
+.glow-spline {
+  filter: drop-shadow(0 0 8px currentColor);
+}
+
+/* Red Racing Line Glow Filter */
+.racing-line-glow {
+  filter: drop-shadow(0 0 6px rgba(225, 6, 0, 0.6));
+}
+
+/* Minimalist Range Sliders */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 2px solid #E10600;
+  box-shadow: 0 0 10px rgba(225, 6, 0, 0.5);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+  box-shadow: 0 0 16px rgba(225, 6, 0, 0.8);
+}
+
+/* F1 Starting App & KERS Sweep / Reveal Animations */
+@keyframes f1SweepAcross {
+  0% {
+    transform: translateX(-70vw);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(160vw);
+    opacity: 0;
+  }
+}
+
+.animate-f1-sweep {
+  animation: f1SweepAcross 2.2s cubic-bezier(0.22, 0.9, 0.28, 1) forwards;
+}
+
+@keyframes kersTextWipe {
+  0% {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+    opacity: 0;
+    transform: scale(0.97) translateX(-15px);
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 1;
+    transform: scale(1) translateX(0px);
+  }
+}
+
+.animate-kers-wipe {
+  animation: kersTextWipe 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes kersGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 25px rgba(225, 6, 0, 0.5)) drop-shadow(0 0 60px rgba(225, 6, 0, 0.25));
+  }
+  50% {
+    filter: drop-shadow(0 0 40px rgba(255, 30, 0, 0.8)) drop-shadow(0 0 80px rgba(225, 6, 0, 0.5));
+  }
+}
+
+.animate-kers-glow {
+  animation: kersGlow 3s ease-in-out infinite;
+}
+
+/* Glow Border Card Conic Animation */
+@property --glow-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes glowRotate {
+  0% {
+    --glow-angle: 0deg;
+  }
+  100% {
+    --glow-angle: 360deg;
+  }
+}
+
+.glow-conic {
+  background: conic-gradient(
+    from var(--glow-angle, 0deg),
+    var(--glow-color-1, #E10600),
+    var(--glow-color-2, #FF2800),
+    var(--glow-color-3, #FF5500),
+    var(--glow-color-4, #FFAA00),
+    var(--glow-color-5, #FF1801),
+    var(--glow-color-6, #E10600),
+    var(--glow-color-7, #900000),
+    var(--glow-color-8, #FF2800),
+    var(--glow-color-9, #FF5000),
+    var(--glow-color-10, #E10600)
+  );
+  animation: glowRotate var(--glow-animation-duration, 5s) linear infinite;
+}
+
+/* Background Atmosphere Speed Particle Animation */
+@keyframes speedDrift {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.6;
+  }
+  85% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(50px);
+    opacity: 0;
+  }
+}
+
+.animate-speed-particle {
+  animation: speedDrift 12s linear infinite;
+}
+
+/* Technical Horizon Grid Pulse */
+@keyframes gridHorizonPulse {
+  0%, 100% {
+    opacity: 0.08;
+    transform: scaleY(1);
+  }
+  50% {
+    opacity: 0.16;
+    transform: scaleY(1.05);
+  }
+}
+
+.animate-grid-pulse {
+  animation: gridHorizonPulse 8s ease-in-out infinite;
+}
+
+/* Live Telemetry Dot Pulse */
+@keyframes liveDotPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.6);
+    opacity: 0.4;
+  }
+}
+
+.animate-live-dot {
+  animation: liveDotPulse 1.6s ease-in-out infinite;
+}

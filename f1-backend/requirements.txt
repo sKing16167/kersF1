@@ -1,0 +1,39 @@
+# --- Web framework ---
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+pydantic==2.9.2
+pydantic-settings==2.5.2
+
+# --- Database ---
+sqlalchemy==2.0.35
+psycopg2-binary==2.9.9
+alembic==1.13.3
+
+# --- Background jobs ---
+celery==5.4.0
+redis==5.0.8
+flower==2.0.1
+
+# --- F1 data sources ---
+fastf1==3.4.5
+requests==2.32.3
+httpx==0.27.2
+
+# --- Data processing ---
+pandas==2.2.3
+numpy==1.26.4
+pyarrow==17.0.0   # parquet read/write
+scipy==1.14.1     # interpolation for lap-distance normalization
+
+# --- Storage ---
+boto3==1.35.36    # S3 / R2 (S3-compatible) client
+
+# --- Auth / security ---
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.12
+
+# --- Utilities ---
+python-dotenv==1.0.1
+tenacity==9.0.0   # retry logic for flaky upstream APIs
+orjson==3.10.7

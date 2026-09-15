@@ -1,0 +1,77 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-f1user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      POSTGRES_DB: ${POSTGRES_DB:-f1data}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-f1user} -d ${POSTGRES_DB:-f1data}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+
+  api:
+    build: .
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - .:/app
+      - fastf1_cache:/data/fastf1_cache
+      - telemetry_storage:/data/telemetry_storage
+    env_file: .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  celery_worker:
+    build: .
+    command: celery -A app.core.celery_app worker --loglevel=info --concurrency=2
+    volumes:
+      - .:/app
+      - fastf1_cache:/data/fastf1_cache
+      - telemetry_storage:/data/telemetry_storage
+    env_file: .env
+    depends_on:
+      - api
+      - redis
+      - postgres
+
+  celery_beat:
+    build: .
+    command: celery -A app.core.celery_app beat --loglevel=info
+    volumes:
+      - .:/app
+    env_file: .env
+    depends_on:
+      - celery_worker
+
+  flower:
+    build: .
+    command: celery -A app.core.celery_app flower --port=5555
+    volumes:
+      - .:/app
+    env_file: .env
+    ports:
+      - "5555:5555"
+    depends_on:
+      - celery_worker
+
+volumes:
+  pgdata:
+  fastf1_cache:
+  telemetry_storage:

@@ -1,0 +1,62 @@
+# ==========================================
+# Comprehensive Git Ignore for KERS F1 Platform
+# ==========================================
+
+# 1. Environment & Secrets (STRICT - NEVER COMMIT)
+.env
+.env.*
+!.env.example
+*.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+*.key
+*.cert
+*.pfx
+credentials.json
+secrets/
+
+# 2. Node & Frontend Build Artifacts
+node_modules/
+*/node_modules/
+.next/
+*/.next/
+out/
+build/
+dist/
+.turbo/
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.eslintcache
+
+# 3. Python & Backend Caches
+__pycache__/
+*/__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+ENV/
+env/
+celerybeat-schedule
+*.sqlite3
+*.db
+/data/fastf1_cache/
+fastf1_cache/
+
+# 4. OS & IDE Metadata
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.swp
+*.swo
