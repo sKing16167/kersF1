@@ -1,0 +1,17 @@
+{
+  "name": "KERS F1 | Telemetry & Race Analytics",
+  "short_name": "KERS F1",
+  "description": "Precision Formula 1 telemetry ghosting arena, micro-sector velocity maps, and race strategy prediction.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#030407",
+  "theme_color": "#FF1801",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "96x96 192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

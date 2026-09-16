@@ -7,7 +7,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTelemetryStore, ThemeType } from '@/lib/store';
 import { AVAILABLE_SEASONS } from '@/lib/api';
 import { KersLogo } from '@/components/ui/KersLogo';
-import { SignInModal } from '@/components/auth/SignInModal';
 
 import {
   Play,
@@ -17,7 +16,6 @@ import {
   Calendar,
   Sparkles,
   ChevronDown,
-  User,
   Zap,
   Menu,
   X,
@@ -40,16 +38,16 @@ const NAV_OPTIONS: NavOption[] = [
       { label: '23 Official Tracks', href: '/circuits#tracks' },
     ],
   },
-  { label: 'Ghosting Arena', href: '/ghosting-arena', badge: 'PRO' },
+  { label: 'Ghosting Arena', href: '/ghosting-arena' },
   { label: 'Micro-Sectors', href: '/track-map' },
   { label: 'Race Strategy', href: '/strategy' },
   { label: 'Drivers & Teams', href: '/drivers' },
+  { label: 'Font Lab', href: '/fonts', badge: 'NEW' },
 ];
 
 export function TopHeader() {
   const pathname = usePathname();
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [isSignInOpen, setIsSignInOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const {
@@ -95,7 +93,7 @@ export function TopHeader() {
             </Link>
 
             {/* F1 Red Accent Speed Line */}
-            <div className="hidden xl:block w-8 h-[2px] bg-gradient-to-r from-[#E10600] to-transparent" />
+            <div className="hidden xl:block w-8 h-[2px] bg-gradient-to-r from-[#FF1801] to-transparent" />
 
             {/* Desktop Navigation Links with Animated Sliding Pill Indicator */}
             <nav className="hidden lg:flex items-center gap-1">
@@ -134,7 +132,7 @@ export function TopHeader() {
                       {isActive && (
                         <motion.div
                           layoutId="topNavActiveIndicator"
-                          className="absolute inset-0 rounded-md bg-white/[0.12] border-b-2 border-b-[#E10600] -z-10"
+                          className="absolute inset-0 rounded-md bg-white/[0.12] border-b-2 border-b-[#FF1801] -z-10"
                           transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                         />
                       )}
@@ -168,16 +166,7 @@ export function TopHeader() {
 
           {/* Right Action Controls: SIGN IN + SUBSCRIBE/JOIN LIVE (Matching Screenshot) */}
           <div className="flex items-center gap-2 shrink-0">
-            {/* Sign In Button */}
-            <button
-              onClick={() => setIsSignInOpen(true)}
-              className="px-3 py-1.5 f1-btn-outline text-xs flex items-center gap-1.5 cursor-pointer active:scale-95"
-            >
-              <User className="w-3.5 h-3.5 text-neutral-300" />
-              <span className="hidden sm:inline">SIGN IN</span>
-            </button>
-
-            {/* Subscribe / Join Live Red Action CTA */}
+            {/* Join Live Red Action CTA */}
             <Link
               href="/ghosting-arena"
               className="px-3.5 py-1.5 f1-btn-primary text-xs flex items-center gap-1.5 cursor-pointer uppercase tracking-wider active:scale-95"
@@ -192,7 +181,7 @@ export function TopHeader() {
               className="p-1.5 rounded-md f1-pill text-neutral-300 hover:text-white transition-all hover:scale-105 active:scale-95 hidden sm:flex"
               title="Replay KERS Starting Animation"
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#E10600]" />
+              <Sparkles className="w-3.5 h-3.5 text-[#FF1801]" />
             </button>
 
             {/* Mobile Hamburger Toggle */}
@@ -222,7 +211,7 @@ export function TopHeader() {
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={`block px-3 py-2 rounded-md text-xs font-mono font-bold transition-colors ${
                     pathname === item.href
-                      ? 'bg-[#E10600] text-white'
+                      ? 'bg-[#FF1801] text-white'
                       : 'text-neutral-300 hover:text-white hover:bg-white/[0.06]'
                   }`}
                 >
@@ -239,7 +228,7 @@ export function TopHeader() {
           <div className="flex flex-wrap items-center gap-2">
             {/* Season Selector */}
             <div className="flex items-center gap-1.5 f1-pill px-2.5 py-0.5">
-              <Calendar className="w-3 h-3 text-[#E10600]" />
+              <Calendar className="w-3 h-3 text-[#FF1801]" />
               <select
                 value={season}
                 onChange={(e) => setSeason(Number(e.target.value))}
@@ -285,7 +274,7 @@ export function TopHeader() {
                       onClick={() => setSelectedSession(s)}
                       className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold transition-all ${
                         isSelected
-                          ? 'bg-[#E10600] text-white shadow-sm'
+                          ? 'bg-[#FF1801] text-white shadow-sm'
                           : 'text-neutral-400 hover:text-white'
                       }`}
                     >
@@ -370,12 +359,6 @@ export function TopHeader() {
           </div>
         </div>
       </header>
-
-      {/* Global Driver Authentication Modal */}
-      <SignInModal
-        isOpen={isSignInOpen}
-        onClose={() => setIsSignInOpen(false)}
-      />
     </>
   );
 }

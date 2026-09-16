@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { f1Api, MOCK_CIRCUITS } from '@/lib/api';
 import { Circuit } from '@/lib/types';
+import { useTelemetryStore } from '@/lib/store';
 import { GlobeView } from '@/components/circuits/GlobeView';
 import { TrackLayoutViewer } from '@/components/circuits/TrackLayoutViewer';
 import { Compass, MapPin, Globe, Sparkles, Filter } from 'lucide-react';
@@ -11,6 +12,7 @@ export default function CircuitsPage() {
   const [circuits, setCircuits] = useState<Circuit[]>(MOCK_CIRCUITS);
   const [selectedCircuit, setSelectedCircuit] = useState<Circuit>(MOCK_CIRCUITS[0]);
   const [filterRegion, setFilterRegion] = useState<string>('ALL');
+  const { circuitRecordOverrides } = useTelemetryStore();
 
   useEffect(() => {
     async function loadData() {
@@ -35,7 +37,7 @@ export default function CircuitsPage() {
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4 f1-glass-card p-6 rounded-lg border border-white/[0.08] shadow-2xl">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-md bg-[#E10600]/15 border border-[#E10600]/30 flex items-center justify-center text-[#E10600]">
+          <div className="w-10 h-10 rounded-md bg-[#FF1801]/15 border border-[#FF1801]/30 flex items-center justify-center text-[#FF1801]">
             <Globe className="w-5 h-5 stroke-[2]" />
           </div>
           <div>
@@ -49,12 +51,12 @@ export default function CircuitsPage() {
         </div>
 
         {/* Region Filter Pills */}
-        <div className="flex items-center f1-pill p-1 gap-1 text-xs">
+        <div className="flex items-center f1-pill p-1 gap-1 text-xs overflow-x-auto no-scrollbar max-w-full shrink-0">
           <button
             onClick={() => setFilterRegion('ALL')}
             className={`px-3 py-1 rounded-sm text-[11px] font-mono transition-all ${
               filterRegion === 'ALL'
-                ? 'bg-[#E10600] text-white font-bold shadow-md shadow-red-600/30'
+                ? 'bg-[#FF1801] text-white font-bold shadow-md shadow-red-600/30'
                 : 'text-neutral-400 hover:text-white'
             }`}
           >
@@ -64,7 +66,7 @@ export default function CircuitsPage() {
             onClick={() => setFilterRegion('EUROPE')}
             className={`px-3 py-1 rounded-sm text-[11px] font-mono transition-all ${
               filterRegion === 'EUROPE'
-                ? 'bg-[#E10600] text-white font-bold shadow-md shadow-red-600/30'
+                ? 'bg-[#FF1801] text-white font-bold shadow-md shadow-red-600/30'
                 : 'text-neutral-400 hover:text-white'
             }`}
           >
@@ -74,7 +76,7 @@ export default function CircuitsPage() {
             onClick={() => setFilterRegion('AMERICAS')}
             className={`px-3 py-1 rounded-sm text-[11px] font-mono transition-all ${
               filterRegion === 'AMERICAS'
-                ? 'bg-[#E10600] text-white font-bold shadow-md shadow-red-600/30'
+                ? 'bg-[#FF1801] text-white font-bold shadow-md shadow-red-600/30'
                 : 'text-neutral-400 hover:text-white'
             }`}
           >
@@ -84,7 +86,7 @@ export default function CircuitsPage() {
             onClick={() => setFilterRegion('ASIA_MIDDLE_EAST')}
             className={`px-3 py-1 rounded-sm text-[11px] font-mono transition-all ${
               filterRegion === 'ASIA_MIDDLE_EAST'
-                ? 'bg-[#E10600] text-white font-bold shadow-md shadow-red-600/30'
+                ? 'bg-[#FF1801] text-white font-bold shadow-md shadow-red-600/30'
                 : 'text-neutral-400 hover:text-white'
             }`}
           >
@@ -130,7 +132,7 @@ export default function CircuitsPage() {
                 <div className="space-y-3">
                   <div className="flex items-center justify-between border-b border-white/[0.06] pb-2.5">
                     <div className="flex items-center gap-1.5 text-xs text-neutral-400 font-mono">
-                      <MapPin className={`w-3.5 h-3.5 ${isSelected ? 'text-[#E10600]' : 'text-neutral-500'}`} />
+                      <MapPin className={`w-3.5 h-3.5 ${isSelected ? 'text-[#FF1801]' : 'text-neutral-500'}`} />
                       <span>{c.location}, {c.country}</span>
                     </div>
                     <span className="text-[10px] font-mono px-2 py-0.5 rounded-sm bg-white/[0.04] border border-white/[0.08] text-neutral-300">
@@ -153,8 +155,8 @@ export default function CircuitsPage() {
                 </div>
 
                 <div className="mt-4 pt-2.5 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono">
-                  <span className="text-neutral-500">Record: {c.lap_record}</span>
-                  <span className={`font-bold ${isSelected ? 'text-[#E10600]' : 'text-neutral-400'}`}>
+                  <span className="text-neutral-500">Record: {circuitRecordOverrides[c.id]?.lap_record || c.lap_record}</span>
+                  <span className={`font-bold ${isSelected ? 'text-[#FF1801]' : 'text-neutral-400'}`}>
                     {isSelected ? 'ACTIVE VIEW' : 'INSPECT'}
                   </span>
                 </div>

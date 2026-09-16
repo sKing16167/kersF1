@@ -96,12 +96,12 @@ export function MicroSectorSvgMap({
       {/* Header & Matchup Tally */}
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/[0.08] pb-4">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-md bg-[#E10600]/10 border border-[#E10600]/30 flex items-center justify-center text-[#E10600]">
+          <div className="w-9 h-9 rounded-md bg-[#FF1801]/10 border border-[#FF1801]/30 flex items-center justify-center text-[#FF1801]">
             <MapPin className="w-4 h-4 stroke-[2.5]" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-mono text-[#E10600] font-bold uppercase">{circuit.country}</span>
+              <span className="text-xs font-mono text-[#FF1801] font-bold uppercase">{circuit.country}</span>
               <span className="text-xs text-neutral-500">•</span>
               <span className="text-xs font-mono text-neutral-400">{circuit.length_km} KM</span>
             </div>
@@ -245,7 +245,7 @@ export function MicroSectorSvgMap({
           {activeSegment && (
             <g transform={`translate(${activeSegment.midPoint.x}, ${activeSegment.midPoint.y})`}>
               <circle r={10} fill="#FFFFFF" opacity={0.25} className="animate-ping" />
-              <circle r={5} fill="#FFFFFF" stroke="#E10600" strokeWidth={1.5} />
+              <circle r={5} fill="#FFFFFF" stroke="#FF1801" strokeWidth={1.5} />
             </g>
           )}
         </svg>
@@ -259,7 +259,7 @@ export function MicroSectorSvgMap({
             </div>
 
             {hoveredSector.nearest_corner && (
-              <div className="text-[10px] text-[#E10600] font-bold">
+              <div className="text-[10px] text-[#FF1801] font-bold">
                 APEX: {hoveredSector.nearest_corner}
               </div>
             )}

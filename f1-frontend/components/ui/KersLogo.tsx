@@ -23,8 +23,7 @@ export function KersLogo({
   subtitle,
   animated = false,
 }: KersLogoProps) {
-  const markWidth = Math.round(size * 1.7);
-  const fullWidth = Math.round(size * 3.6);
+  const markWidth = Math.round(size * (84 / 46));
 
   const getMarkFill = () => {
     if (colorScheme === 'white') return '#FFFFFF';
@@ -32,9 +31,9 @@ export function KersLogo({
     return 'url(#kersRedGrad)';
   };
 
-  const renderEmblem = (isFull: boolean = false) => {
-    const viewBox = isFull ? "0 0 170 46" : "0 0 84 46";
-    const width = isFull ? fullWidth : markWidth;
+  const renderEmblem = () => {
+    const viewBox = "0 0 84 46";
+    const width = markWidth;
     const height = size;
 
     return (
@@ -70,22 +69,56 @@ export function KersLogo({
 
         <style>
           {`
-            @keyframes speedLineSlide {
-              0% { opacity: 0; transform: translateX(-14px); }
-              100% { opacity: 1; transform: translateX(0); }
+            @keyframes kersStripeFadeIn {
+              0% {
+                opacity: 0;
+                transform: translateX(-32px);
+              }
+              25% {
+                opacity: 0.25;
+              }
+              100% {
+                opacity: 1;
+                transform: translateX(0);
+              }
             }
-            .kers-line-1 { animation: ${animated ? 'speedLineSlide 0.5s ease-out forwards' : 'none'}; }
-            .kers-line-2 { animation: ${animated ? 'speedLineSlide 0.6s ease-out forwards' : 'none'}; }
-            .kers-line-3 { animation: ${animated ? 'speedLineSlide 0.7s ease-out forwards' : 'none'}; }
-            .kers-line-4 { animation: ${animated ? 'speedLineSlide 0.8s ease-out forwards' : 'none'}; }
-            .kers-line-5 { animation: ${animated ? 'speedLineSlide 0.9s ease-out forwards' : 'none'}; }
+
+            @keyframes kersBodyFadeIn {
+              0% {
+                opacity: 0;
+                transform: scale(0.96);
+              }
+              100% {
+                opacity: 1;
+                transform: scale(1);
+              }
+            }
+
+            .kers-line-1 {
+              animation: ${animated ? 'kersStripeFadeIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both' : 'none'};
+            }
+            .kers-line-2 {
+              animation: ${animated ? 'kersStripeFadeIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.24s both' : 'none'};
+            }
+            .kers-line-3 {
+              animation: ${animated ? 'kersStripeFadeIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.36s both' : 'none'};
+            }
+            .kers-line-4 {
+              animation: ${animated ? 'kersStripeFadeIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.48s both' : 'none'};
+            }
+            .kers-line-5 {
+              animation: ${animated ? 'kersStripeFadeIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.60s both' : 'none'};
+            }
+            .kers-k-body {
+              animation: ${animated ? 'kersBodyFadeIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both' : 'none'};
+            }
           `}
         </style>
 
-        {/* Forward-Raked 18° Aerodynamic Trajectory */}
+        {/* Forward-Raked 16° Aerodynamic Trajectory */}
         <g transform="skewX(-16) translate(12, 0)">
           {/* 
-            The Letter K and 5 Horizontal Speed Bars in Precision F1 Red
+            The Letter K and 5 Horizontal Speed Bars
             Top bar is longest & tapered, bottom bar is shortest.
           */}
           <g fill={getMarkFill()} filter={colorScheme === 'f1-red' ? 'url(#kersRedGlow)' : undefined}>
@@ -125,60 +158,54 @@ export function KersLogo({
               - Upper High-Downforce Arm
               - Lower Traction Leg
             */}
-            {/* Vertical Spine */}
-            <path
-              d="M 39 5 L 47 5 L 47 41 L 39 41 Z"
-            />
-
-            {/* Upper Diagonal Arm */}
-            <path
-              d="M 47 25 L 61 5 L 72 5 L 52 30 Z"
-            />
-
-            {/* Lower Diagonal Leg */}
-            <path
-              d="M 50 23 L 73 41 L 62 41 L 44 28 Z"
-            />
-          </g>
-
-          {/* Full Wordmark for E, R, S if isFull */}
-          {isFull && (
-            <g fill={colorScheme === 'white' ? '#FFFFFF' : '#FFFFFF'}>
-              {/* Solid Motorsport E */}
+            <g className="kers-k-body">
+              {/* Vertical Spine */}
               <path
-                d="M 78 5 L 102 5 L 102 12.5 L 86 12.5 L 86 19 L 100 19 L 100 26.5 L 86 26.5 L 86 33.5 L 102 33.5 L 102 41 L 78 41 Z"
+                d="M 39 5 L 47 5 L 47 41 L 39 41 Z"
               />
 
-              {/* Solid Motorsport R */}
+              {/* Upper Diagonal Arm */}
               <path
-                d="M 108 5 L 126 5 C 131 5 134 7.5 134 12 L 134 18 C 134 22.5 131 24.5 126 24.5 L 116 24.5 L 116 41 L 108 41 Z M 116 12.5 L 125 12.5 C 126.5 12.5 127 13.5 127 15 L 127 16 C 127 17.5 126.5 18.5 125 18.5 L 116 18.5 Z"
-              />
-              <path
-                d="M 121 22.5 L 135 41 L 125 41 L 114 26 Z"
+                d="M 47 25 L 61 5 L 72 5 L 52 30 Z"
               />
 
-              {/* Solid Motorsport S */}
+              {/* Lower Diagonal Leg */}
               <path
-                d="M 141 5 L 165 5 L 165 12.5 L 149 12.5 L 149 19 L 165 19 L 165 37 C 165 40 162 41 158 41 L 139 41 L 139 33.5 L 157 33.5 L 157 26.5 L 141 26.5 L 141 9 C 141 6 144 5 148 5 Z"
+                d="M 50 23 L 73 41 L 62 41 L 44 28 Z"
               />
             </g>
-          )}
+          </g>
         </g>
       </svg>
     );
   };
 
+  const ersTextElement = (
+    <span
+      className={`font-mono font-black italic tracking-[0.16em] select-none text-white ${
+        animated ? 'animate-kersErs' : ''
+      } ${textClassName}`}
+      style={{
+        fontSize: `${Math.round(size * 0.74)}px`,
+        lineHeight: 1,
+        marginLeft: `-${Math.round(size * 0.08)}px`,
+      }}
+    >
+      ERS
+    </span>
+  );
+
   if (variant === 'badge') {
     return (
       <div className={`flex items-center gap-2.5 ${className}`}>
         <div className="relative p-1.5 rounded-md bg-white/[0.04] border border-white/[0.08] backdrop-blur-md shadow-md flex items-center justify-center">
-          {renderEmblem(false)}
+          {renderEmblem()}
         </div>
         {showText && (
           <div className="flex flex-col leading-none">
             <div className="flex items-center gap-1.5">
               <span className={`font-mono font-black italic tracking-[0.18em] text-white text-base ${textClassName}`}>
-                KERS
+                ERS
               </span>
               <span className="text-[8px] font-mono font-bold tracking-widest text-neutral-400 px-1 py-0.2 rounded bg-white/[0.08] border border-white/[0.08] uppercase">
                 PRO
@@ -195,37 +222,24 @@ export function KersLogo({
     );
   }
 
-  if (variant === 'full') {
+  if (variant === 'full' || showText) {
     return (
-      <div className={`inline-flex items-center justify-center ${className}`}>
-        {renderEmblem(true)}
-      </div>
-    );
-  }
-
-  if (showText) {
-    return (
-      <div className={`flex items-center gap-2 ${className}`}>
-        {renderEmblem(false)}
-        <div className="flex flex-col leading-none">
-          <div className="flex items-center gap-1">
-            <span className={`font-mono font-black italic tracking-[0.2em] text-white text-sm ${textClassName}`}>
-              KERS
-            </span>
-          </div>
-          {subtitle && (
-            <span className="text-[8px] font-mono text-neutral-400 tracking-wider mt-0.5 uppercase">
-              {subtitle}
-            </span>
-          )}
-        </div>
+      <div className={`inline-flex items-center select-none ${className}`}>
+        {renderEmblem()}
+        {ersTextElement}
+        {subtitle && (
+          <span className="text-[8px] font-mono text-neutral-400 tracking-wider ml-2 uppercase">
+            {subtitle}
+          </span>
+        )}
       </div>
     );
   }
 
   return (
     <div className={`inline-flex items-center justify-center ${className}`}>
-      {renderEmblem(false)}
+      {renderEmblem()}
     </div>
   );
 }
+

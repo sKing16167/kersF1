@@ -13,6 +13,12 @@ export async function loadParquetTelemetry(url: string): Promise<TelemetryPoint[
     }
     const arrayBuffer = await response.arrayBuffer();
 
+    // Limit maximum file size (15MB cap) to protect browser memory
+    const MAX_PARQUET_BYTE_SIZE = 15 * 1024 * 1024;
+    if (arrayBuffer.byteLength > MAX_PARQUET_BYTE_SIZE) {
+      throw new Error(`Parquet file exceeds maximum allowed size limit of 15MB (${arrayBuffer.byteLength} bytes)`);
+    }
+
     const points: TelemetryPoint[] = [];
 
     await parquetRead({

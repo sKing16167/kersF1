@@ -25,7 +25,7 @@ export default function DriversHubPage() {
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4 f1-glass-card p-6 rounded-lg border border-white/[0.08] shadow-2xl">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-md bg-[#E10600]/15 border border-[#E10600]/30 flex items-center justify-center text-[#E10600]">
+          <div className="w-10 h-10 rounded-md bg-[#FF1801]/15 border border-[#FF1801]/30 flex items-center justify-center text-[#FF1801]">
             <Users className="w-5 h-5 stroke-[2]" />
           </div>
           <div>
@@ -46,7 +46,7 @@ export default function DriversHubPage() {
       <div className="f1-glass-card p-6 rounded-lg space-y-4 border border-white/[0.08] shadow-2xl">
         <div className="flex items-center justify-between border-b border-white/[0.08] pb-3">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded bg-[#E10600]/10 border border-[#E10600]/25 flex items-center justify-center text-[#E10600]">
+            <div className="w-7 h-7 rounded bg-[#FF1801]/10 border border-[#FF1801]/25 flex items-center justify-center text-[#FF1801]">
               <Award className="w-4 h-4 stroke-[2]" />
             </div>
             <h2 className="font-bold text-xs text-white font-mono uppercase">
@@ -82,13 +82,13 @@ export default function DriversHubPage() {
               <div className="flex items-center gap-1.5 mt-3 pt-2 border-t border-white/[0.06]">
                 <button
                   onClick={() => setDriverA(d)}
-                  className="flex-1 py-1 rounded-sm bg-white/[0.05] hover:bg-[#E10600] text-[10px] font-mono font-bold text-neutral-200 hover:text-white transition-colors cursor-pointer"
+                  className="flex-1 py-1 rounded-sm bg-white/[0.05] hover:bg-[#FF1801] text-[10px] font-mono font-bold text-neutral-200 hover:text-white transition-colors cursor-pointer"
                 >
                   Set A
                 </button>
                 <button
                   onClick={() => setDriverB(d)}
-                  className="flex-1 py-1 rounded-sm bg-white/[0.05] hover:bg-[#E10600] text-[10px] font-mono font-bold text-neutral-200 hover:text-white transition-colors cursor-pointer"
+                  className="flex-1 py-1 rounded-sm bg-white/[0.05] hover:bg-[#FF1801] text-[10px] font-mono font-bold text-neutral-200 hover:text-white transition-colors cursor-pointer"
                 >
                   Set B
                 </button>

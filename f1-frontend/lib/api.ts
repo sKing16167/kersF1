@@ -1,3 +1,24 @@
+/**
+ * Parse Formula 1 lap time string ("1:44.701" or "84.701") into milliseconds for comparison
+ */
+export function parseLapTimeToMs(timeStr?: string | null): number {
+  if (!timeStr) return Infinity;
+  const clean = timeStr.trim().replace(/[^0-9:.]/g, '');
+  if (!clean) return Infinity;
+
+  if (clean.includes(':')) {
+    const [minStr, secStr] = clean.split(':');
+    const minutes = parseInt(minStr, 10);
+    const seconds = parseFloat(secStr);
+    if (isNaN(minutes) || isNaN(seconds)) return Infinity;
+    return Math.round(minutes * 60000 + seconds * 1000);
+  } else {
+    const seconds = parseFloat(clean);
+    if (isNaN(seconds)) return Infinity;
+    return Math.round(seconds * 1000);
+  }
+}
+
 import {
   Race,
   Circuit,
@@ -44,6 +65,10 @@ export const MOCK_DRIVERS: Driver[] = [
   { id: 19, driver_number: 6, broadcast_name: 'I. HADJAR', full_name: 'Isack Hadjar', team_name: 'RB', color_hex: '#6692FF', country_code: 'FRA' },
   { id: 20, driver_number: 18, broadcast_name: 'L. STROLL', full_name: 'Lance Stroll', team_name: 'Aston Martin', color_hex: '#229971', country_code: 'CAN' },
 ];
+
+// O(1) Indexed Maps for instant driver lookups
+export const DRIVER_MAP_BY_ID = new Map<number, Driver>(MOCK_DRIVERS.map((d) => [d.id, d]));
+export const DRIVER_MAP_BY_NUMBER = new Map<number, Driver>(MOCK_DRIVERS.map((d) => [d.driver_number, d]));
 
 export const MOCK_CONSTRUCTORS: Constructor[] = [
   { id: 1, name: 'McLaren', full_name: 'McLaren F1 Team', color_hex: '#FF8000', country_code: 'GBR' },
@@ -114,10 +139,10 @@ export const MOCK_CIRCUITS: Circuit[] = [
     length_km: 7.004,
     corners_count: 19,
     drs_zones: 2,
-    lap_record: "1:46.286",
-    lap_record_driver: "Valtteri Bottas",
-    lap_record_year: 2018,
-    lap_record_team: "Mercedes W09",
+    lap_record: "1:44.701",
+    lap_record_driver: "Sergio Pérez",
+    lap_record_year: 2024,
+    lap_record_team: "Red Bull Racing RB20",
     full_throttle_pct: 70,
     downforce_level: "MEDIUM",
     tyre_stress_level: 5,
@@ -358,10 +383,10 @@ export const MOCK_CIRCUITS: Circuit[] = [
     length_km: 4.94,
     corners_count: 19,
     drs_zones: 4,
-    lap_record: "1:35.867",
-    lap_record_driver: "Lewis Hamilton",
-    lap_record_year: 2023,
-    lap_record_team: "Mercedes W14",
+    lap_record: "1:34.486",
+    lap_record_driver: "Daniel Ricciardo",
+    lap_record_year: 2024,
+    lap_record_team: "RB VCARB 01",
     full_throttle_pct: 52,
     downforce_level: "MAXIMUM",
     tyre_stress_level: 3,
@@ -1025,10 +1050,10 @@ export const MOCK_CIRCUITS: Circuit[] = [
     length_km: 6.201,
     corners_count: 17,
     drs_zones: 2,
-    lap_record: "1:35.490",
-    lap_record_driver: "Oscar Piastri",
-    lap_record_year: 2023,
-    lap_record_team: "McLaren MCL60",
+    lap_record: "1:34.876",
+    lap_record_driver: "Lando Norris",
+    lap_record_year: 2024,
+    lap_record_team: "McLaren MCL38",
     full_throttle_pct: 74,
     downforce_level: "LOW",
     tyre_stress_level: 3,
@@ -1073,10 +1098,10 @@ export const MOCK_CIRCUITS: Circuit[] = [
     length_km: 5.419,
     corners_count: 16,
     drs_zones: 1,
-    lap_record: "1:24.319",
-    lap_record_driver: "Max Verstappen",
-    lap_record_year: 2023,
-    lap_record_team: "Red Bull RB19",
+    lap_record: "1:22.384",
+    lap_record_driver: "Lando Norris",
+    lap_record_year: 2024,
+    lap_record_team: "McLaren MCL38",
     full_throttle_pct: 62,
     downforce_level: "HIGH",
     tyre_stress_level: 5,
@@ -1120,10 +1145,10 @@ export const MOCK_CIRCUITS: Circuit[] = [
     length_km: 5.281,
     corners_count: 16,
     drs_zones: 2,
-    lap_record: "1:26.103",
-    lap_record_driver: "Max Verstappen",
-    lap_record_year: 2021,
-    lap_record_team: "Red Bull RB16B",
+    lap_record: "1:25.637",
+    lap_record_driver: "Kevin Magnussen",
+    lap_record_year: 2024,
+    lap_record_team: "Haas VF-24",
     full_throttle_pct: 64,
     downforce_level: "MEDIUM",
     tyre_stress_level: 3,
@@ -1157,6 +1182,9 @@ export const MOCK_CIRCUITS: Circuit[] = [
     ],
   },
 ];
+
+// O(1) Indexed Map for instant circuit lookups
+export const CIRCUIT_MAP_BY_ID = new Map<number, Circuit>(MOCK_CIRCUITS.map((c) => [c.id, c]));
 
 // Full 2026 FIA Formula One World Championship Official Calendar (Upcoming 2026 Season)
 export const MOCK_RACES: Race[] = [
@@ -2443,8 +2471,34 @@ const HISTORICAL_CONSTRUCTOR_STANDINGS: Record<number, ConstructorStanding[]> = 
   ],
 };
 
-// Jolpica in-memory client-side cache
-const jolpicaCache: Record<string, { data: any; ts: number }> = {};
+// Jolpica hardened client-side cache with rate limiting, deduplication & quota caps
+const jolpicaMemoryCache: Record<string, { data: any; ts: number }> = {};
+const pendingRequests = new Map<string, Promise<any>>();
+let lastApiRequestTimestamp = 0;
+const MIN_REQUEST_INTERVAL_MS = 250; // Max 4 requests/sec (Community fair-use limit)
+const MAX_DAILY_CALLS_CAP = 500; // Spending cap / daily usage quota guardrail
+
+function checkDailyUsageQuota(): boolean {
+  if (typeof window === 'undefined') return true;
+  try {
+    const today = new Date().toISOString().slice(0, 10);
+    const key = 'kers_daily_api_usage';
+    const stored = localStorage.getItem(key);
+    let record = stored ? JSON.parse(stored) : { date: today, count: 0 };
+    if (record.date !== today) {
+      record = { date: today, count: 0 };
+    }
+    if (record.count >= MAX_DAILY_CALLS_CAP) {
+      console.warn(`[KERS API Guardrail] Daily external API quota reached (${record.count}/${MAX_DAILY_CALLS_CAP}). Serving verified offline dataset.`);
+      return false;
+    }
+    record.count += 1;
+    localStorage.setItem(key, JSON.stringify(record));
+    return true;
+  } catch {
+    return true;
+  }
+}
 
 function absHash(str: string): number {
   let hash = 0;
@@ -2470,23 +2524,83 @@ function getTeamColorHex(teamName: string = ''): string {
   return '#E10600';
 }
 
-async function fetchJolpicaClient(endpoint: string) {
+async function fetchJolpicaClient(endpoint: string): Promise<any> {
   if (typeof window === 'undefined') return null;
+
   const now = Date.now();
-  if (jolpicaCache[endpoint] && now - jolpicaCache[endpoint].ts < 600000) {
-    return jolpicaCache[endpoint].data;
+  // 1. In-memory check (1 hour TTL)
+  if (jolpicaMemoryCache[endpoint] && now - jolpicaMemoryCache[endpoint].ts < 3600000) {
+    return jolpicaMemoryCache[endpoint].data;
   }
+
+  // 2. LocalStorage persistent cache check
+  const storageKey = 'kers_cache_' + endpoint;
   try {
-    const res = await fetch(`http://api.jolpi.ca/ergast/f1${endpoint}`);
-    if (res.ok) {
-      const json = await res.json();
-      jolpicaCache[endpoint] = { data: json, ts: now };
-      return json;
+    const cachedItem = localStorage.getItem(storageKey);
+    if (cachedItem) {
+      const parsed = JSON.parse(cachedItem);
+      if (now - parsed.ts < 3600000) {
+        jolpicaMemoryCache[endpoint] = parsed;
+        return parsed.data;
+      }
     }
-  } catch (e) {
-    // Network or CORS fallback
+  } catch {}
+
+  // 3. In-flight request deduplication: return existing promise if already flying
+  if (pendingRequests.has(endpoint)) {
+    return pendingRequests.get(endpoint);
   }
-  return null;
+
+  // 4. Spending cap / quota check
+  if (!checkDailyUsageQuota()) {
+    return null;
+  }
+
+  const fetchPromise = (async () => {
+    // 5. Rate limiting: enforce min 250ms spacing
+    const elapsed = Date.now() - lastApiRequestTimestamp;
+    if (elapsed < MIN_REQUEST_INTERVAL_MS) {
+      await new Promise((resolve) => setTimeout(resolve, MIN_REQUEST_INTERVAL_MS - elapsed));
+    }
+    lastApiRequestTimestamp = Date.now();
+
+    // 6. Network fetch with 6s timeout & HTTPS
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 6000);
+
+    try {
+      const res = await fetch(`https://api.jolpi.ca/ergast/f1${endpoint}`, {
+        signal: controller.signal,
+        headers: {
+          'Accept': 'application/json',
+        },
+      });
+      clearTimeout(timeoutId);
+
+      if (res.ok) {
+        const json = await res.json();
+        const cacheEntry = { data: json, ts: Date.now() };
+        jolpicaMemoryCache[endpoint] = cacheEntry;
+        try {
+          localStorage.setItem(storageKey, JSON.stringify(cacheEntry));
+        } catch {}
+        return json;
+      }
+    } catch (e: any) {
+      if (e?.name === 'AbortError') {
+        console.warn(`[KERS API Timeout] Request to ${endpoint} timed out (6s limit). Falling back to verified mock data.`);
+      } else {
+        console.warn(`[KERS API Fallback] Network request failed for ${endpoint}. Serving offline dataset.`);
+      }
+    } finally {
+      clearTimeout(timeoutId);
+      pendingRequests.delete(endpoint);
+    }
+    return null;
+  })();
+
+  pendingRequests.set(endpoint, fetchPromise);
+  return fetchPromise;
 }
 
 export const f1Api = {
@@ -2595,7 +2709,7 @@ export const f1Api = {
   },
 
   async getCircuitById(id: number): Promise<Circuit | undefined> {
-    return MOCK_CIRCUITS.find((c) => c.id === id) || MOCK_CIRCUITS[0];
+    return CIRCUIT_MAP_BY_ID.get(id) || MOCK_CIRCUITS[0];
   },
 
   async getDrivers(): Promise<Driver[]> {
@@ -2686,8 +2800,8 @@ export const f1Api = {
     ];
   },
   async getHeadToHead(driverAId: number, driverBId: number, season: number = 2024): Promise<HeadToHeadComparison> {
-    const driverA = MOCK_DRIVERS.find((d) => d.id === driverAId) || MOCK_DRIVERS[0];
-    const driverB = MOCK_DRIVERS.find((d) => d.id === driverBId) || MOCK_DRIVERS[1];
+    const driverA = DRIVER_MAP_BY_ID.get(driverAId) || MOCK_DRIVERS[0];
+    const driverB = DRIVER_MAP_BY_ID.get(driverBId) || MOCK_DRIVERS[1];
     return {
       season,
       driver_a: driverA,
@@ -2703,8 +2817,8 @@ export const f1Api = {
   },
 
   async getGhostTelemetry(sessionId: number, driverAId: number, driverBId: number): Promise<GhostTelemetryResponse> {
-    const driverA = MOCK_DRIVERS.find((d) => d.id === driverAId) || MOCK_DRIVERS[0];
-    const driverB = MOCK_DRIVERS.find((d) => d.id === driverBId) || MOCK_DRIVERS[1];
+    const driverA = DRIVER_MAP_BY_ID.get(driverAId) || MOCK_DRIVERS[0];
+    const driverB = DRIVER_MAP_BY_ID.get(driverBId) || MOCK_DRIVERS[1];
     return {
       session_id: sessionId,
       circuit_name: 'Autodromo Nazionale Monza',
@@ -2723,7 +2837,7 @@ export const f1Api = {
   },
 
   async getMicroSectors(circuitIdOrSessionId: number = 1, driverAId?: number, driverBId?: number): Promise<TrackMicroSectorsResponse> {
-    const circuit = MOCK_CIRCUITS.find((c) => c.id === circuitIdOrSessionId) || MOCK_CIRCUITS[0];
+    const circuit = CIRCUIT_MAP_BY_ID.get(circuitIdOrSessionId) || MOCK_CIRCUITS[0];
     const totalDist = Math.round(circuit.length_km * 1000);
     const count = 60;
     const step = totalDist / count;

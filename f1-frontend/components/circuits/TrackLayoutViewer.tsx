@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { Circuit, CornerDetail } from '@/lib/types';
 import { useTelemetryStore } from '@/lib/store';
+import { UpdateLapRecordModal } from './UpdateLapRecordModal';
 import {
   Timer,
   Gauge,
@@ -27,6 +28,15 @@ export function TrackLayoutViewer({ circuit }: TrackLayoutViewerProps) {
   const [showOptimalLine, setShowOptimalLine] = useState<boolean>(true);
   const [showBrakingZones, setShowBrakingZones] = useState<boolean>(true);
   const [showDrsZones, setShowDrsZones] = useState<boolean>(true);
+  const [isRecordModalOpen, setIsRecordModalOpen] = useState<boolean>(false);
+  const { circuitRecordOverrides } = useTelemetryStore();
+
+  const activeRecord = circuitRecordOverrides[circuit.id];
+  const lapRecord = activeRecord?.lap_record || circuit.lap_record;
+  const lapDriver = activeRecord?.lap_record_driver || circuit.lap_record_driver;
+  const lapYear = activeRecord?.lap_record_year || circuit.lap_record_year;
+  const lapTeam = activeRecord?.lap_record_team || circuit.lap_record_team;
+  const isCustomUpdated = Boolean(activeRecord);
 
   // Synchronize active corner when circuit changes
   React.useEffect(() => {
@@ -372,27 +382,52 @@ export function TrackLayoutViewer({ circuit }: TrackLayoutViewerProps) {
         </div>
       </div>
 
-      {/* Lap Record & Circuit Specs Footer */}
-      {circuit.lap_record && (
-        <div className="p-4 rounded-lg bg-[#0A0D14] border border-white/[0.08] flex flex-wrap items-center justify-between gap-4">
+      {/* Lap Record & Circuit Specs Footer with Real-Time Updation Provision */}
+      {lapRecord && (
+        <div className="p-4 rounded-lg bg-[#0A0D14]/80 border border-white/[0.08] flex flex-wrap items-center justify-between gap-4 relative overflow-hidden">
           <div className="flex items-center gap-3">
             <div className="p-2.5 rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-300">
               <Timer className="w-4 h-4" />
             </div>
             <div>
-              <div className="text-[10px] font-mono text-neutral-400 uppercase">Official Lap Record</div>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-mono text-neutral-400 uppercase">Official Lap Record</span>
+                {isCustomUpdated && (
+                  <span className="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-[#FF1801]/20 border border-[#FF1801]/40 text-[#FF1801]">
+                    REAL-TIME UPDATED
+                  </span>
+                )}
+              </div>
               <div className="font-mono text-base font-bold text-white">
-                {circuit.lap_record} <span className="text-xs font-normal text-neutral-400 font-mono">({circuit.lap_record_year})</span>
+                {lapRecord} <span className="text-xs font-normal text-neutral-400 font-mono">({lapYear})</span>
               </div>
             </div>
           </div>
 
-          <div className="text-right text-xs font-mono text-neutral-300">
-            <div>{circuit.lap_record_driver}</div>
-            <div className="text-[10px] text-neutral-500">{circuit.lap_record_team}</div>
+          <div className="flex items-center gap-4">
+            <div className="text-right text-xs font-mono text-neutral-300">
+              <div>{lapDriver}</div>
+              <div className="text-[10px] text-neutral-500">{lapTeam}</div>
+            </div>
+
+            <button
+              onClick={() => setIsRecordModalOpen(true)}
+              className="px-3 py-1.5 rounded-md bg-white/[0.06] hover:bg-[#FF1801]/20 hover:border-[#FF1801]/40 border border-white/[0.12] text-xs font-mono font-bold text-neutral-300 hover:text-white transition-all flex items-center gap-1.5"
+              title="Calibrate or update official lap record in real time"
+            >
+              <Zap className="w-3 h-3 text-[#FF1801]" />
+              Update Record
+            </button>
           </div>
         </div>
       )}
+
+      {/* Real-time Lap Record Updation Modal */}
+      <UpdateLapRecordModal
+        circuit={circuit}
+        isOpen={isRecordModalOpen}
+        onClose={() => setIsRecordModalOpen(false)}
+      />
     </div>
   );
 }

@@ -41,7 +41,7 @@ export function RacePodiumShowcase({ race, result }: RacePodiumShowcaseProps) {
   const isUpcoming = status === 'UPCOMING' || !podium;
 
   return (
-    <div className="w-full rounded-lg bg-[#080B11] border border-white/[0.1] shadow-2xl p-6 md:p-8 relative overflow-hidden flex flex-col gap-6">
+    <div className="w-full f1-glass-card p-6 md:p-8 relative flex flex-col gap-6">
       {/* Ambient Lighting */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[250px] bg-[radial-gradient(circle,rgba(225,6,0,0.12)_0%,transparent_70%)] pointer-events-none" />
       <div className="absolute top-1/3 left-1/4 w-[300px] h-[200px] bg-[radial-gradient(circle,rgba(255,215,0,0.06)_0%,transparent_70%)] pointer-events-none" />
@@ -50,12 +50,12 @@ export function RacePodiumShowcase({ race, result }: RacePodiumShowcaseProps) {
       <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 border-b border-white/[0.08] pb-5">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="px-2 py-0.5 rounded-sm bg-[#E10600] text-white font-mono text-[10px] font-black tracking-wider uppercase">
+            <span className="px-2 py-0.5 rounded-sm bg-[#FF1801] text-white font-mono text-[10px] font-black tracking-wider uppercase">
               ROUND {race.round_number < 10 ? `0${race.round_number}` : race.round_number}
             </span>
             <span className="text-neutral-500">•</span>
             <span className="text-xs font-mono text-neutral-400 flex items-center gap-1">
-              <Calendar className="w-3.5 h-3.5 text-[#E10600]" />
+              <Calendar className="w-3.5 h-3.5 text-[#FF1801]" />
               {race.date}
             </span>
             <span className="text-neutral-500">•</span>
@@ -91,7 +91,7 @@ export function RacePodiumShowcase({ race, result }: RacePodiumShowcaseProps) {
           </Link>
           <Link
             href="/track-map"
-            className="px-3.5 py-2 rounded-md bg-[#E10600] hover:bg-[#FF2800] text-white font-mono text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+            className="px-3.5 py-2 rounded-md bg-[#FF1801] hover:bg-[#FF2800] text-white font-mono text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
           >
             <Layers className="w-3.5 h-3.5" />
             <span>Micro-Sectors</span>
@@ -133,7 +133,7 @@ export function RacePodiumShowcase({ race, result }: RacePodiumShowcaseProps) {
             {/* Official Weekend Timetable (Left) */}
             <div className="lg:col-span-6 space-y-3 font-mono">
               <div className="flex items-center gap-2 mb-1">
-                <Calendar className="w-4 h-4 text-[#E10600]" />
+                <Calendar className="w-4 h-4 text-[#FF1801]" />
                 <span className="text-xs font-bold text-neutral-300 uppercase tracking-wider">
                   OFFICIAL WEEKEND SCHEDULE
                 </span>
@@ -450,7 +450,7 @@ export function RacePodiumShowcase({ race, result }: RacePodiumShowcaseProps) {
                   </span>
                 </span>
                 {showFullClassification ? (
-                  <ChevronUp className="w-4 h-4 text-[#E10600]" />
+                  <ChevronUp className="w-4 h-4 text-[#FF1801]" />
                 ) : (
                   <ChevronDown className="w-4 h-4 text-neutral-400" />
                 )}

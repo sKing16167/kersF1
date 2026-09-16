@@ -48,16 +48,18 @@ export function BackgroundAtmosphere() {
         }}
       />
 
-      {/* Technical Motorsport Perspective Horizon Grid (Subtle) */}
-      <div className="absolute inset-0 opacity-[0.035] animate-grid-pulse">
+      {/* Technical Motorsport Telemetry Coordinate Grid (High-Visibility for Optical Glass Refraction) */}
+      <div className="absolute inset-0 opacity-[0.20]">
         <div
           className="w-full h-full"
           style={{
             backgroundImage: `
-              linear-gradient(to right, rgba(255,255,255,0.2) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(255,255,255,0.2) 1px, transparent 1px)
+              linear-gradient(to right, rgba(255,255,255,0.18) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(255,255,255,0.18) 1px, transparent 1px),
+              linear-gradient(to right, rgba(255,24,1,0.28) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(255,24,1,0.28) 1px, transparent 1px)
             `,
-            backgroundSize: '48px 48px',
+            backgroundSize: '36px 36px, 36px 36px, 144px 144px, 144px 144px',
           }}
         />
       </div>

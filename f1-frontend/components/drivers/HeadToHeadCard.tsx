@@ -1,34 +1,61 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { f1Api } from '@/lib/api';
+import { f1Api, AVAILABLE_SEASONS } from '@/lib/api';
 import { HeadToHeadComparison } from '@/lib/types';
 import { useTelemetryStore } from '@/lib/store';
-import { Swords } from 'lucide-react';
+import { Swords, Calendar } from 'lucide-react';
 
 export function HeadToHeadCard() {
-  const { driverA, driverB, setDriverA, setDriverB, drivers } = useTelemetryStore();
+  const { driverA, driverB, setDriverA, setDriverB, drivers, season: storeSeason } = useTelemetryStore();
+  const [selectedSeason, setSelectedSeason] = useState<number>(storeSeason || 2026);
   const [h2h, setH2h] = useState<HeadToHeadComparison | null>(null);
 
   useEffect(() => {
+    if (storeSeason) setSelectedSeason(storeSeason);
+  }, [storeSeason]);
+
+  useEffect(() => {
     async function loadComparison() {
-      const data = await f1Api.getHeadToHead(driverA.id, driverB.id, 2024);
+      const data = await f1Api.getHeadToHead(driverA.id, driverB.id, selectedSeason);
       setH2h(data);
     }
     loadComparison();
-  }, [driverA.id, driverB.id]);
+  }, [driverA.id, driverB.id, selectedSeason]);
 
   return (
     <div className="w-full f1-glass-card p-6 rounded-lg flex flex-col gap-5 border border-white/[0.08] shadow-2xl">
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/[0.08] pb-3">
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded bg-[#E10600]/10 border border-[#E10600]/25 flex items-center justify-center text-[#E10600]">
+          <div className="w-7 h-7 rounded bg-[#FF1801]/15 border border-[#FF1801]/30 flex items-center justify-center text-[#FF1801]">
             <Swords className="w-4 h-4 stroke-[2]" />
           </div>
-          <h2 className="font-bold text-sm text-white tracking-tight font-mono uppercase">
-            Driver Head-to-Head Comparison
-          </h2>
+          <div>
+            <h2 className="font-bold text-sm text-white tracking-tight font-mono uppercase">
+              Driver Head-to-Head Comparison
+            </h2>
+            <p className="text-[10px] font-mono text-neutral-400">
+              Direct telemetry & verified championship records
+            </p>
+          </div>
+        </div>
+
+        {/* Season Selector */}
+        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#121622] border border-white/[0.12] text-xs">
+          <Calendar className="w-3.5 h-3.5 text-[#FF1801]" />
+          <select
+            value={selectedSeason}
+            onChange={(e) => setSelectedSeason(Number(e.target.value))}
+            aria-label="Head-to-Head Season"
+            className="bg-transparent text-white font-mono font-bold text-xs focus:outline-none cursor-pointer"
+          >
+            {AVAILABLE_SEASONS.map((yr) => (
+              <option key={yr} value={yr} className="bg-[#0B0E14] text-white">
+                Season {yr}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 
@@ -38,11 +65,13 @@ export function HeadToHeadCard() {
           <div className="flex items-center gap-2.5">
             <span
               className="w-1.5 h-8 rounded-none"
-              style={{ backgroundColor: driverA.color_hex }}
+              style={{ backgroundColor: h2h?.driver_a.color_hex || driverA.color_hex }}
             />
             <div>
-              <div className="font-bold text-sm text-white font-mono">{driverA.full_name}</div>
-              <div className="text-[10px] text-neutral-400 font-mono">{driverA.team_name} • #{driverA.driver_number}</div>
+              <div className="font-bold text-sm text-white font-mono">{h2h?.driver_a.full_name || driverA.full_name}</div>
+              <div className="text-[10px] text-neutral-400 font-mono">
+                {h2h?.driver_a.team_name || driverA.team_name} • #{h2h?.driver_a.driver_number || driverA.driver_number}
+              </div>
             </div>
           </div>
 
@@ -67,11 +96,13 @@ export function HeadToHeadCard() {
           <div className="flex items-center gap-2.5">
             <span
               className="w-1.5 h-8 rounded-none"
-              style={{ backgroundColor: driverB.color_hex }}
+              style={{ backgroundColor: h2h?.driver_b.color_hex || driverB.color_hex }}
             />
             <div>
-              <div className="font-bold text-sm text-white font-mono">{driverB.full_name}</div>
-              <div className="text-[10px] text-neutral-400 font-mono">{driverB.team_name} • #{driverB.driver_number}</div>
+              <div className="font-bold text-sm text-white font-mono">{h2h?.driver_b.full_name || driverB.full_name}</div>
+              <div className="text-[10px] text-neutral-400 font-mono">
+                {h2h?.driver_b.team_name || driverB.team_name} • #{h2h?.driver_b.driver_number || driverB.driver_number}
+              </div>
             </div>
           </div>
 

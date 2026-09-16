@@ -9,6 +9,7 @@ import { MultiTraceCanvas } from '@/components/telemetry/MultiTraceCanvas';
 import { TelemetryHUD } from '@/components/telemetry/TelemetryHUD';
 import { StandingsTable } from '@/components/drivers/StandingsTable';
 import { RaceCalendarWithPodium } from '@/components/races/RaceCalendarWithPodium';
+import { UpdateLapRecordModal } from '@/components/circuits/UpdateLapRecordModal';
 import { MOCK_CIRCUITS, MOCK_RACES, f1Api } from '@/lib/api';
 import { CornerDetail, RaceResult, Race } from '@/lib/types';
 import {
@@ -46,13 +47,18 @@ export default function DashboardPage() {
     selectedRace,
     setSelectedRace,
     season,
+    races,
     setCircuitLengthM,
   } = useTelemetryStore();
 
-  // Selected race drives the entire overview page
+  // Selected race drives the entire overview page, keeping in sync with active season
   const currentRace: Race = useMemo(() => {
-    return selectedRace || MOCK_RACES[0];
-  }, [selectedRace]);
+    if (selectedRace && (selectedRace.season === season || !selectedRace.season)) {
+      return selectedRace;
+    }
+    const matched = races.find((r) => r.season === season);
+    return matched || selectedRace || races[0] || MOCK_RACES[0];
+  }, [selectedRace, season, races]);
 
   // Active circuit derived directly from the current race
   const activeCircuit = useMemo(() => {
@@ -61,6 +67,7 @@ export default function DashboardPage() {
 
   const [raceResult, setRaceResult] = useState<RaceResult | null>(null);
   const [loadingResult, setLoadingResult] = useState<boolean>(false);
+  const [isRecordModalOpen, setIsRecordModalOpen] = useState<boolean>(false);
 
   // Sync circuit length to telemetry store
   useEffect(() => {
@@ -73,8 +80,9 @@ export default function DashboardPage() {
   useEffect(() => {
     let mounted = true;
     setLoadingResult(true);
+    const roundToFetch = currentRace.round_number || (currentRace.id > 100 ? currentRace.id % 100 : currentRace.id);
     f1Api
-      .getRaceResult(currentRace.id || currentRace.round_number, season || 2026)
+      .getRaceResult(roundToFetch, season || currentRace.season || 2026)
       .then((res) => {
         if (mounted) {
           setRaceResult(res);
@@ -86,7 +94,7 @@ export default function DashboardPage() {
     return () => {
       mounted = false;
     };
-  }, [currentRace.id, currentRace.round_number, season]);
+  }, [currentRace.id, currentRace.round_number, currentRace.season, season]);
 
   // Dynamic telemetry traces calibrated to active circuit length
   const telemetryA = useMemo(() => {
@@ -121,7 +129,7 @@ export default function DashboardPage() {
         1. F1 SIGNATURE LIVE / OFFICIAL RACE HERO (Driven dynamically by selectedRace)
         ========================================================================
       */}
-      <div className="rounded-lg bg-[#080B11] border border-white/[0.1] shadow-2xl p-6 md:p-8 relative overflow-hidden">
+      <div className="f1-glass-card p-6 md:p-8 relative">
         {/* Ambient Racing Flare */}
         <div className="absolute top-0 right-1/4 w-[450px] h-[300px] bg-[radial-gradient(circle,rgba(225,6,0,0.12)_0%,transparent_70%)] pointer-events-none" />
         <div className="absolute bottom-0 right-0 w-[350px] h-[250px] bg-[radial-gradient(circle,rgba(39,244,210,0.06)_0%,transparent_70%)] pointer-events-none" />
@@ -137,7 +145,7 @@ export default function DashboardPage() {
                   UPCOMING GRAND PRIX
                 </span>
               ) : isLive ? (
-                <span className="px-2.5 py-0.5 rounded-sm bg-[#E10600] text-white font-mono text-[11px] font-bold tracking-wider animate-pulse flex items-center gap-1.5 shadow-sm shadow-red-600/50">
+                <span className="px-2.5 py-0.5 rounded-sm bg-[#FF1801] text-white font-mono text-[11px] font-bold tracking-wider animate-pulse flex items-center gap-1.5 shadow-sm shadow-red-600/50">
                   <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
                   LIVE SESSION
                 </span>
@@ -149,12 +157,12 @@ export default function DashboardPage() {
               )}
 
               <div className="flex items-center gap-1.5 text-xs font-mono text-neutral-300">
-                <Thermometer className="w-3.5 h-3.5 text-[#E10600]" />
+                <Thermometer className="w-3.5 h-3.5 text-[#FF1801]" />
                 <span>{isUpcoming ? 'FORECAST: DRY / 24°C' : '24.8°C TRACK'}</span>
               </div>
               <span className="text-neutral-500">•</span>
-              <span className="text-xs font-mono text-[#E10600] font-bold">
-                ROUND {currentRace.round_number < 10 ? `0${currentRace.round_number}` : currentRace.round_number} OF 24
+              <span className="text-xs font-mono text-[#FF1801] font-bold">
+                ROUND {currentRace.round_number < 10 ? `0${currentRace.round_number}` : currentRace.round_number} OF {races.length || 24}
               </span>
             </div>
 
@@ -166,8 +174,8 @@ export default function DashboardPage() {
               >
                 <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-mono tracking-tight text-white flex items-center gap-2">
                   <span>{activeCircuit.country.toUpperCase()}</span>
-                  <span className="font-outline-f1">{currentRace.season || season || 2026}</span>
-                  <ChevronRight className="w-8 h-8 md:w-10 md:h-10 text-[#E10600] group-hover:translate-x-1.5 transition-transform" />
+                  <span className="font-outline-f1">{season || currentRace.season || 2026}</span>
+                  <ChevronRight className="w-8 h-8 md:w-10 md:h-10 text-[#FF1801] group-hover:translate-x-1.5 transition-transform" />
                 </h1>
               </Link>
               <p className="text-xs font-mono font-bold tracking-wider text-neutral-400 uppercase mt-1">
@@ -272,7 +280,7 @@ export default function DashboardPage() {
                   </div>
                 ) : (
                   <div className="absolute bottom-2 left-3 flex items-center gap-1.5 text-[10px] font-mono text-neutral-400 bg-black/75 px-2 py-0.5 rounded border border-white/[0.06]">
-                    <MapPin className="w-3 h-3 text-[#E10600]" />
+                    <MapPin className="w-3 h-3 text-[#FF1801]" />
                     <span>{activeCircuit.length_km} KM • {activeCircuit.corners_count} TURNS</span>
                   </div>
                 )}
@@ -325,7 +333,17 @@ export default function DashboardPage() {
             </div>
 
             {/* Leaderboard Box OR Upcoming Weekend Preview (Strictly No Fake Classifications) */}
-            {isUpcoming || !raceResult?.podium ? (
+            {loadingResult ? (
+              <div className="p-4 rounded-lg bg-[#05070B] border border-white/[0.08] space-y-3 font-mono animate-pulse">
+                <div className="flex items-center justify-between pb-2 border-b border-white/[0.06]">
+                  <div className="h-3 w-36 bg-white/10 rounded" />
+                  <div className="h-2 w-16 bg-white/10 rounded" />
+                </div>
+                <div className="h-9 bg-white/[0.04] rounded border-l-2 border-[#FF1801]" />
+                <div className="h-9 bg-white/[0.04] rounded border-l-2 border-white/20" />
+                <div className="h-9 bg-white/[0.04] rounded border-l-2 border-white/20" />
+              </div>
+            ) : isUpcoming || !raceResult?.podium ? (
               <div className="p-4 rounded-lg bg-[#05070B] border border-white/[0.08] space-y-2.5 font-mono">
                 <div className="flex items-center justify-between text-xs text-neutral-400 pb-1.5 border-b border-white/[0.06]">
                   <span className="font-bold text-amber-400 flex items-center gap-1.5">
@@ -450,7 +468,7 @@ export default function DashboardPage() {
                 href="#circuit-studio"
                 className="w-full py-3 px-4 rounded-md bg-[#121622] hover:bg-[#1A2030] border border-white/[0.12] text-white flex items-center justify-center gap-2 text-sm font-mono font-bold uppercase tracking-wider transition-all cursor-pointer"
               >
-                <Gauge className="w-4 h-4 text-[#E10600]" />
+                <Gauge className="w-4 h-4 text-[#FF1801]" />
                 <span>INSPECT CIRCUIT SPECIFICATIONS</span>
               </a>
             ) : (
@@ -482,13 +500,13 @@ export default function DashboardPage() {
             {/* Featured 1: Pit Stop Dynamics */}
             <Link
               href="/strategy"
-              className="p-4 rounded-lg bg-[#05070B] border border-white/[0.08] hover:border-[#E10600] transition-all group flex flex-col justify-between"
+              className="f1-glass-card p-4 rounded-lg hover:border-[#FF1801] transition-all group flex flex-col justify-between"
             >
               <div className="space-y-2">
-                <div className="w-8 h-8 rounded bg-red-600/10 border border-red-500/20 flex items-center justify-center text-[#E10600] group-hover:scale-105 transition-transform">
+                <div className="w-8 h-8 rounded bg-red-600/10 border border-red-500/20 flex items-center justify-center text-[#FF1801] group-hover:scale-105 transition-transform">
                   <TrendingUp className="w-4 h-4 stroke-[2.5]" />
                 </div>
-                <h4 className="text-sm font-bold text-white font-mono group-hover:text-[#E10600] transition-colors">
+                <h4 className="text-sm font-bold text-white font-mono group-hover:text-[#FF1801] transition-colors">
                   Pit Stop & Tyre Crossover
                 </h4>
                 <p className="text-xs text-neutral-400 line-clamp-2">
@@ -503,7 +521,7 @@ export default function DashboardPage() {
             {/* Featured 2: Driver Apex Focus */}
             <Link
               href="/ghosting-arena"
-              className="p-4 rounded-lg bg-[#05070B] border border-white/[0.08] hover:border-[#E10600] transition-all group flex flex-col justify-between"
+              className="f1-glass-card p-4 rounded-lg hover:border-[#FF1801] transition-all group flex flex-col justify-between"
             >
               <div className="space-y-2">
                 <div className="w-8 h-8 rounded bg-cyan-600/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform">
@@ -524,7 +542,7 @@ export default function DashboardPage() {
             {/* Featured 3: Micro-Sector Speed Traps */}
             <Link
               href="/track-map"
-              className="p-4 rounded-lg bg-[#05070B] border border-white/[0.08] hover:border-[#E10600] transition-all group flex flex-col justify-between"
+              className="f1-glass-card p-4 rounded-lg hover:border-[#FF1801] transition-all group flex flex-col justify-between"
             >
               <div className="space-y-2">
                 <div className="w-8 h-8 rounded bg-amber-600/10 border border-amber-500/20 flex items-center justify-center text-amber-400 group-hover:scale-105 transition-transform">
@@ -559,15 +577,15 @@ export default function DashboardPage() {
       */}
       <div
         id="circuit-studio"
-        className="rounded-lg p-6 md:p-7 bg-[#0B0E15] border border-white/[0.08] shadow-2xl relative overflow-hidden"
+        className="f1-glass-card p-6 md:p-7 relative"
       >
         <div className="relative z-10 flex flex-col gap-6">
           {/* Top Info Bar & 23-Track Dropdown Switcher */}
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 border-b border-white/[0.08] pb-5">
             <div className="space-y-1">
               <div className="flex items-center gap-2 text-xs font-mono text-neutral-400">
-                <MapPin className="w-3.5 h-3.5 text-[#E10600]" />
-                <span className="text-[#E10600] font-bold">23 OFFICIAL FIA HOMOLOGATED CIRCUITS</span>
+                <MapPin className="w-3.5 h-3.5 text-[#FF1801]" />
+                <span className="text-[#FF1801] font-bold">23 OFFICIAL FIA HOMOLOGATED CIRCUITS</span>
               </div>
               <h2 className="text-2xl font-bold font-mono tracking-tight text-white">
                 {activeCircuit.circuit_name}
@@ -604,7 +622,7 @@ export default function DashboardPage() {
                     }
                   }}
                   aria-label="Select F1 Circuit"
-                  className="w-full lg:w-64 px-3 py-2 rounded-md bg-[#121622] hover:bg-[#181D2D] border border-white/[0.12] focus:border-[#E10600] text-white font-mono text-xs font-semibold focus:outline-none cursor-pointer transition-all"
+                  className="w-full lg:w-64 px-3 py-2 rounded-md bg-[#121622] hover:bg-[#181D2D] border border-white/[0.12] focus:border-[#FF1801] text-white font-mono text-xs font-semibold focus:outline-none cursor-pointer transition-all"
                 >
                   {MOCK_CIRCUITS.map((c) => (
                     <option key={c.id} value={c.id} className="bg-[#0B0E15] text-white py-1">
@@ -619,7 +637,7 @@ export default function DashboardPage() {
                 href="/circuits"
                 className="px-3.5 py-2 rounded-md bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 text-white font-mono text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer"
               >
-                <Globe className="w-3.5 h-3.5 text-[#E10600]" />
+                <Globe className="w-3.5 h-3.5 text-[#FF1801]" />
                 <span>3D Globe</span>
               </Link>
               <Link
@@ -631,7 +649,7 @@ export default function DashboardPage() {
               </Link>
               <Link
                 href="/ghosting-arena"
-                className="px-3.5 py-2 rounded-md bg-[#E10600] hover:bg-[#FF2800] text-white font-mono text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+                className="px-3.5 py-2 rounded-md bg-[#FF1801] hover:bg-[#FF2800] text-white font-mono text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
               >
                 <Activity className="w-3.5 h-3.5" />
                 <span>Ghosting Arena</span>
@@ -649,8 +667,18 @@ export default function DashboardPage() {
                 <span className="text-[10px] text-neutral-400">{activeCircuit.corners_count} Calibration Turns</span>
               </div>
 
-              <div className="p-3.5 rounded-lg bg-white/[0.02] border border-white/[0.06]">
-                <span className="text-[10px] text-neutral-500 uppercase font-semibold">OFFICIAL LAP RECORD</span>
+              <div className="p-3.5 rounded-lg bg-white/[0.02] border border-white/[0.06] relative group">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] text-neutral-500 uppercase font-semibold">OFFICIAL LAP RECORD</span>
+                  <button
+                    onClick={() => setIsRecordModalOpen(true)}
+                    className="p-1 rounded bg-white/[0.04] hover:bg-[#FF1801]/20 hover:border-[#FF1801]/40 border border-white/[0.08] text-[10px] font-mono text-[#FF1801] flex items-center gap-1 transition-all"
+                    title="Calibrate or update official lap record in real time"
+                  >
+                    <Zap className="w-2.5 h-2.5 text-[#FF1801]" />
+                    UPDATE
+                  </button>
+                </div>
                 <p className="text-base font-bold text-white mt-0.5">{activeCircuit.lap_record}</p>
                 <span className="text-[10px] text-neutral-400">
                   {activeCircuit.lap_record_driver} ({activeCircuit.lap_record_year})
@@ -673,7 +701,7 @@ export default function DashboardPage() {
                 <defs>
                   <linearGradient id="f1ActiveTrackGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#FFFFFF" />
-                    <stop offset="70%" stopColor="#E10600" />
+                    <stop offset="70%" stopColor="#FF1801" />
                     <stop offset="100%" stopColor="#FF2800" />
                   </linearGradient>
                 </defs>
@@ -742,7 +770,7 @@ export default function DashboardPage() {
                         <circle
                           r={12}
                           fill="none"
-                          stroke="#E10600"
+                          stroke="#FF1801"
                           strokeWidth={1.5}
                         />
                       )}
@@ -750,7 +778,7 @@ export default function DashboardPage() {
                       {/* Outer Dot Ring */}
                       <circle
                         r={isSelected ? 7.5 : 5.5}
-                        fill={isSelected ? '#E10600' : '#0D1117'}
+                        fill={isSelected ? '#FF1801' : '#0D1117'}
                         stroke={isSelected ? '#FFFFFF' : 'rgba(255, 255, 255, 0.7)'}
                         strokeWidth={isSelected ? 1.5 : 1}
                       />
@@ -759,7 +787,7 @@ export default function DashboardPage() {
                       <text
                         x={9}
                         y={3}
-                        fill={isSelected ? '#E10600' : '#FFFFFF'}
+                        fill={isSelected ? '#FF1801' : '#FFFFFF'}
                         fontSize="8px"
                         fontFamily="monospace"
                         fontWeight="bold"
@@ -774,9 +802,9 @@ export default function DashboardPage() {
 
               {/* Real-time Hovered Corner Telemetry Floating HUD */}
               {activeCorner && (
-                <div className="mt-2 px-3 py-1.5 rounded-md bg-[#0D1017] border border-[#E10600] shadow-xl flex flex-wrap items-center justify-center gap-3 transition-all">
+                <div className="mt-2 px-3 py-1.5 rounded-md bg-[#0D1017] border border-[#FF1801] shadow-xl flex flex-wrap items-center justify-center gap-3 transition-all">
                   <div className="flex items-center gap-1.5 font-mono text-xs">
-                    <span className="text-[#E10600] font-bold">TURN {activeCorner.corner_number}:</span>
+                    <span className="text-[#FF1801] font-bold">TURN {activeCorner.corner_number}:</span>
                     <span className="text-white font-semibold">{activeCorner.corner_name}</span>
                   </div>
                   <div className="h-3 w-[1px] bg-white/20 hidden sm:block" />
@@ -849,6 +877,13 @@ export default function DashboardPage() {
         ========================================================================
       */}
       <StandingsTable />
+
+      {/* Dynamic Circuit Record Calibration Modal */}
+      <UpdateLapRecordModal
+        isOpen={isRecordModalOpen}
+        onClose={() => setIsRecordModalOpen(false)}
+        circuit={activeCircuit}
+      />
     </div>
   );
 }

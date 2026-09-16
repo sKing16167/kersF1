@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-space-grotesk), sans-serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
+  --font-telemetry: var(--font-jetbrains-mono), monospace;
+}
+
 :root {
   --bg-core: #06080C;
   --bg-gradient: radial-gradient(130% 120% at 50% 0%, rgba(24, 34, 53, 0.22) 0%, rgba(6, 8, 12, 0.98) 65%);
@@ -7,26 +14,26 @@
   --glass-bg-hover: rgba(22, 29, 44, 0.85);
   --glass-panel: rgba(12, 16, 24, 0.78);
   --glass-border: rgba(255, 255, 255, 0.09);
-  --glass-border-highlight: rgba(225, 6, 0, 0.6);
+  --glass-border-highlight: rgba(255, 24, 1, 0.75);
   --glass-specular: rgba(255, 255, 255, 0.18);
   --text-primary: #FFFFFF;
   --text-secondary: #94A3B8;
   --text-tertiary: #64748B;
-  --accent-f1: #E10600;
-  --accent-f1-glow: rgba(225, 6, 0, 0.35);
+  --accent-f1: #FF1801;
+  --accent-f1-glow: rgba(255, 24, 1, 0.5);
 }
 
 [data-theme='scuderia'] {
   --bg-core: #070304;
-  --bg-gradient: radial-gradient(130% 120% at 50% 0%, rgba(232, 0, 32, 0.2) 0%, rgba(7, 3, 4, 0.98) 65%);
+  --bg-gradient: radial-gradient(130% 120% at 50% 0%, rgba(255, 24, 1, 0.22) 0%, rgba(7, 3, 4, 0.98) 65%);
   --glass-bg: rgba(26, 12, 14, 0.75);
   --glass-bg-hover: rgba(36, 15, 18, 0.88);
   --glass-panel: rgba(20, 8, 10, 0.8);
   --glass-border: rgba(255, 255, 255, 0.09);
-  --glass-border-highlight: rgba(232, 0, 32, 0.65);
+  --glass-border-highlight: rgba(255, 24, 1, 0.75);
   --glass-specular: rgba(255, 255, 255, 0.2);
-  --accent-f1: #E80020;
-  --accent-f1-glow: rgba(232, 0, 32, 0.4);
+  --accent-f1: #FF1801;
+  --accent-f1-glow: rgba(255, 24, 1, 0.5);
 }
 
 [data-theme='petronas'] {
@@ -60,73 +67,150 @@ body {
   background-image: var(--bg-gradient);
   background-attachment: fixed;
   color: var(--text-primary);
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   letter-spacing: -0.011em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
+/* Option A Typography (Technical Pitwall):
+   Headings & Display Titles: Space Grotesk
+   Telemetry & Tabular Numbers: JetBrains Mono
+   Interface & Body: Inter */
+h1, h2, h3, h4, h5, h6, .font-display {
+  font-family: var(--font-space-grotesk), var(--font-inter), sans-serif;
+  letter-spacing: -0.022em;
+}
+
+code, pre, .font-mono, .font-telemetry, .telemetry-digits {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-feature-settings: "tnum" 1, "zero" 1;
+}
+
 /* ==========================================================================
-   PRO MOTORSPORT MULTI-TIER GLASSMORPHISM
-   High-depth carbon frosted glass with crisp specular top rim highlights
+   OPTICAL GLASS REFRACTION & PHYSICAL LIGHT-BENDING GLASSMORPHISM
+   Imitating caustics light refraction and displacement texture from SVG filter #lg / #kers-refract
    ========================================================================== */
 
-/* Main Navigation & Studio Panels */
-.ios-glass,
-.f1-glass {
-  background: linear-gradient(135deg, rgba(14, 18, 28, 0.78) 0%, rgba(8, 10, 16, 0.86) 100%);
-  backdrop-filter: blur(28px) saturate(200%) contrast(105%);
-  -webkit-backdrop-filter: blur(28px) saturate(200%) contrast(105%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-top: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 8px;
-  box-shadow: 
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.12),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.03),
-    0 16px 40px -8px rgba(0, 0, 0, 0.8),
-    0 2px 6px 0 rgba(0, 0, 0, 0.4);
-  position: relative;
-}
-
-/* Motorsport Card with Deep Ambient Sheen */
+/* Reference .glass specification matching user's uploaded snippet */
+.glass,
+.kers-glass-refract,
 .ios-card,
 .f1-glass-card {
-  background: linear-gradient(135deg, rgba(18, 23, 34, 0.6) 0%, rgba(10, 13, 20, 0.75) 100%);
-  backdrop-filter: blur(24px) saturate(190%);
-  -webkit-backdrop-filter: blur(24px) saturate(190%);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-top: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 8px;
+  /* Rich Smoked Obsidian Glass - perfectly balanced darkness for sharp typography + visible grid refraction */
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.015) 100%), rgba(7, 10, 17, 0.66);
+  
+  /* Primary Optical Glass Lens - saturates, magnifies, and focuses the background grid */
+  backdrop-filter: blur(20px) saturate(210%) brightness(112%) contrast(106%);
+  -webkit-backdrop-filter: blur(20px) saturate(210%) brightness(112%) contrast(106%);
+  
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.42);
+  border-left: 1px solid rgba(255, 255, 255, 0.20);
+  
+  /* Specular refraction rim highlights (Double-caustic light bevel) */
   box-shadow: 
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.08),
-    0 10px 30px -8px rgba(0, 0, 0, 0.75);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.50),
+    inset 1px 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.6),
+    inset 0 0 24px 0 rgba(255, 255, 255, 0.02),
+    0 16px 40px -10px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+  
   position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Progressive enhancement with SVG optical caustics displacement filter */
+@supports (backdrop-filter: url(#kers-refract)) {
+  .glass,
+  .kers-glass-refract,
+  .ios-card,
+  .f1-glass-card {
+    backdrop-filter: url(#kers-refract) blur(9px) saturate(210%) brightness(112%) contrast(106%);
+    -webkit-backdrop-filter: url(#kers-refract) blur(9px) saturate(210%) brightness(112%) contrast(106%);
+  }
+}
+
+/* Specular glass reflection & light bounce */
+.glass::before,
+.kers-glass-refract::before,
+.ios-card::before,
+.f1-glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: 
+    radial-gradient(110% 70% at 50% 0%, rgba(255, 255, 255, 0.10) 0%, transparent 60%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+  opacity: 0.85;
+  border-radius: inherit;
+}
+
+/* Prismatic refractive sheen slice */
+.glass::after,
+.kers-glass-refract::after,
+.ios-card::after,
+.f1-glass-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+  border-radius: inherit;
+}
+
+.glass:hover,
+.kers-glass-refract:hover,
 .ios-card:hover,
 .f1-glass-card:hover {
-  background: linear-gradient(135deg, rgba(24, 31, 46, 0.75) 0%, rgba(14, 18, 28, 0.88) 100%);
-  border-color: rgba(255, 255, 255, 0.15);
-  border-top-color: rgba(255, 255, 255, 0.32);
-  transform: translateY(-2px);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.02) 100%), rgba(9, 13, 23, 0.74);
+  border-color: rgba(255, 255, 255, 0.20);
+  border-top-color: rgba(255, 255, 255, 0.60);
   box-shadow: 
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.16),
-    0 18px 45px -10px rgba(0, 0, 0, 0.88),
-    0 0 24px -4px rgba(225, 6, 0, 0.12);
+    inset 0 1px 2px 0 rgba(255, 255, 255, 0.65),
+    inset 1px 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 24px 50px -10px rgba(0, 0, 0, 0.90),
+    0 0 28px -4px rgba(255, 24, 1, 0.25);
+  transform: translateY(-2px);
+}
+
+/* Elevated Header & Studio Navigation Bar Glass */
+.ios-glass,
+.f1-glass {
+  background: linear-gradient(135deg, rgba(12, 16, 26, 0.82) 0%, rgba(6, 8, 14, 0.92) 100%);
+  backdrop-filter: blur(24px) saturate(200%) contrast(105%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%) contrast(105%);
+  backdrop-filter: url(#lg) blur(10px) saturate(200%) contrast(105%);
+  -webkit-backdrop-filter: url(#lg) blur(10px) saturate(200%) contrast(105%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.36),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 16px 40px -8px rgba(0, 0, 0, 0.85),
+    0 2px 6px 0 rgba(0, 0, 0, 0.5);
+  position: relative;
 }
 
 /* F1 Angled Red Header Notch (From Reference Screenshot) */
 .f1-header-notch {
   position: relative;
-  background: linear-gradient(135deg, #E10600 0%, #B30000 100%);
+  background: linear-gradient(135deg, #FF1801 0%, #B80000 100%);
   clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%);
-  box-shadow: 0 4px 20px rgba(225, 6, 0, 0.4);
+  box-shadow: 0 4px 24px rgba(255, 24, 1, 0.55), 0 0 12px rgba(255, 24, 1, 0.35);
 }
 
 .f1-header-bar {
-  background: linear-gradient(90deg, rgba(225, 6, 0, 0.85) 0%, rgba(225, 6, 0, 0.15) 25%, transparent 60%);
+  background: linear-gradient(90deg, rgba(255, 24, 1, 0.95) 0%, rgba(255, 24, 1, 0.3) 30%, transparent 65%);
   height: 2px;
 }
 
@@ -146,12 +230,12 @@ body {
 .ios-card-selected,
 .f1-selected,
 .ios-card:active {
-  border-color: #E10600 !important;
+  border-color: #FF1801 !important;
   border-width: 1.5px !important;
   background: linear-gradient(135deg, rgba(22, 28, 42, 0.95) 0%, rgba(12, 15, 24, 0.98) 100%) !important;
   box-shadow: 
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.15),
-    0 0 20px rgba(225, 6, 0, 0.25) !important;
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.18),
+    0 0 24px rgba(255, 24, 1, 0.45) !important;
 }
 
 /* F1 Telemetry Segmented Tags & Switches */
@@ -177,25 +261,25 @@ body {
 .ios-pill-active,
 .f1-pill-active {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%) !important;
-  border-color: #E10600 !important;
+  border-color: #FF1801 !important;
   color: #FFFFFF !important;
-  box-shadow: 0 0 12px rgba(225, 6, 0, 0.3) !important;
+  box-shadow: 0 0 16px rgba(255, 24, 1, 0.45) !important;
 }
 
 /* F1 Primary Red Action CTA Button */
 .f1-btn-primary {
-  background: #E10600;
+  background: #FF1801;
   color: #FFFFFF;
   font-family: monospace;
   font-weight: 700;
   border-radius: 6px;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 18px rgba(225, 6, 0, 0.45);
+  box-shadow: 0 4px 20px rgba(255, 24, 1, 0.55);
 }
 
 .f1-btn-primary:hover {
-  background: #FF1801;
-  box-shadow: 0 6px 24px rgba(225, 6, 0, 0.65);
+  background: #FF3B20;
+  box-shadow: 0 6px 28px rgba(255, 24, 1, 0.75);
   transform: translateY(-1px);
 }
 
@@ -235,7 +319,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(225, 6, 0, 0.5);
+  background: rgba(255, 24, 1, 0.6);
 }
 
 /* Subtle Glowing Splines */
@@ -245,7 +329,7 @@ body {
 
 /* Red Racing Line Glow Filter */
 .racing-line-glow {
-  filter: drop-shadow(0 0 6px rgba(225, 6, 0, 0.6));
+  filter: drop-shadow(0 0 8px rgba(255, 24, 1, 0.75));
 }
 
 /* Minimalist Range Sliders */
@@ -417,3 +501,54 @@ input[type="range"]::-webkit-slider-thumb:hover {
 .animate-live-dot {
   animation: liveDotPulse 1.6s ease-in-out infinite;
 }
+
+/* KERS Logo ERS Text Fade In */
+@keyframes kersErsFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(14px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0px);
+  }
+}
+
+.animate-kersErs {
+  animation: kersErsFadeIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+}
+
+/* Mobile Touch & Safe Area Utilities (iOS / Android) */
+@supports (padding: max(0px)) {
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 16px);
+  }
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 16px);
+  }
+}
+
+/* Touch responsiveness */
+@media (max-width: 768px) {
+  button, a, select, input {
+    touch-action: manipulation;
+  }
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Shimmer animation for loading states */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+

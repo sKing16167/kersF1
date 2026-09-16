@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { f1Api, MOCK_RACES } from '@/lib/api';
+import { f1Api, MOCK_RACES, AVAILABLE_SEASONS } from '@/lib/api';
 import { Race, RaceResult } from '@/lib/types';
 import { useTelemetryStore } from '@/lib/store';
 import { RacePodiumShowcase } from './RacePodiumShowcase';
@@ -103,15 +103,15 @@ export function RaceCalendarWithPodium({ initialSeason = 2026 }: RaceCalendarWit
         1. 24-RACE CALENDAR HORIZONTAL SELECTOR STRIP
         ========================================================================
       */}
-      <div className="p-5 md:p-6 rounded-lg bg-[#0B0E15] border border-white/[0.08] shadow-2xl flex flex-col gap-4">
+      <div className="f1-glass-card p-5 md:p-6 flex flex-col gap-4">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-white/[0.08] pb-4">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-md bg-[#E10600]/15 border border-[#E10600]/30 flex items-center justify-center text-[#E10600]">
+            <div className="w-9 h-9 rounded-md bg-[#FF1801]/15 border border-[#FF1801]/30 flex items-center justify-center text-[#FF1801]">
               <Calendar className="w-4 h-4 stroke-[2.5]" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-mono text-[#E10600] font-bold">
+                <span className="text-xs font-mono text-[#FF1801] font-bold">
                   {activeSeason} WORLD CHAMPIONSHIP CALENDAR
                 </span>
                 <span className="text-xs text-neutral-500">•</span>
@@ -137,13 +137,13 @@ export function RaceCalendarWithPodium({ initialSeason = 2026 }: RaceCalendarWit
                   setSeason(newSeason);
                 }}
                 aria-label="Select Season"
-                className="bg-transparent text-[#E10600] font-bold font-mono text-xs focus:outline-none cursor-pointer"
+                className="bg-transparent text-[#FF1801] font-bold font-mono text-xs focus:outline-none cursor-pointer"
               >
-                <option value={2026} className="bg-[#0D1017] text-white">2026 (Upcoming)</option>
-                <option value={2024} className="bg-[#0D1017] text-white">2024 (Completed)</option>
-                <option value={2023} className="bg-[#0D1017] text-white">2023</option>
-                <option value={2022} className="bg-[#0D1017] text-white">2022</option>
-                <option value={2021} className="bg-[#0D1017] text-white">2021</option>
+                {AVAILABLE_SEASONS.map((s) => (
+                  <option key={s} value={s} className="bg-[#0D1017] text-white">
+                    {s} {s === 2026 ? '(Current Season)' : s === 2024 ? '(Completed)' : ''}
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -161,7 +161,7 @@ export function RaceCalendarWithPodium({ initialSeason = 2026 }: RaceCalendarWit
                     onClick={() => handleSelectRace(target)}
                     className={`px-2.5 py-1 rounded text-[11px] font-mono font-bold transition-all cursor-pointer ${
                       isSelected
-                        ? 'bg-[#E10600] text-white shadow-md shadow-red-600/30'
+                        ? 'bg-[#FF1801] text-white shadow-md shadow-red-600/30'
                         : 'bg-white/[0.04] text-neutral-300 hover:bg-white/[0.1] border border-white/[0.06]'
                     }`}
                   >
@@ -186,7 +186,7 @@ export function RaceCalendarWithPodium({ initialSeason = 2026 }: RaceCalendarWit
                   onClick={() => handleSelectRace(r)}
                   className={`flex-shrink-0 w-52 p-3 rounded-lg text-left transition-all relative border group cursor-pointer ${
                     isSelected
-                      ? 'bg-[#141926] border-[#E10600] shadow-xl shadow-red-950/40 ring-1 ring-[#E10600]'
+                      ? 'bg-[#141926] border-[#FF1801] shadow-xl shadow-red-950/40 ring-1 ring-[#FF1801]'
                       : 'bg-[#080B11] border-white/[0.06] hover:border-white/[0.2] hover:bg-white/[0.03]'
                   }`}
                 >
@@ -195,7 +195,7 @@ export function RaceCalendarWithPodium({ initialSeason = 2026 }: RaceCalendarWit
                     <span
                       className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded ${
                         isSelected
-                          ? 'bg-[#E10600] text-white'
+                          ? 'bg-[#FF1801] text-white'
                           : 'bg-white/[0.06] text-neutral-400 group-hover:text-white'
                       }`}
                     >
@@ -216,7 +216,7 @@ export function RaceCalendarWithPodium({ initialSeason = 2026 }: RaceCalendarWit
                   </div>
 
                   {/* Race Title & Country */}
-                  <h4 className="text-xs font-bold font-mono text-white truncate max-w-full group-hover:text-[#E10600] transition-colors">
+                  <h4 className="text-xs font-bold font-mono text-white truncate max-w-full group-hover:text-[#FF1801] transition-colors">
                     {r.race_name}
                   </h4>
                   <p className="text-[10px] text-neutral-400 font-sans truncate max-w-full">
@@ -240,7 +240,14 @@ export function RaceCalendarWithPodium({ initialSeason = 2026 }: RaceCalendarWit
         2. HIGHLIGHTED GRAND PRIX 3D PODIUM SHOWCASE
         ========================================================================
       */}
-      {raceResult && currentRace && (
+      {loadingResult ? (
+        <div className="p-8 rounded-lg bg-[#0B0E15] border border-white/[0.08] flex flex-col items-center justify-center gap-3 animate-pulse font-mono">
+          <div className="w-8 h-8 rounded-full border-2 border-[#FF1801] border-t-transparent animate-spin" />
+          <span className="text-xs font-bold text-neutral-300 tracking-wider">
+            FETCHING OFFICIAL RACE CLASSIFICATION...
+          </span>
+        </div>
+      ) : raceResult && currentRace ? (
         <AnimatePresence mode="wait">
           <motion.div
             key={currentRace.id}
@@ -252,7 +259,7 @@ export function RaceCalendarWithPodium({ initialSeason = 2026 }: RaceCalendarWit
             <RacePodiumShowcase race={currentRace} result={raceResult} />
           </motion.div>
         </AnimatePresence>
-      )}
+      ) : null}
     </div>
   );
 }
