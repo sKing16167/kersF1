@@ -60,9 +60,19 @@ export default function DashboardPage() {
     return matched || selectedRace || races[0] || MOCK_RACES[0];
   }, [selectedRace, season, races]);
 
-  // Active circuit derived directly from the current race
+  // Active circuit derived directly from the current race, strictly mapped to MOCK_CIRCUITS
   const activeCircuit = useMemo(() => {
-    return currentRace.circuit || MOCK_CIRCUITS[0];
+    const rawCircuit = currentRace.circuit;
+    if (!rawCircuit) return MOCK_CIRCUITS[0];
+    const match = MOCK_CIRCUITS.find(
+      (c) =>
+        c.id === rawCircuit.id ||
+        c.circuit_name.toLowerCase() === rawCircuit.circuit_name.toLowerCase() ||
+        (rawCircuit.circuit_name && (c.circuit_name.toLowerCase().includes(rawCircuit.circuit_name.toLowerCase()) || rawCircuit.circuit_name.toLowerCase().includes(c.circuit_name.toLowerCase()))) ||
+        (rawCircuit.location && c.location.toLowerCase() === rawCircuit.location.toLowerCase()) ||
+        (rawCircuit.country && c.country.toLowerCase() === rawCircuit.country.toLowerCase() && c.location.toLowerCase().includes(rawCircuit.location?.toLowerCase() || ''))
+    );
+    return match || rawCircuit;
   }, [currentRace]);
 
   const [raceResult, setRaceResult] = useState<RaceResult | null>(null);
@@ -585,7 +595,7 @@ export default function DashboardPage() {
             <div className="space-y-1">
               <div className="flex items-center gap-2 text-xs font-mono text-neutral-400">
                 <MapPin className="w-3.5 h-3.5 text-[#FF1801]" />
-                <span className="text-[#FF1801] font-bold">23 OFFICIAL FIA HOMOLOGATED CIRCUITS</span>
+                <span className="text-[#FF1801] font-bold">{MOCK_CIRCUITS.length} OFFICIAL FIA HOMOLOGATED CIRCUITS</span>
               </div>
               <h2 className="text-2xl font-bold font-mono tracking-tight text-white">
                 {activeCircuit.circuit_name}
@@ -593,7 +603,7 @@ export default function DashboardPage() {
             </div>
 
             <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto">
-              {/* 23 Track Switcher Dropdown (Synchronized with Global Race Selection) */}
+              {/* Track Switcher Dropdown (Synchronized with Global Race Selection) */}
               <div className="relative flex-1 lg:flex-initial">
                 <select
                   value={activeCircuit.id}
@@ -601,10 +611,14 @@ export default function DashboardPage() {
                     const newId = Number(e.target.value);
                     const matchingCircuit = MOCK_CIRCUITS.find((c) => c.id === newId);
                     if (matchingCircuit) {
-                      const matchingRace = MOCK_RACES.find(
+                      const matchingRace = races.find(
                         (r) =>
-                          r.circuit.id === newId ||
-                          r.circuit.circuit_name === matchingCircuit.circuit_name
+                          r.circuit?.id === newId ||
+                          r.circuit?.circuit_name.toLowerCase() === matchingCircuit.circuit_name.toLowerCase()
+                      ) || MOCK_RACES.find(
+                        (r) =>
+                          r.circuit?.id === newId ||
+                          r.circuit?.circuit_name.toLowerCase() === matchingCircuit.circuit_name.toLowerCase()
                       );
                       if (matchingRace) {
                         setSelectedRace(matchingRace);
@@ -615,7 +629,7 @@ export default function DashboardPage() {
                           round_number: matchingCircuit.id,
                           race_name: `${matchingCircuit.country} Grand Prix`,
                           circuit: matchingCircuit,
-                          date: '2026-09-01',
+                          date: `${season || 2026}-09-01`,
                           status: 'COMPLETED',
                         });
                       }
@@ -845,7 +859,7 @@ export default function DashboardPage() {
           {/* Bottom Card Footer */}
           <div className="flex flex-wrap items-center justify-between text-[11px] font-mono text-neutral-500 border-t border-white/[0.08] pt-3">
             <span>SELECT OR HOVER CORNER NODES FOR APEX TELEMETRY PROFILES</span>
-            <span className="text-neutral-400 font-semibold">{MOCK_CIRCUITS.length} / 23 OFFICIAL FIA TRACKS LOADED</span>
+            <span className="text-neutral-400 font-semibold">{MOCK_CIRCUITS.length} / {MOCK_CIRCUITS.length} OFFICIAL FIA TRACKS LOADED</span>
           </div>
         </div>
       </div>

@@ -1,3 +1,7 @@
+import { HISTORICAL_DRIVER_STANDINGS, HISTORICAL_CONSTRUCTOR_STANDINGS } from './historical-standings-data';
+import { HISTORICAL_RACES } from './historical-races-data';
+import { HISTORICAL_CONSTRUCTORS, ACTIVE_CONSTRUCTORS, ALL_CONSTRUCTORS } from './historical-constructors-data';
+
 /**
  * Parse Formula 1 lap time string ("1:44.701" or "84.701") into milliseconds for comparison
  */
@@ -82,6 +86,8 @@ export const MOCK_CONSTRUCTORS: Constructor[] = [
   { id: 9, name: 'RB', full_name: 'Visa Cash App RB F1 Team', color_hex: '#6692FF', country_code: 'ITA' },
   { id: 10, name: 'Kick Sauber', full_name: 'Stake F1 Team Kick Sauber', color_hex: '#52E252', country_code: 'SUI' },
 ];
+
+export { HISTORICAL_CONSTRUCTORS, ACTIVE_CONSTRUCTORS, ALL_CONSTRUCTORS };
 
 // Accurate True-to-Scale FIA Track Geometries with Exact Apex Coordinates
 // 1:1 Official FIA Track Geometries with Exact Corner Apex Positions & Sectors
@@ -1181,6 +1187,1422 @@ export const MOCK_CIRCUITS: Circuit[] = [
       { corner_number: 16, corner_name: "Turn 16", gear: 5, min_speed_kmh: 195, lateral_g: 3.4, brake_zone: false, drs_zone: true, notes: "Fast right launching onto pit straight", x: 169.3, y: 290.1 },
     ],
   },
+  {
+    "id": 24,
+    "circuit_name": "Sepang International Circuit",
+    "location": "Kuala Lumpur",
+    "country": "Malaysia",
+    "country_code": "MAL",
+    "lat": 2.7606,
+    "lng": 101.738,
+    "length_km": 5.543,
+    "corners_count": 15,
+    "drs_zones": 2,
+    "lap_record": "1:34.080",
+    "lap_record_driver": "Sebastian Vettel",
+    "lap_record_year": 2017,
+    "lap_record_team": "Ferrari SF70H",
+    "full_throttle_pct": 65,
+    "downforce_level": "MEDIUM-HIGH",
+    "tyre_stress_level": 5,
+    "brake_wear_index": "HEAVY",
+    "gear_shifts_per_lap": 56,
+    "pit_loss_time_sec": 22,
+    "first_grand_prix_year": 1999,
+    "elevation_gain_m": 18,
+    "view_box": "0 0 500 500",
+    "start_finish": {
+      "x": 340,
+      "y": 390,
+      "label_x": 20,
+      "label_y": 4
+    },
+    "description": "Hermann Tilke masterpiece. Extreme tropical humidity, back-to-back 300+ km/h straights, and sweeping high-G mid-sector turns.",
+    "svg_path": "M380 410 L120 410 C100 410 90 395 95 380 C100 365 115 360 130 365 L180 380 C200 385 220 375 225 355 L245 280 C250 260 270 250 290 260 L350 290 C370 300 390 290 395 270 L410 180 C415 160 400 140 380 140 L280 140 C260 140 245 125 250 105 L260 70 C265 50 285 40 305 45 L380 65 C400 70 415 90 410 110 L395 190 C390 210 405 230 425 230 L450 230 C470 230 480 250 475 270 L445 370 C440 395 410 410 380 410 Z",
+    "optimal_line_svg": "M380 410 L120 410 C100 410 90 395 95 380 C100 365 115 360 130 365 L180 380 C200 385 220 375 225 355 L245 280 C250 260 270 250 290 260 L350 290 C370 300 390 290 395 270 L410 180 C415 160 400 140 380 140 L280 140 C260 140 245 125 250 105 L260 70 C265 50 285 40 305 45 L380 65 C400 70 415 90 410 110 L395 190 C390 210 405 230 425 230 L450 230 C470 230 480 250 475 270 L445 370 C440 395 410 410 380 410 Z",
+    "corners": [
+      {
+        "corner_number": 1,
+        "corner_name": "Turn 1",
+        "gear": 2,
+        "min_speed_kmh": 75,
+        "lateral_g": 2.1,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Extreme braking hairpin from 320 km/h",
+        "x": 95,
+        "y": 380
+      },
+      {
+        "corner_number": 2,
+        "corner_name": "Turn 2",
+        "gear": 2,
+        "min_speed_kmh": 80,
+        "lateral_g": 2.3,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Tight left transition",
+        "x": 130,
+        "y": 365
+      },
+      {
+        "corner_number": 3,
+        "corner_name": "Turn 3",
+        "gear": 5,
+        "min_speed_kmh": 220,
+        "lateral_g": 3.5,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Long uphill right sweep",
+        "x": 180,
+        "y": 380
+      },
+      {
+        "corner_number": 4,
+        "corner_name": "Turn 4",
+        "gear": 3,
+        "min_speed_kmh": 110,
+        "lateral_g": 2.6,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Heavy braking 90-degree right",
+        "x": 245,
+        "y": 280
+      },
+      {
+        "corner_number": 5,
+        "corner_name": "Turn 5",
+        "gear": 5,
+        "min_speed_kmh": 230,
+        "lateral_g": 3.8,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "High speed left sweeper",
+        "x": 290,
+        "y": 260
+      },
+      {
+        "corner_number": 6,
+        "corner_name": "Turn 6",
+        "gear": 5,
+        "min_speed_kmh": 215,
+        "lateral_g": 3.7,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Fast right sweep",
+        "x": 350,
+        "y": 290
+      },
+      {
+        "corner_number": 7,
+        "corner_name": "Turn 7",
+        "gear": 4,
+        "min_speed_kmh": 170,
+        "lateral_g": 3.2,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Medium speed double apex right",
+        "x": 410,
+        "y": 180
+      },
+      {
+        "corner_number": 8,
+        "corner_name": "Turn 8",
+        "gear": 4,
+        "min_speed_kmh": 180,
+        "lateral_g": 3.1,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Exit onto mid straight",
+        "x": 380,
+        "y": 140
+      },
+      {
+        "corner_number": 9,
+        "corner_name": "Turn 9",
+        "gear": 2,
+        "min_speed_kmh": 85,
+        "lateral_g": 2.2,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Uphill left hairpin",
+        "x": 250,
+        "y": 105
+      },
+      {
+        "corner_number": 10,
+        "corner_name": "Turn 10",
+        "gear": 4,
+        "min_speed_kmh": 160,
+        "lateral_g": 2.9,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Blind right exit",
+        "x": 260,
+        "y": 70
+      },
+      {
+        "corner_number": 11,
+        "corner_name": "Turn 11",
+        "gear": 3,
+        "min_speed_kmh": 125,
+        "lateral_g": 2.6,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Fast downhill right",
+        "x": 305,
+        "y": 45
+      },
+      {
+        "corner_number": 12,
+        "corner_name": "Turn 12",
+        "gear": 5,
+        "min_speed_kmh": 220,
+        "lateral_g": 3.4,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Full throttle left bend",
+        "x": 380,
+        "y": 65
+      },
+      {
+        "corner_number": 13,
+        "corner_name": "Turn 13",
+        "gear": 5,
+        "min_speed_kmh": 210,
+        "lateral_g": 3.3,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Fast right onto back straight",
+        "x": 410,
+        "y": 110
+      },
+      {
+        "corner_number": 14,
+        "corner_name": "Turn 14",
+        "gear": 3,
+        "min_speed_kmh": 115,
+        "lateral_g": 2.7,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Right entry before final hairpin",
+        "x": 425,
+        "y": 230
+      },
+      {
+        "corner_number": 15,
+        "corner_name": "Turn 15",
+        "gear": 2,
+        "min_speed_kmh": 70,
+        "lateral_g": 2,
+        "brake_zone": true,
+        "drs_zone": true,
+        "notes": "Iconic final hairpin onto pit straight",
+        "x": 445,
+        "y": 370
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "circuit_name": "Sochi Autodrom",
+    "location": "Sochi",
+    "country": "Russia",
+    "country_code": "RUS",
+    "lat": 43.4057,
+    "lng": 39.9578,
+    "length_km": 5.848,
+    "corners_count": 18,
+    "drs_zones": 2,
+    "lap_record": "1:35.761",
+    "lap_record_driver": "Lewis Hamilton",
+    "lap_record_year": 2019,
+    "lap_record_team": "Mercedes W10",
+    "full_throttle_pct": 56,
+    "downforce_level": "MEDIUM",
+    "tyre_stress_level": 2,
+    "brake_wear_index": "HEAVY",
+    "gear_shifts_per_lap": 62,
+    "pit_loss_time_sec": 25,
+    "first_grand_prix_year": 2014,
+    "elevation_gain_m": 1.9,
+    "view_box": "0 0 500 500",
+    "start_finish": {
+      "x": 350,
+      "y": 440,
+      "label_x": 20,
+      "label_y": 4
+    },
+    "description": "Olympic Park semi-permanent circuit. Features the iconic continuous 650m 180-degree Turn 3 sweep and ninety-degree precision corners.",
+    "svg_path": "M430 440 L160 440 C130 440 110 420 110 390 L110 320 C110 230 180 150 270 150 C340 150 390 190 400 250 C405 280 390 300 360 300 L250 300 C230 300 220 285 220 265 L220 200 C220 180 235 170 255 170 L350 170 C370 170 380 155 380 135 L380 90 C380 70 365 55 345 55 L160 55 C140 55 125 70 125 90 L125 150 C125 170 110 185 90 185 L60 185 C40 185 30 200 35 220 L75 390 C85 430 120 455 160 455 L430 455 C450 455 465 440 460 420 C455 405 445 440 430 440 Z",
+    "optimal_line_svg": "M430 440 L160 440 C130 440 110 420 110 390 L110 320 C110 230 180 150 270 150 C340 150 390 190 400 250 C405 280 390 300 360 300 L250 300 C230 300 220 285 220 265 L220 200 C220 180 235 170 255 170 L350 170 C370 170 380 155 380 135 L380 90 C380 70 365 55 345 55 L160 55 C140 55 125 70 125 90 L125 150 C125 170 110 185 90 185 L60 185 C40 185 30 200 35 220 L75 390 C85 430 120 455 160 455 L430 455 C450 455 465 440 460 420 C455 405 445 440 430 440 Z",
+    "corners": [
+      {
+        "corner_number": 1,
+        "corner_name": "Turn 1",
+        "gear": 7,
+        "min_speed_kmh": 295,
+        "lateral_g": 2.8,
+        "brake_zone": false,
+        "drs_zone": true,
+        "notes": "Right kink before T2",
+        "x": 200,
+        "y": 440
+      },
+      {
+        "corner_number": 2,
+        "corner_name": "Turn 2",
+        "gear": 2,
+        "min_speed_kmh": 85,
+        "lateral_g": 2.2,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Heavy braking right 90-degree",
+        "x": 110,
+        "y": 390
+      },
+      {
+        "corner_number": 3,
+        "corner_name": "Turn 3 (Omega)",
+        "gear": 4,
+        "min_speed_kmh": 195,
+        "lateral_g": 3.9,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Famous endless 180-degree left sweep around Medal Plaza",
+        "x": 270,
+        "y": 150
+      },
+      {
+        "corner_number": 4,
+        "corner_name": "Turn 4",
+        "gear": 3,
+        "min_speed_kmh": 130,
+        "lateral_g": 2.6,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Right exit towards stadium",
+        "x": 400,
+        "y": 250
+      },
+      {
+        "corner_number": 5,
+        "corner_name": "Turn 5",
+        "gear": 3,
+        "min_speed_kmh": 125,
+        "lateral_g": 2.5,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Right 90-degree",
+        "x": 360,
+        "y": 300
+      },
+      {
+        "corner_number": 6,
+        "corner_name": "Turn 6",
+        "gear": 4,
+        "min_speed_kmh": 150,
+        "lateral_g": 2.7,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Left transition",
+        "x": 250,
+        "y": 300
+      },
+      {
+        "corner_number": 7,
+        "corner_name": "Turn 7",
+        "gear": 4,
+        "min_speed_kmh": 160,
+        "lateral_g": 2.8,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Right bend",
+        "x": 220,
+        "y": 265
+      },
+      {
+        "corner_number": 8,
+        "corner_name": "Turn 8",
+        "gear": 4,
+        "min_speed_kmh": 165,
+        "lateral_g": 2.9,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Right bend into back straight",
+        "x": 255,
+        "y": 170
+      },
+      {
+        "corner_number": 9,
+        "corner_name": "Turn 9",
+        "gear": 5,
+        "min_speed_kmh": 210,
+        "lateral_g": 3.1,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Full throttle right kink",
+        "x": 350,
+        "y": 170
+      },
+      {
+        "corner_number": 10,
+        "corner_name": "Turn 10",
+        "gear": 5,
+        "min_speed_kmh": 220,
+        "lateral_g": 3.2,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Left kink",
+        "x": 380,
+        "y": 135
+      },
+      {
+        "corner_number": 11,
+        "corner_name": "Turn 11",
+        "gear": 4,
+        "min_speed_kmh": 155,
+        "lateral_g": 2.8,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Right 90-degree",
+        "x": 380,
+        "y": 90
+      },
+      {
+        "corner_number": 12,
+        "corner_name": "Turn 12",
+        "gear": 3,
+        "min_speed_kmh": 115,
+        "lateral_g": 2.5,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Left 90-degree",
+        "x": 345,
+        "y": 55
+      },
+      {
+        "corner_number": 13,
+        "corner_name": "Turn 13",
+        "gear": 2,
+        "min_speed_kmh": 90,
+        "lateral_g": 2.2,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Heavy braking right",
+        "x": 160,
+        "y": 55
+      },
+      {
+        "corner_number": 14,
+        "corner_name": "Turn 14",
+        "gear": 3,
+        "min_speed_kmh": 110,
+        "lateral_g": 2.4,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Left chicane entry",
+        "x": 125,
+        "y": 90
+      },
+      {
+        "corner_number": 15,
+        "corner_name": "Turn 15",
+        "gear": 2,
+        "min_speed_kmh": 80,
+        "lateral_g": 2,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Slow right hairpin",
+        "x": 125,
+        "y": 150
+      },
+      {
+        "corner_number": 16,
+        "corner_name": "Turn 16",
+        "gear": 3,
+        "min_speed_kmh": 130,
+        "lateral_g": 2.5,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Right launch",
+        "x": 90,
+        "y": 185
+      },
+      {
+        "corner_number": 17,
+        "corner_name": "Turn 17",
+        "gear": 3,
+        "min_speed_kmh": 120,
+        "lateral_g": 2.4,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Final sector 90-degree right",
+        "x": 35,
+        "y": 220
+      },
+      {
+        "corner_number": 18,
+        "corner_name": "Turn 18",
+        "gear": 4,
+        "min_speed_kmh": 165,
+        "lateral_g": 2.7,
+        "brake_zone": false,
+        "drs_zone": true,
+        "notes": "Right turn launching onto pit straight",
+        "x": 75,
+        "y": 390
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "circuit_name": "Hockenheimring",
+    "location": "Hockenheim",
+    "country": "Germany",
+    "country_code": "GER",
+    "lat": 49.3278,
+    "lng": 8.5658,
+    "length_km": 4.574,
+    "corners_count": 17,
+    "drs_zones": 3,
+    "lap_record": "1:13.780",
+    "lap_record_driver": "Kimi Räikkönen",
+    "lap_record_year": 2004,
+    "lap_record_team": "McLaren MP4-19B",
+    "full_throttle_pct": 65,
+    "downforce_level": "MEDIUM",
+    "tyre_stress_level": 3,
+    "brake_wear_index": "HEAVY",
+    "gear_shifts_per_lap": 48,
+    "pit_loss_time_sec": 21.5,
+    "first_grand_prix_year": 1970,
+    "elevation_gain_m": 4,
+    "view_box": "0 0 500 500",
+    "start_finish": {
+      "x": 320,
+      "y": 410,
+      "label_x": 20,
+      "label_y": 4
+    },
+    "description": "Classic German motorsport cathedral. High-speed Parabolika blast into the tight Spitzkehre hairpin, followed by the roaring Motodrom stadium section.",
+    "svg_path": "M380 410 L150 410 C120 410 100 390 100 360 L100 300 C100 270 120 250 150 250 L200 250 C230 250 250 230 240 200 C210 120 150 60 70 50 C50 48 40 30 50 15 C60 0 85 5 110 20 C220 80 320 180 360 250 L400 320 C420 355 410 410 380 410 Z",
+    "optimal_line_svg": "M380 410 L150 410 C120 410 100 390 100 360 L100 300 C100 270 120 250 150 250 L200 250 C230 250 250 230 240 200 C210 120 150 60 70 50 C50 48 40 30 50 15 C60 0 85 5 110 20 C220 80 320 180 360 250 L400 320 C420 355 410 410 380 410 Z",
+    "corners": [
+      {
+        "corner_number": 1,
+        "corner_name": "Nordkurve (T1)",
+        "gear": 4,
+        "min_speed_kmh": 185,
+        "lateral_g": 3.2,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Fast right turn-in",
+        "x": 100,
+        "y": 360
+      },
+      {
+        "corner_number": 2,
+        "corner_name": "Turn 2",
+        "gear": 3,
+        "min_speed_kmh": 120,
+        "lateral_g": 2.5,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Right kink before Parabolika",
+        "x": 150,
+        "y": 250
+      },
+      {
+        "corner_number": 6,
+        "corner_name": "Spitzkehre (T6)",
+        "gear": 1,
+        "min_speed_kmh": 60,
+        "lateral_g": 1.8,
+        "brake_zone": true,
+        "drs_zone": true,
+        "notes": "Slowest hairpin on circuit - prime overtaking zone",
+        "x": 50,
+        "y": 15
+      },
+      {
+        "corner_number": 8,
+        "corner_name": "Mercedes Arena",
+        "gear": 3,
+        "min_speed_kmh": 130,
+        "lateral_g": 2.7,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Tight left-right complex",
+        "x": 240,
+        "y": 200
+      },
+      {
+        "corner_number": 12,
+        "corner_name": "Sachskurve (T12)",
+        "gear": 3,
+        "min_speed_kmh": 125,
+        "lateral_g": 3,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Banked stadium left bowl",
+        "x": 360,
+        "y": 250
+      },
+      {
+        "corner_number": 16,
+        "corner_name": "Südkurve (T16)",
+        "gear": 4,
+        "min_speed_kmh": 180,
+        "lateral_g": 3.1,
+        "brake_zone": false,
+        "drs_zone": true,
+        "notes": "Fast double-right onto pit straight",
+        "x": 400,
+        "y": 320
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "circuit_name": "Autodromo Enzo e Dino Ferrari",
+    "location": "Imola",
+    "country": "Italy",
+    "country_code": "ITA",
+    "lat": 44.3439,
+    "lng": 11.7167,
+    "length_km": 4.909,
+    "corners_count": 19,
+    "drs_zones": 1,
+    "lap_record": "1:15.484",
+    "lap_record_driver": "Lewis Hamilton",
+    "lap_record_year": 2020,
+    "lap_record_team": "Mercedes W11",
+    "full_throttle_pct": 71,
+    "downforce_level": "HIGH",
+    "tyre_stress_level": 3,
+    "brake_wear_index": "HEAVY",
+    "gear_shifts_per_lap": 52,
+    "pit_loss_time_sec": 28.5,
+    "first_grand_prix_year": 1980,
+    "elevation_gain_m": 36.1,
+    "view_box": "0 0 500 500",
+    "start_finish": {
+      "x": 370,
+      "y": 420,
+      "label_x": 20,
+      "label_y": 4
+    },
+    "description": "Old school anti-clockwise rollercoaster. Famous for high kerb strikes at Variante Alta, downhill blind braking into Rivazza, and intense historic passion.",
+    "svg_path": "M430 420 L150 420 C120 420 100 400 100 370 L100 310 C100 280 120 260 150 260 L220 260 C240 260 250 245 250 225 L250 160 C250 130 230 110 200 110 L130 110 C100 110 80 90 80 60 C80 30 100 10 130 10 L300 10 C340 10 370 40 370 80 L370 180 C370 210 390 230 420 230 L450 230 C480 230 490 260 480 290 L450 380 C440 410 420 420 430 420 Z",
+    "optimal_line_svg": "M430 420 L150 420 C120 420 100 400 100 370 L100 310 C100 280 120 260 150 260 L220 260 C240 260 250 245 250 225 L250 160 C250 130 230 110 200 110 L130 110 C100 110 80 90 80 60 C80 30 100 10 130 10 L300 10 C340 10 370 40 370 80 L370 180 C370 210 390 230 420 230 L450 230 C480 230 490 260 480 290 L450 380 C440 410 420 420 430 420 Z",
+    "corners": [
+      {
+        "corner_number": 2,
+        "corner_name": "Variante Tamburello (T2)",
+        "gear": 3,
+        "min_speed_kmh": 125,
+        "lateral_g": 2.8,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Left-right chicane",
+        "x": 100,
+        "y": 370
+      },
+      {
+        "corner_number": 4,
+        "corner_name": "Variante Villeneuve (T4)",
+        "gear": 4,
+        "min_speed_kmh": 170,
+        "lateral_g": 3.2,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Fast uphill chicane",
+        "x": 150,
+        "y": 260
+      },
+      {
+        "corner_number": 7,
+        "corner_name": "Tosa (T7)",
+        "gear": 2,
+        "min_speed_kmh": 85,
+        "lateral_g": 2.1,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Steep uphill hairpin",
+        "x": 250,
+        "y": 160
+      },
+      {
+        "corner_number": 9,
+        "corner_name": "Piratella (T9)",
+        "gear": 4,
+        "min_speed_kmh": 185,
+        "lateral_g": 3.5,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Blind downhill left crest",
+        "x": 200,
+        "y": 110
+      },
+      {
+        "corner_number": 11,
+        "corner_name": "Acque Minerali (T11)",
+        "gear": 4,
+        "min_speed_kmh": 155,
+        "lateral_g": 3.4,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Downhill plunge into compression",
+        "x": 130,
+        "y": 10
+      },
+      {
+        "corner_number": 14,
+        "corner_name": "Variante Alta (T14)",
+        "gear": 3,
+        "min_speed_kmh": 130,
+        "lateral_g": 2.6,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Aggressive sausage kerb chicane",
+        "x": 370,
+        "y": 80
+      },
+      {
+        "corner_number": 17,
+        "corner_name": "Rivazza (T17)",
+        "gear": 3,
+        "min_speed_kmh": 120,
+        "lateral_g": 2.9,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Double downhill left onto main straight",
+        "x": 450,
+        "y": 380
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "circuit_name": "Istanbul Park",
+    "location": "Istanbul",
+    "country": "Turkey",
+    "country_code": "TUR",
+    "lat": 40.9517,
+    "lng": 29.405,
+    "length_km": 5.338,
+    "corners_count": 14,
+    "drs_zones": 2,
+    "lap_record": "1:24.770",
+    "lap_record_driver": "Juan Pablo Montoya",
+    "lap_record_year": 2005,
+    "lap_record_team": "McLaren MP4-20",
+    "full_throttle_pct": 63,
+    "downforce_level": "MEDIUM-HIGH",
+    "tyre_stress_level": 5,
+    "brake_wear_index": "MEDIUM",
+    "gear_shifts_per_lap": 54,
+    "pit_loss_time_sec": 22,
+    "first_grand_prix_year": 2005,
+    "elevation_gain_m": 45,
+    "view_box": "0 0 500 500",
+    "start_finish": {
+      "x": 320,
+      "y": 420,
+      "label_x": 20,
+      "label_y": 4
+    },
+    "description": "Famous for the legendary multi-apex Turn 8. Drivers pull up to 5G sustained lateral load across four consecutive left-hand apices.",
+    "svg_path": "M370 420 L130 420 C100 420 85 400 90 375 L115 280 C120 255 140 240 165 245 L220 255 C245 260 265 245 270 220 L285 140 C290 115 315 95 340 100 C420 115 450 200 410 270 C390 305 370 330 380 360 L410 400 C420 415 400 420 370 420 Z",
+    "optimal_line_svg": "M370 420 L130 420 C100 420 85 400 90 375 L115 280 C120 255 140 240 165 245 L220 255 C245 260 265 245 270 220 L285 140 C290 115 315 95 340 100 C420 115 450 200 410 270 C390 305 370 330 380 360 L410 400 C420 415 400 420 370 420 Z",
+    "corners": [
+      {
+        "corner_number": 1,
+        "corner_name": "Turn 1",
+        "gear": 3,
+        "min_speed_kmh": 130,
+        "lateral_g": 2.7,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Blind downhill left plunge",
+        "x": 90,
+        "y": 375
+      },
+      {
+        "corner_number": 8,
+        "corner_name": "Turn 8 (The Beast)",
+        "gear": 6,
+        "min_speed_kmh": 260,
+        "lateral_g": 4.8,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Legendary 4-apex 5G high-speed left curve",
+        "x": 420,
+        "y": 150
+      },
+      {
+        "corner_number": 12,
+        "corner_name": "Turn 12",
+        "gear": 2,
+        "min_speed_kmh": 85,
+        "lateral_g": 2.1,
+        "brake_zone": true,
+        "drs_zone": true,
+        "notes": "Heavy braking at end of back straight",
+        "x": 380,
+        "y": 360
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "circuit_name": "Nürburgring",
+    "location": "Nürburg",
+    "country": "Germany",
+    "country_code": "GER",
+    "lat": 50.3356,
+    "lng": 6.9475,
+    "length_km": 5.148,
+    "corners_count": 15,
+    "drs_zones": 2,
+    "lap_record": "1:28.139",
+    "lap_record_driver": "Max Verstappen",
+    "lap_record_year": 2020,
+    "lap_record_team": "Red Bull RB16",
+    "full_throttle_pct": 61,
+    "downforce_level": "HIGH",
+    "tyre_stress_level": 3,
+    "brake_wear_index": "MEDIUM",
+    "gear_shifts_per_lap": 56,
+    "pit_loss_time_sec": 21,
+    "first_grand_prix_year": 1951,
+    "elevation_gain_m": 23,
+    "view_box": "0 0 500 500",
+    "start_finish": {
+      "x": 320,
+      "y": 380,
+      "label_x": 20,
+      "label_y": 4
+    },
+    "description": "Modern GP-Strecke in the Eifel mountains. Cold ambient conditions, tricky Michael Schumacher S-bends, and heavy braking into the NGK Chicane.",
+    "svg_path": "M360 380 L140 380 C110 380 95 360 100 335 L120 260 C125 235 150 220 175 225 L230 235 C255 240 270 220 265 195 L250 130 C245 105 265 85 290 85 L360 85 C390 85 410 110 405 140 L395 240 C390 270 410 290 435 290 L460 290 C480 290 490 315 480 335 L440 370 C420 380 390 380 360 380 Z",
+    "optimal_line_svg": "M360 380 L140 380 C110 380 95 360 100 335 L120 260 C125 235 150 220 175 225 L230 235 C255 240 270 220 265 195 L250 130 C245 105 265 85 290 85 L360 85 C390 85 410 110 405 140 L395 240 C390 270 410 290 435 290 L460 290 C480 290 490 315 480 335 L440 370 C420 380 390 380 360 380 Z",
+    "corners": [
+      {
+        "corner_number": 1,
+        "corner_name": "Castrol-S (T1)",
+        "gear": 2,
+        "min_speed_kmh": 80,
+        "lateral_g": 2.1,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Tight downhill right hairpin",
+        "x": 100,
+        "y": 335
+      },
+      {
+        "corner_number": 8,
+        "corner_name": "Michael Schumacher S (T8)",
+        "gear": 5,
+        "min_speed_kmh": 225,
+        "lateral_g": 3.6,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "High speed left-right uphill sweeps",
+        "x": 290,
+        "y": 85
+      },
+      {
+        "corner_number": 13,
+        "corner_name": "NGK Chicane (T13)",
+        "gear": 2,
+        "min_speed_kmh": 95,
+        "lateral_g": 2.3,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Kerb strike chicane",
+        "x": 435,
+        "y": 290
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "circuit_name": "Circuit Paul Ricard",
+    "location": "Le Castellet",
+    "country": "France",
+    "country_code": "FRA",
+    "lat": 43.2506,
+    "lng": 5.7917,
+    "length_km": 5.842,
+    "corners_count": 15,
+    "drs_zones": 2,
+    "lap_record": "1:32.740",
+    "lap_record_driver": "Sebastian Vettel",
+    "lap_record_year": 2019,
+    "lap_record_team": "Ferrari SF90",
+    "full_throttle_pct": 67,
+    "downforce_level": "MEDIUM",
+    "tyre_stress_level": 4,
+    "brake_wear_index": "MEDIUM",
+    "gear_shifts_per_lap": 46,
+    "pit_loss_time_sec": 24,
+    "first_grand_prix_year": 1971,
+    "elevation_gain_m": 10,
+    "view_box": "0 0 500 500",
+    "start_finish": {
+      "x": 300,
+      "y": 400,
+      "label_x": 20,
+      "label_y": 4
+    },
+    "description": "High-tech French testing proving ground. 1.8km Mistral Straight split by North Chicane, flat-out Signes Curve taken in top gear at 340 km/h.",
+    "svg_path": "M380 400 L120 400 C90 400 80 380 90 355 L130 260 C140 235 165 225 190 235 L380 235 C410 235 430 215 425 185 L415 90 C410 65 390 50 365 50 L180 50 C155 50 140 65 140 90 L140 140 C140 165 125 180 100 180 L60 180 C35 180 25 205 35 230 L95 370 C105 405 140 400 160 400 Z",
+    "optimal_line_svg": "M380 400 L120 400 C90 400 80 380 90 355 L130 260 C140 235 165 225 190 235 L380 235 C410 235 430 215 425 185 L415 90 C410 65 390 50 365 50 L180 50 C155 50 140 65 140 90 L140 140 C140 165 125 180 100 180 L60 180 C35 180 25 205 35 230 L95 370 C105 405 140 400 160 400 Z",
+    "corners": [
+      {
+        "corner_number": 1,
+        "corner_name": "S de la Verrerie",
+        "gear": 3,
+        "min_speed_kmh": 135,
+        "lateral_g": 2.8,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Left-right transition",
+        "x": 90,
+        "y": 355
+      },
+      {
+        "corner_number": 10,
+        "corner_name": "Courbe de Signes (T10)",
+        "gear": 8,
+        "min_speed_kmh": 330,
+        "lateral_g": 4.6,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Terrifying flat-out right curve at end of Mistral straight",
+        "x": 415,
+        "y": 90
+      },
+      {
+        "corner_number": 11,
+        "corner_name": "Double Droite du Beausset",
+        "gear": 5,
+        "min_speed_kmh": 215,
+        "lateral_g": 3.7,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Long double-apex right sweeper",
+        "x": 365,
+        "y": 50
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "circuit_name": "Circuit de Nevers Magny-Cours",
+    "location": "Magny-Cours",
+    "country": "France",
+    "country_code": "FRA",
+    "lat": 46.8642,
+    "lng": 3.1636,
+    "length_km": 4.411,
+    "corners_count": 17,
+    "drs_zones": 1,
+    "lap_record": "1:15.377",
+    "lap_record_driver": "Michael Schumacher",
+    "lap_record_year": 2004,
+    "lap_record_team": "Ferrari F2004",
+    "full_throttle_pct": 68,
+    "downforce_level": "HIGH",
+    "tyre_stress_level": 3,
+    "brake_wear_index": "HEAVY",
+    "gear_shifts_per_lap": 50,
+    "pit_loss_time_sec": 19.5,
+    "first_grand_prix_year": 1991,
+    "elevation_gain_m": 8,
+    "view_box": "0 0 500 500",
+    "start_finish": {
+      "x": 300,
+      "y": 410,
+      "label_x": 20,
+      "label_y": 4
+    },
+    "description": "Smooth asphalt classic French venue. Rapid Grande Courbe sweep, hard braking Adelaide Hairpin, and the tricky final Lycee chicane.",
+    "svg_path": "M380 410 L150 410 C120 410 100 390 100 360 L100 270 C100 240 120 220 150 220 L320 220 C350 220 370 200 370 170 L370 100 C370 70 350 50 320 50 L160 50 C130 50 110 70 110 100 L110 160 C110 185 90 200 65 200 L40 200 C20 200 10 220 20 240 L70 370 C85 410 115 410 150 410 Z",
+    "optimal_line_svg": "M380 410 L150 410 C120 410 100 390 100 360 L100 270 C100 240 120 220 150 220 L320 220 C350 220 370 200 370 170 L370 100 C370 70 350 50 320 50 L160 50 C130 50 110 70 110 100 L110 160 C110 185 90 200 65 200 L40 200 C20 200 10 220 20 240 L70 370 C85 410 115 410 150 410 Z",
+    "corners": [
+      {
+        "corner_number": 1,
+        "corner_name": "Grande Courbe (T1)",
+        "gear": 6,
+        "min_speed_kmh": 240,
+        "lateral_g": 3.8,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "High speed left sweep",
+        "x": 100,
+        "y": 360
+      },
+      {
+        "corner_number": 5,
+        "corner_name": "Adelaide Hairpin (T5)",
+        "gear": 1,
+        "min_speed_kmh": 65,
+        "lateral_g": 1.8,
+        "brake_zone": true,
+        "drs_zone": true,
+        "notes": "Massive braking from 310 km/h to 65 km/h",
+        "x": 370,
+        "y": 170
+      },
+      {
+        "corner_number": 15,
+        "corner_name": "Chicane du Lycee (T15)",
+        "gear": 2,
+        "min_speed_kmh": 90,
+        "lateral_g": 2.2,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Final kerb chicane before finish",
+        "x": 70,
+        "y": 370
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "circuit_name": "Indianapolis Motor Speedway",
+    "location": "Speedway",
+    "country": "USA",
+    "country_code": "USA",
+    "lat": 39.795,
+    "lng": -86.2344,
+    "length_km": 4.192,
+    "corners_count": 13,
+    "drs_zones": 1,
+    "lap_record": "1:10.399",
+    "lap_record_driver": "Rubens Barrichello",
+    "lap_record_year": 2004,
+    "lap_record_team": "Ferrari F2004",
+    "full_throttle_pct": 69,
+    "downforce_level": "LOW-MEDIUM",
+    "tyre_stress_level": 5,
+    "brake_wear_index": "MEDIUM",
+    "gear_shifts_per_lap": 44,
+    "pit_loss_time_sec": 21,
+    "first_grand_prix_year": 2000,
+    "elevation_gain_m": 0,
+    "view_box": "0 0 500 500",
+    "start_finish": {
+      "x": 420,
+      "y": 300,
+      "label_x": 20,
+      "label_y": 4
+    },
+    "description": "The Brickyard F1 road course. Infield twisty layout connecting directly to the high-speed 9-degree banked oval Turn 13 across the Yard of Bricks.",
+    "svg_path": "M430 400 L430 100 C430 50 390 30 350 30 L200 30 C160 30 130 60 130 100 L130 180 C130 220 160 250 200 250 L270 250 C300 250 320 270 320 300 L320 360 C320 400 360 420 400 420 C420 420 430 415 430 400 Z",
+    "optimal_line_svg": "M430 400 L430 100 C430 50 390 30 350 30 L200 30 C160 30 130 60 130 100 L130 180 C130 220 160 250 200 250 L270 250 C300 250 320 270 320 300 L320 360 C320 400 360 420 400 420 C420 420 430 415 430 400 Z",
+    "corners": [
+      {
+        "corner_number": 1,
+        "corner_name": "Turn 1",
+        "gear": 2,
+        "min_speed_kmh": 85,
+        "lateral_g": 2.2,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Right entry into infield",
+        "x": 430,
+        "y": 100
+      },
+      {
+        "corner_number": 13,
+        "corner_name": "Turn 13 (Banked Oval)",
+        "gear": 7,
+        "min_speed_kmh": 315,
+        "lateral_g": 4.1,
+        "brake_zone": false,
+        "drs_zone": true,
+        "notes": "Steep 9-degree banked corner onto main oval stretch",
+        "x": 400,
+        "y": 420
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "circuit_name": "Autódromo Internacional do Algarve",
+    "location": "Portimão",
+    "country": "Portugal",
+    "country_code": "POR",
+    "lat": 37.2272,
+    "lng": -8.6267,
+    "length_km": 4.653,
+    "corners_count": 15,
+    "drs_zones": 2,
+    "lap_record": "1:18.750",
+    "lap_record_driver": "Lewis Hamilton",
+    "lap_record_year": 2020,
+    "lap_record_team": "Mercedes W11",
+    "full_throttle_pct": 64,
+    "downforce_level": "MEDIUM-HIGH",
+    "tyre_stress_level": 3,
+    "brake_wear_index": "MEDIUM",
+    "gear_shifts_per_lap": 54,
+    "pit_loss_time_sec": 22,
+    "first_grand_prix_year": 2020,
+    "elevation_gain_m": 38,
+    "view_box": "0 0 500 500",
+    "start_finish": {
+      "x": 300,
+      "y": 420,
+      "label_x": 20,
+      "label_y": 4
+    },
+    "description": "The Portuguese roller coaster. Undulating crests, blind drops, and the spectacular downhill plunging Turn 1.",
+    "svg_path": "M380 420 L120 420 C90 420 80 400 90 375 L125 280 C135 250 160 240 190 245 L260 255 C290 260 310 240 310 210 L310 130 C310 100 330 80 360 80 L420 80 C450 80 470 100 465 130 L445 350 C440 395 410 420 380 420 Z",
+    "optimal_line_svg": "M380 420 L120 420 C90 420 80 400 90 375 L125 280 C135 250 160 240 190 245 L260 255 C290 260 310 240 310 210 L310 130 C310 100 330 80 360 80 L420 80 C450 80 470 100 465 130 L445 350 C440 395 410 420 380 420 Z",
+    "corners": [
+      {
+        "corner_number": 1,
+        "corner_name": "Primeira (T1)",
+        "gear": 4,
+        "min_speed_kmh": 175,
+        "lateral_g": 3.3,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Blind downhill plunge from main straight",
+        "x": 90,
+        "y": 375
+      },
+      {
+        "corner_number": 15,
+        "corner_name": "Galp (T15)",
+        "gear": 6,
+        "min_speed_kmh": 245,
+        "lateral_g": 3.7,
+        "brake_zone": false,
+        "drs_zone": true,
+        "notes": "Full throttle downhill sweep onto straight",
+        "x": 445,
+        "y": 350
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "circuit_name": "Buddh International Circuit",
+    "location": "Greater Noida",
+    "country": "India",
+    "country_code": "IND",
+    "lat": 28.3486,
+    "lng": 77.5331,
+    "length_km": 5.125,
+    "corners_count": 16,
+    "drs_zones": 2,
+    "lap_record": "1:27.249",
+    "lap_record_driver": "Sebastian Vettel",
+    "lap_record_year": 2011,
+    "lap_record_team": "Red Bull RB7",
+    "full_throttle_pct": 64,
+    "downforce_level": "MEDIUM",
+    "tyre_stress_level": 4,
+    "brake_wear_index": "HEAVY",
+    "gear_shifts_per_lap": 54,
+    "pit_loss_time_sec": 21,
+    "first_grand_prix_year": 2011,
+    "elevation_gain_m": 14,
+    "view_box": "0 0 500 500",
+    "start_finish": {
+      "x": 300,
+      "y": 400,
+      "label_x": 20,
+      "label_y": 4
+    },
+    "description": "Indian Grand Prix host venue. Extreme 1.06km back straight, steeply banked blind uphill Turn 3, and sweeping multi-apex parabolica turns 10-11.",
+    "svg_path": "M380 400 L140 400 C110 400 95 380 100 355 L130 260 C140 230 170 215 200 220 L300 235 C330 240 350 220 345 190 L335 110 C330 80 350 60 380 60 L420 60 C450 60 470 80 465 110 L440 330 C435 375 410 400 380 400 Z",
+    "optimal_line_svg": "M380 400 L140 400 C110 400 95 380 100 355 L130 260 C140 230 170 215 200 220 L300 235 C330 240 350 220 345 190 L335 110 C330 80 350 60 380 60 L420 60 C450 60 470 80 465 110 L440 330 C435 375 410 400 380 400 Z",
+    "corners": [
+      {
+        "corner_number": 3,
+        "corner_name": "Turn 3 (Hairpin)",
+        "gear": 2,
+        "min_speed_kmh": 80,
+        "lateral_g": 2.1,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Steep blind uphill braking hairpin",
+        "x": 100,
+        "y": 355
+      },
+      {
+        "corner_number": 10,
+        "corner_name": "Turn 10-11 Parabolica",
+        "gear": 5,
+        "min_speed_kmh": 215,
+        "lateral_g": 3.8,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Massive sweeping double-apex right bowl",
+        "x": 380,
+        "y": 60
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "circuit_name": "Korean International Circuit",
+    "location": "Yeongam",
+    "country": "Korea",
+    "country_code": "KOR",
+    "lat": 34.7333,
+    "lng": 126.417,
+    "length_km": 5.615,
+    "corners_count": 18,
+    "drs_zones": 2,
+    "lap_record": "1:39.605",
+    "lap_record_driver": "Sebastian Vettel",
+    "lap_record_year": 2011,
+    "lap_record_team": "Red Bull RB7",
+    "full_throttle_pct": 61,
+    "downforce_level": "MEDIUM-HIGH",
+    "tyre_stress_level": 3,
+    "brake_wear_index": "HEAVY",
+    "gear_shifts_per_lap": 58,
+    "pit_loss_time_sec": 23,
+    "first_grand_prix_year": 2010,
+    "elevation_gain_m": 5,
+    "view_box": "0 0 500 500",
+    "start_finish": {
+      "x": 320,
+      "y": 410,
+      "label_x": 20,
+      "label_y": 4
+    },
+    "description": "Unique hybrid design. 1.2km acceleration corridor into high-downforce marina street sector.",
+    "svg_path": "M380 410 L130 410 C100 410 90 390 95 365 L120 270 C125 240 150 230 180 235 L330 250 C360 255 380 235 375 205 L360 120 C355 90 375 70 405 70 L430 70 C460 70 475 90 470 120 L445 340 C440 385 410 410 380 410 Z",
+    "optimal_line_svg": "M380 410 L130 410 C100 410 90 390 95 365 L120 270 C125 240 150 230 180 235 L330 250 C360 255 380 235 375 205 L360 120 C355 90 375 70 405 70 L430 70 C460 70 475 90 470 120 L445 340 C440 385 410 410 380 410 Z",
+    "corners": [
+      {
+        "corner_number": 1,
+        "corner_name": "Turn 1",
+        "gear": 2,
+        "min_speed_kmh": 80,
+        "lateral_g": 2.1,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Right 90-degree after main straight",
+        "x": 95,
+        "y": 365
+      },
+      {
+        "corner_number": 3,
+        "corner_name": "Turn 3",
+        "gear": 1,
+        "min_speed_kmh": 65,
+        "lateral_g": 1.9,
+        "brake_zone": true,
+        "drs_zone": true,
+        "notes": "Tight hairpin at end of 1.2km straight",
+        "x": 375,
+        "y": 205
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "circuit_name": "Valencia Street Circuit",
+    "location": "Valencia",
+    "country": "Spain",
+    "country_code": "ESP",
+    "lat": 39.4589,
+    "lng": -0.3317,
+    "length_km": 5.419,
+    "corners_count": 25,
+    "drs_zones": 2,
+    "lap_record": "1:38.683",
+    "lap_record_driver": "Timo Glock",
+    "lap_record_year": 2009,
+    "lap_record_team": "Toyota TF109",
+    "full_throttle_pct": 61,
+    "downforce_level": "MEDIUM",
+    "tyre_stress_level": 3,
+    "brake_wear_index": "VERY HEAVY",
+    "gear_shifts_per_lap": 66,
+    "pit_loss_time_sec": 21.5,
+    "first_grand_prix_year": 2008,
+    "elevation_gain_m": 2,
+    "view_box": "0 0 500 500",
+    "start_finish": {
+      "x": 310,
+      "y": 400,
+      "label_x": 20,
+      "label_y": 4
+    },
+    "description": "Marina harbor street track. Crossing the famous swing bridge with walls flanking 25 technical precision turns.",
+    "svg_path": "M370 400 L140 400 C110 400 95 380 100 355 L125 280 C130 255 155 240 180 245 L280 255 C310 260 330 240 325 210 L315 130 C310 100 330 80 360 80 L410 80 C440 80 460 100 455 130 L435 340 C430 380 400 400 370 400 Z",
+    "optimal_line_svg": "M370 400 L140 400 C110 400 95 380 100 355 L125 280 C130 255 155 240 180 245 L280 255 C310 260 330 240 325 210 L315 130 C310 100 330 80 360 80 L410 80 C440 80 460 100 455 130 L435 340 C430 380 400 400 370 400 Z",
+    "corners": [
+      {
+        "corner_number": 1,
+        "corner_name": "Turn 1",
+        "gear": 6,
+        "min_speed_kmh": 270,
+        "lateral_g": 3.2,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "High speed right bend",
+        "x": 100,
+        "y": 355
+      },
+      {
+        "corner_number": 12,
+        "corner_name": "Swing Bridge (T12)",
+        "gear": 4,
+        "min_speed_kmh": 180,
+        "lateral_g": 2.5,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Historic harbour swing bridge crossing",
+        "x": 325,
+        "y": 210
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "circuit_name": "Autodromo Internazionale del Mugello",
+    "location": "Scarperia e San Piero",
+    "country": "Italy",
+    "country_code": "ITA",
+    "lat": 43.9975,
+    "lng": 11.3714,
+    "length_km": 5.245,
+    "corners_count": 15,
+    "drs_zones": 1,
+    "lap_record": "1:18.833",
+    "lap_record_driver": "Lewis Hamilton",
+    "lap_record_year": 2020,
+    "lap_record_team": "Mercedes W11",
+    "full_throttle_pct": 69,
+    "downforce_level": "HIGH",
+    "tyre_stress_level": 5,
+    "brake_wear_index": "MEDIUM",
+    "gear_shifts_per_lap": 48,
+    "pit_loss_time_sec": 23,
+    "first_grand_prix_year": 2020,
+    "elevation_gain_m": 41,
+    "view_box": "0 0 500 500",
+    "start_finish": {
+      "x": 300,
+      "y": 410,
+      "label_x": 20,
+      "label_y": 4
+    },
+    "description": "Tuscan high-speed temple. Majestic elevation changes and the legendary flat-out Arrabbiata 1 and 2 corners taken at over 260 km/h.",
+    "svg_path": "M370 410 L140 410 C110 410 95 390 100 365 L125 290 C130 260 155 245 185 250 L270 260 C300 265 320 245 315 215 L305 130 C300 100 320 80 350 80 L410 80 C440 80 460 100 455 130 L435 340 C430 385 400 410 370 410 Z",
+    "optimal_line_svg": "M370 410 L140 410 C110 410 95 390 100 365 L125 290 C130 260 155 245 185 250 L270 260 C300 265 320 245 315 215 L305 130 C300 100 320 80 350 80 L410 80 C440 80 460 100 455 130 L435 340 C430 385 400 410 370 410 Z",
+    "corners": [
+      {
+        "corner_number": 1,
+        "corner_name": "San Donato (T1)",
+        "gear": 3,
+        "min_speed_kmh": 125,
+        "lateral_g": 2.8,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Heavy braking from 340 km/h",
+        "x": 100,
+        "y": 365
+      },
+      {
+        "corner_number": 8,
+        "corner_name": "Arrabbiata 1 (T8)",
+        "gear": 6,
+        "min_speed_kmh": 260,
+        "lateral_g": 4.8,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Flat out uphill right-hander",
+        "x": 305,
+        "y": 130
+      },
+      {
+        "corner_number": 9,
+        "corner_name": "Arrabbiata 2 (T9)",
+        "gear": 6,
+        "min_speed_kmh": 250,
+        "lateral_g": 4.6,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Blind crest exit",
+        "x": 350,
+        "y": 80
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "circuit_name": "Fuji Speedway",
+    "location": "Oyama",
+    "country": "Japan",
+    "country_code": "JPN",
+    "lat": 35.3717,
+    "lng": 138.927,
+    "length_km": 4.563,
+    "corners_count": 16,
+    "drs_zones": 1,
+    "lap_record": "1:18.426",
+    "lap_record_driver": "Felipe Massa",
+    "lap_record_year": 2008,
+    "lap_record_team": "Ferrari F2008",
+    "full_throttle_pct": 62,
+    "downforce_level": "MEDIUM",
+    "tyre_stress_level": 3,
+    "brake_wear_index": "HEAVY",
+    "gear_shifts_per_lap": 48,
+    "pit_loss_time_sec": 21,
+    "first_grand_prix_year": 1976,
+    "elevation_gain_m": 40,
+    "view_box": "0 0 500 500",
+    "start_finish": {
+      "x": 300,
+      "y": 410,
+      "label_x": 20,
+      "label_y": 4
+    },
+    "description": "Famous 1.475 km main straight under Mount Fuji, downhill hairpin, and technical elevation twisting final sector.",
+    "svg_path": "M380 410 L100 410 C70 410 60 390 70 365 L105 280 C115 250 140 240 170 245 L280 260 C310 265 330 245 325 215 L315 130 C310 100 330 80 360 80 L420 80 C450 80 470 100 465 130 L445 340 C440 385 410 410 380 410 Z",
+    "optimal_line_svg": "M380 410 L100 410 C70 410 60 390 70 365 L105 280 C115 250 140 240 170 245 L280 260 C310 265 330 245 325 215 L315 130 C310 100 330 80 360 80 L420 80 C450 80 470 100 465 130 L445 340 C440 385 410 410 380 410 Z",
+    "corners": [
+      {
+        "corner_number": 1,
+        "corner_name": "Turn 1 Hairpin",
+        "gear": 2,
+        "min_speed_kmh": 80,
+        "lateral_g": 2.2,
+        "brake_zone": true,
+        "drs_zone": false,
+        "notes": "Massive braking from 335 km/h straight",
+        "x": 70,
+        "y": 365
+      },
+      {
+        "corner_number": 10,
+        "corner_name": "100R (T10)",
+        "gear": 5,
+        "min_speed_kmh": 220,
+        "lateral_g": 3.6,
+        "brake_zone": false,
+        "drs_zone": false,
+        "notes": "Fast sweeping right curve",
+        "x": 325,
+        "y": 215
+      }
+    ]
+  }
 ];
 
 // O(1) Indexed Map for instant circuit lookups
@@ -2349,128 +3771,6 @@ export const CHAMPIONS_ARCHIVE: Record<number, SeasonChampion> = {
   2000: { season: 2000, wdc_driver: 'Michael Schumacher', wdc_team: 'Ferrari', wdc_points: 108, wdc_wins: 9, wcc_team: 'Scuderia Ferrari Marlboro', wcc_points: 170, wcc_wins: 10 },
 };
 
-// Full Historical Driver Standings (2000 to 2026)
-const HISTORICAL_DRIVER_STANDINGS: Record<number, DriverStanding[]> = {
-  2026: [
-    { position: 1, points: 292, wins: 8, driver: { id: 8, driver_number: 12, broadcast_name: 'K. ANTONELLI', full_name: 'Kimi Antonelli', team_name: 'Mercedes', color_hex: '#27F4D2', country_code: 'ITA' } },
-    { position: 2, points: 211, wins: 2, driver: { id: 7, driver_number: 63, broadcast_name: 'G. RUSSELL', full_name: 'George Russell', team_name: 'Mercedes', color_hex: '#27F4D2', country_code: 'GBR' } },
-    { position: 3, points: 191, wins: 1, driver: { id: 6, driver_number: 44, broadcast_name: 'L. HAMILTON', full_name: 'Lewis Hamilton', team_name: 'Ferrari', color_hex: '#E80020', country_code: 'GBR' } },
-    { position: 4, points: 186, wins: 2, driver: { id: 1, driver_number: 4, broadcast_name: 'L. NORRIS', full_name: 'Lando Norris', team_name: 'McLaren', color_hex: '#FF8000', country_code: 'GBR' } },
-    { position: 5, points: 167, wins: 1, driver: { id: 2, driver_number: 16, broadcast_name: 'C. LECLERC', full_name: 'Charles Leclerc', team_name: 'Ferrari', color_hex: '#E80020', country_code: 'MON' } },
-    { position: 6, points: 145, wins: 0, driver: { id: 3, driver_number: 1, broadcast_name: 'M. VERSTAPPEN', full_name: 'Max Verstappen', team_name: 'Red Bull Racing', color_hex: '#3671C6', country_code: 'NED' } },
-    { position: 7, points: 120, wins: 0, driver: { id: 4, driver_number: 81, broadcast_name: 'O. PIASTRI', full_name: 'Oscar Piastri', team_name: 'McLaren', color_hex: '#FF8000', country_code: 'AUS' } },
-    { position: 8, points: 71, wins: 0, driver: { id: 19, driver_number: 6, broadcast_name: 'I. HADJAR', full_name: 'Isack Hadjar', team_name: 'Red Bull Racing', color_hex: '#3671C6', country_code: 'FRA' } },
-    { position: 9, points: 59, wins: 0, driver: { id: 11, driver_number: 30, broadcast_name: 'L. LAWSON', full_name: 'Liam Lawson', team_name: 'Red Bull Racing', color_hex: '#3671C6', country_code: 'NZL' } },
-    { position: 10, points: 48, wins: 0, driver: { id: 10, driver_number: 23, broadcast_name: 'A. ALBON', full_name: 'Alexander Albon', team_name: 'Williams', color_hex: '#64C4FF', country_code: 'THA' } },
-  ],
-  2025: [
-    { position: 1, points: 423, wins: 7, driver: { id: 1, driver_number: 4, broadcast_name: 'L. NORRIS', full_name: 'Lando Norris', team_name: 'McLaren', color_hex: '#FF8000', country_code: 'GBR' } },
-    { position: 2, points: 421, wins: 8, driver: { id: 3, driver_number: 1, broadcast_name: 'M. VERSTAPPEN', full_name: 'Max Verstappen', team_name: 'Red Bull Racing', color_hex: '#3671C6', country_code: 'NED' } },
-    { position: 3, points: 410, wins: 7, driver: { id: 4, driver_number: 81, broadcast_name: 'O. PIASTRI', full_name: 'Oscar Piastri', team_name: 'McLaren', color_hex: '#FF8000', country_code: 'AUS' } },
-    { position: 4, points: 319, wins: 2, driver: { id: 7, driver_number: 63, broadcast_name: 'G. RUSSELL', full_name: 'George Russell', team_name: 'Mercedes', color_hex: '#27F4D2', country_code: 'GBR' } },
-    { position: 5, points: 242, wins: 0, driver: { id: 2, driver_number: 16, broadcast_name: 'C. LECLERC', full_name: 'Charles Leclerc', team_name: 'Ferrari', color_hex: '#E80020', country_code: 'MON' } },
-    { position: 6, points: 156, wins: 0, driver: { id: 6, driver_number: 44, broadcast_name: 'L. HAMILTON', full_name: 'Lewis Hamilton', team_name: 'Ferrari', color_hex: '#E80020', country_code: 'GBR' } },
-    { position: 7, points: 150, wins: 0, driver: { id: 8, driver_number: 12, broadcast_name: 'K. ANTONELLI', full_name: 'Kimi Antonelli', team_name: 'Mercedes', color_hex: '#27F4D2', country_code: 'ITA' } },
-    { position: 8, points: 73, wins: 0, driver: { id: 10, driver_number: 23, broadcast_name: 'A. ALBON', full_name: 'Alexander Albon', team_name: 'Williams', color_hex: '#64C4FF', country_code: 'THA' } },
-    { position: 9, points: 64, wins: 0, driver: { id: 5, driver_number: 55, broadcast_name: 'C. SAINZ', full_name: 'Carlos Sainz', team_name: 'Williams', color_hex: '#64C4FF', country_code: 'ESP' } },
-    { position: 10, points: 56, wins: 0, driver: { id: 9, driver_number: 14, broadcast_name: 'F. ALONSO', full_name: 'Fernando Alonso', team_name: 'Aston Martin', color_hex: '#229971', country_code: 'ESP' } },
-    { position: 11, points: 51, wins: 0, driver: { id: 16, driver_number: 27, broadcast_name: 'N. HULKENBERG', full_name: 'Nico Hülkenberg', team_name: 'Kick Sauber', color_hex: '#52E252', country_code: 'GER' } },
-    { position: 12, points: 51, wins: 0, driver: { id: 19, driver_number: 6, broadcast_name: 'I. HADJAR', full_name: 'Isack Hadjar', team_name: 'RB', color_hex: '#6692FF', country_code: 'FRA' } },
-    { position: 13, points: 41, wins: 0, driver: { id: 12, driver_number: 87, broadcast_name: 'O. BEARMAN', full_name: 'Oliver Bearman', team_name: 'Haas', color_hex: '#B6BABD', country_code: 'GBR' } },
-    { position: 14, points: 38, wins: 0, driver: { id: 11, driver_number: 30, broadcast_name: 'L. LAWSON', full_name: 'Liam Lawson', team_name: 'Red Bull Racing', color_hex: '#3671C6', country_code: 'NZL' } },
-    { position: 15, points: 38, wins: 0, driver: { id: 13, driver_number: 31, broadcast_name: 'E. OCON', full_name: 'Esteban Ocon', team_name: 'Haas', color_hex: '#B6BABD', country_code: 'FRA' } },
-    { position: 16, points: 33, wins: 0, driver: { id: 20, driver_number: 18, broadcast_name: 'L. STROLL', full_name: 'Lance Stroll', team_name: 'Aston Martin', color_hex: '#229971', country_code: 'CAN' } },
-    { position: 17, points: 33, wins: 0, driver: { id: 18, driver_number: 22, broadcast_name: 'Y. TSUNODA', full_name: 'Yuki Tsunoda', team_name: 'RB', color_hex: '#6692FF', country_code: 'JPN' } },
-    { position: 18, points: 22, wins: 0, driver: { id: 14, driver_number: 10, broadcast_name: 'P. GASLY', full_name: 'Pierre Gasly', team_name: 'Alpine', color_hex: '#0093CC', country_code: 'FRA' } },
-    { position: 19, points: 19, wins: 0, driver: { id: 17, driver_number: 5, broadcast_name: 'G. BORTOLETO', full_name: 'Gabriel Bortoleto', team_name: 'Kick Sauber', color_hex: '#52E252', country_code: 'BRA' } },
-    { position: 20, points: 0, wins: 0, driver: { id: 22, driver_number: 43, broadcast_name: 'F. COLAPINTO', full_name: 'Franco Colapinto', team_name: 'Alpine', color_hex: '#0093CC', country_code: 'ARG' } },
-    { position: 21, points: 0, wins: 0, driver: { id: 15, driver_number: 7, broadcast_name: 'J. DOOHAN', full_name: 'Jack Doohan', team_name: 'Alpine', color_hex: '#0093CC', country_code: 'AUS' } },
-  ],
-  2024: [
-    { position: 1, points: 437, wins: 9, driver: { id: 3, driver_number: 1, broadcast_name: 'M. VERSTAPPEN', full_name: 'Max Verstappen', team_name: 'Red Bull Racing', color_hex: '#3671C6', country_code: 'NED' } },
-    { position: 2, points: 374, wins: 4, driver: { id: 1, driver_number: 4, broadcast_name: 'L. NORRIS', full_name: 'Lando Norris', team_name: 'McLaren', color_hex: '#FF8000', country_code: 'GBR' } },
-    { position: 3, points: 356, wins: 3, driver: { id: 2, driver_number: 16, broadcast_name: 'C. LECLERC', full_name: 'Charles Leclerc', team_name: 'Ferrari', color_hex: '#E80020', country_code: 'MON' } },
-    { position: 4, points: 292, wins: 2, driver: { id: 4, driver_number: 81, broadcast_name: 'O. PIASTRI', full_name: 'Oscar Piastri', team_name: 'McLaren', color_hex: '#FF8000', country_code: 'AUS' } },
-    { position: 5, points: 290, wins: 2, driver: { id: 5, driver_number: 55, broadcast_name: 'C. SAINZ', full_name: 'Carlos Sainz', team_name: 'Ferrari', color_hex: '#E80020', country_code: 'ESP' } },
-    { position: 6, points: 245, wins: 2, driver: { id: 7, driver_number: 63, broadcast_name: 'G. RUSSELL', full_name: 'George Russell', team_name: 'Mercedes', color_hex: '#27F4D2', country_code: 'GBR' } },
-    { position: 7, points: 223, wins: 2, driver: { id: 6, driver_number: 44, broadcast_name: 'L. HAMILTON', full_name: 'Lewis Hamilton', team_name: 'Mercedes', color_hex: '#27F4D2', country_code: 'GBR' } },
-    { position: 8, points: 152, wins: 0, driver: { id: 8, driver_number: 11, broadcast_name: 'S. PEREZ', full_name: 'Sergio Perez', team_name: 'Red Bull Racing', color_hex: '#3671C6', country_code: 'MEX' } },
-    { position: 9, points: 62, wins: 0, driver: { id: 9, driver_number: 14, broadcast_name: 'F. ALONSO', full_name: 'Fernando Alonso', team_name: 'Aston Martin', color_hex: '#229971', country_code: 'ESP' } },
-    { position: 10, points: 41, wins: 0, driver: { id: 21, driver_number: 27, broadcast_name: 'N. HULKENBERG', full_name: 'Nico Hülkenberg', team_name: 'Haas', color_hex: '#B6BABD', country_code: 'GER' } },
-  ],
-  2023: [
-    { position: 1, points: 575, wins: 19, driver: { id: 3, driver_number: 1, broadcast_name: 'M. VERSTAPPEN', full_name: 'Max Verstappen', team_name: 'Red Bull Racing', color_hex: '#3671C6', country_code: 'NED' } },
-    { position: 2, points: 285, wins: 2, driver: { id: 8, driver_number: 11, broadcast_name: 'S. PEREZ', full_name: 'Sergio Perez', team_name: 'Red Bull Racing', color_hex: '#3671C6', country_code: 'MEX' } },
-    { position: 3, points: 234, wins: 0, driver: { id: 6, driver_number: 44, broadcast_name: 'L. HAMILTON', full_name: 'Lewis Hamilton', team_name: 'Mercedes', color_hex: '#27F4D2', country_code: 'GBR' } },
-    { position: 4, points: 206, wins: 0, driver: { id: 9, driver_number: 14, broadcast_name: 'F. ALONSO', full_name: 'Fernando Alonso', team_name: 'Aston Martin', color_hex: '#229971', country_code: 'ESP' } },
-    { position: 5, points: 206, wins: 0, driver: { id: 2, driver_number: 16, broadcast_name: 'C. LECLERC', full_name: 'Charles Leclerc', team_name: 'Ferrari', color_hex: '#E80020', country_code: 'MON' } },
-  ],
-  2022: [
-    { position: 1, points: 454, wins: 15, driver: { id: 3, driver_number: 1, broadcast_name: 'M. VERSTAPPEN', full_name: 'Max Verstappen', team_name: 'Red Bull Racing', color_hex: '#3671C6', country_code: 'NED' } },
-    { position: 2, points: 308, wins: 3, driver: { id: 2, driver_number: 16, broadcast_name: 'C. LECLERC', full_name: 'Charles Leclerc', team_name: 'Ferrari', color_hex: '#E80020', country_code: 'MON' } },
-    { position: 3, points: 305, wins: 2, driver: { id: 8, driver_number: 11, broadcast_name: 'S. PEREZ', full_name: 'Sergio Perez', team_name: 'Red Bull Racing', color_hex: '#3671C6', country_code: 'MEX' } },
-  ],
-  2021: [
-    { position: 1, points: 395.5, wins: 10, driver: { id: 3, driver_number: 33, broadcast_name: 'M. VERSTAPPEN', full_name: 'Max Verstappen', team_name: 'Red Bull Racing', color_hex: '#3671C6', country_code: 'NED' } },
-    { position: 2, points: 387.5, wins: 8, driver: { id: 6, driver_number: 44, broadcast_name: 'L. HAMILTON', full_name: 'Lewis Hamilton', team_name: 'Mercedes', color_hex: '#27F4D2', country_code: 'GBR' } },
-    { position: 3, points: 226, wins: 1, driver: { id: 12, driver_number: 77, broadcast_name: 'V. BOTTAS', full_name: 'Valtteri Bottas', team_name: 'Mercedes', color_hex: '#27F4D2', country_code: 'FIN' } },
-  ],
-};
-
-const HISTORICAL_CONSTRUCTOR_STANDINGS: Record<number, ConstructorStanding[]> = {
-  2026: [
-    { position: 1, points: 503, wins: 10, constructor: MOCK_CONSTRUCTORS[3] }, // Mercedes
-    { position: 2, points: 358, wins: 2, constructor: MOCK_CONSTRUCTORS[1] }, // Ferrari
-    { position: 3, points: 306, wins: 2, constructor: MOCK_CONSTRUCTORS[0] }, // McLaren
-    { position: 4, points: 230, wins: 0, constructor: MOCK_CONSTRUCTORS[2] }, // Red Bull
-    { position: 5, points: 77, wins: 0, constructor: MOCK_CONSTRUCTORS[8] }, // RB
-    { position: 6, points: 68, wins: 0, constructor: MOCK_CONSTRUCTORS[6] }, // Alpine
-    { position: 7, points: 21, wins: 0, constructor: MOCK_CONSTRUCTORS[7] }, // Haas
-    { position: 8, points: 17, wins: 0, constructor: MOCK_CONSTRUCTORS[9] }, // Sauber / Audi
-    { position: 9, points: 11, wins: 0, constructor: MOCK_CONSTRUCTORS[5] }, // Williams
-    { position: 10, points: 3, wins: 0, constructor: MOCK_CONSTRUCTORS[4] }, // Aston Martin
-  ],
-  2025: [
-    { position: 1, points: 833, wins: 14, constructor: MOCK_CONSTRUCTORS[0] }, // McLaren Champions
-    { position: 2, points: 469, wins: 2, constructor: MOCK_CONSTRUCTORS[3] }, // Mercedes
-    { position: 3, points: 451, wins: 8, constructor: MOCK_CONSTRUCTORS[2] }, // Red Bull
-    { position: 4, points: 398, wins: 0, constructor: MOCK_CONSTRUCTORS[1] }, // Ferrari
-    { position: 5, points: 137, wins: 0, constructor: MOCK_CONSTRUCTORS[5] }, // Williams
-    { position: 6, points: 92, wins: 0, constructor: MOCK_CONSTRUCTORS[8] }, // RB
-    { position: 7, points: 89, wins: 0, constructor: MOCK_CONSTRUCTORS[4] }, // Aston Martin
-    { position: 8, points: 79, wins: 0, constructor: MOCK_CONSTRUCTORS[7] }, // Haas
-    { position: 9, points: 70, wins: 0, constructor: MOCK_CONSTRUCTORS[9] }, // Sauber
-    { position: 10, points: 22, wins: 0, constructor: MOCK_CONSTRUCTORS[6] }, // Alpine
-  ],
-  2024: [
-    { position: 1, points: 666, wins: 6, constructor: MOCK_CONSTRUCTORS[0] }, // McLaren World Champions
-    { position: 2, points: 652, wins: 5, constructor: MOCK_CONSTRUCTORS[1] }, // Ferrari
-    { position: 3, points: 589, wins: 9, constructor: MOCK_CONSTRUCTORS[2] }, // Red Bull
-    { position: 4, points: 468, wins: 4, constructor: MOCK_CONSTRUCTORS[3] }, // Mercedes
-    { position: 5, points: 86, wins: 0, constructor: MOCK_CONSTRUCTORS[4] }, // Aston Martin
-    { position: 6, points: 49, wins: 0, constructor: MOCK_CONSTRUCTORS[6] }, // Alpine
-    { position: 7, points: 46, wins: 0, constructor: MOCK_CONSTRUCTORS[7] }, // Haas
-    { position: 8, points: 44, wins: 0, constructor: MOCK_CONSTRUCTORS[8] }, // RB
-    { position: 9, points: 17, wins: 0, constructor: MOCK_CONSTRUCTORS[5] }, // Williams
-    { position: 10, points: 0, wins: 0, constructor: MOCK_CONSTRUCTORS[9] }, // Sauber
-  ],
-  2023: [
-    { position: 1, points: 860, wins: 21, constructor: { id: 3, name: 'Red Bull Racing', full_name: 'Oracle Red Bull Racing', color_hex: '#3671C6' } },
-    { position: 2, points: 409, wins: 0, constructor: { id: 4, name: 'Mercedes', full_name: 'Mercedes-AMG PETRONAS F1 Team', color_hex: '#27F4D2' } },
-    { position: 3, points: 406, wins: 1, constructor: { id: 2, name: 'Ferrari', full_name: 'Scuderia Ferrari', color_hex: '#E80020' } },
-  ],
-  2022: [
-    { position: 1, points: 759, wins: 17, constructor: { id: 3, name: 'Red Bull Racing', full_name: 'Oracle Red Bull Racing', color_hex: '#3671C6' } },
-    { position: 2, points: 554, wins: 4, constructor: { id: 2, name: 'Ferrari', full_name: 'Scuderia Ferrari', color_hex: '#E80020' } },
-    { position: 3, points: 515, wins: 1, constructor: { id: 4, name: 'Mercedes', full_name: 'Mercedes-AMG PETRONAS F1 Team', color_hex: '#27F4D2' } },
-  ],
-  2021: [
-    { position: 1, points: 613.5, wins: 9, constructor: { id: 4, name: 'Mercedes', full_name: 'Mercedes-AMG PETRONAS F1 Team', color_hex: '#27F4D2' } },
-    { position: 2, points: 585.5, wins: 11, constructor: { id: 3, name: 'Red Bull Racing', full_name: 'Red Bull Racing Honda', color_hex: '#3671C6' } },
-    { position: 3, points: 323.5, wins: 0, constructor: { id: 2, name: 'Ferrari', full_name: 'Scuderia Ferrari', color_hex: '#E80020' } },
-  ],
-};
-
 // Jolpica hardened client-side cache with rate limiting, deduplication & quota caps
 const jolpicaMemoryCache: Record<string, { data: any; ts: number }> = {};
 const pendingRequests = new Map<string, Promise<any>>();
@@ -2509,8 +3809,11 @@ function absHash(str: string): number {
   return Math.abs(hash) % 10000;
 }
 
-function getTeamColorHex(teamName: string = ''): string {
-  const t = teamName.toLowerCase();
+export function getTeamColorHex(teamName: string = ''): string {
+  const t = teamName.toLowerCase().trim();
+  // 1. Iconic Brawn GP - High-Vis Fluorescent Yellow / Lime (#B8FD38)
+  if (t.includes('brawn')) return '#B8FD38';
+  // 2. Active 2026 Grid Teams
   if (t.includes('mclaren')) return '#FF8000';
   if (t.includes('ferrari')) return '#E80020';
   if (t.includes('mercedes')) return '#27F4D2';
@@ -2519,9 +3822,35 @@ function getTeamColorHex(teamName: string = ''): string {
   if (t.includes('williams')) return '#64C4FF';
   if (t.includes('alpine')) return '#0093CC';
   if (t.includes('haas')) return '#B6BABD';
-  if (t.includes('sauber') || t.includes('audi') || t.includes('kick')) return '#52E252';
-  if (t.includes('rb') || t.includes('racing bulls') || t.includes('toro rosso')) return '#6692FF';
-  return '#E10600';
+  if (t.includes('kick') || t.includes('audi') || (t.includes('sauber') && !t.includes('bmw'))) return '#52E252';
+  if (t.includes('rb') || t.includes('racing bulls')) return '#6692FF';
+  // 3. Iconic Historical Teams (Not Currently on the Active Grid)
+  if (t.includes('bmw')) return '#1C4E9C'; // BMW Sauber Motorsport Blue
+  if (t.includes('renault')) return '#FFF500'; // Iconic Renault Mild Seven Yellow
+  if (t.includes('toyota')) return '#EE0000'; // Toyota Racing Red & White
+  if (t.includes('toro rosso')) return '#469BFF'; // Toro Rosso Metallic Blue
+  if (t.includes('alphatauri')) return '#5E8FAA'; // AlphaTauri Navy
+  if (t.includes('force india') || t.includes('racing point')) return '#F596C8'; // Force India / Racing Point Pink
+  if (t.includes('alfa romeo')) return '#900000'; // Alfa Romeo Crimson
+  if (t.includes('lotus')) return '#E5C158'; // Lotus JPS Black & Gold
+  if (t.includes('caterham')) return '#00502F'; // Caterham British Racing Green
+  if (t.includes('manor') || t.includes('marussia')) return '#EE2020'; // Manor / Marussia Red
+  if (t.includes('virgin')) return '#E00000'; // Virgin Red
+  if (t.includes('hrt') || t.includes('hispania')) return '#786048'; // HRT Dark Gold
+  if (t.includes('jaguar')) return '#00594C'; // Jaguar British Racing Green
+  if (t.includes('jordan')) return '#FFE000'; // Jordan Buzzin Hornets Yellow
+  if (t.includes('bar')) return '#E6E6E6'; // BAR Honda Silver/White
+  if (t.includes('honda')) return '#CC0000'; // Honda Racing Red
+  if (t.includes('super aguri')) return '#E60000'; // Super Aguri Red
+  if (t.includes('minardi')) return '#000000'; // Minardi Black
+  if (t.includes('prost')) return '#002B7F'; // Prost Blue
+  if (t.includes('arrows')) return '#FF8000'; // Arrows Orange
+  if (t.includes('spyker')) return '#F76000'; // Spyker Dutch Orange
+  if (t.includes('midland')) return '#808080'; // Midland Grey
+  if (t.includes('benetton')) return '#008272'; // Benetton Green/Blue
+  if (t.includes('stewart')) return '#00247D'; // Stewart Blue
+  if (t.includes('tyrrell') || t.includes('ligier')) return '#002B7F';
+  return '#FF1801';
 }
 
 async function fetchJolpicaClient(endpoint: string): Promise<any> {
@@ -2603,10 +3932,93 @@ async function fetchJolpicaClient(endpoint: string): Promise<any> {
   return fetchPromise;
 }
 
+function makeDriverFromResult(r: any, fallbackId: number): Driver {
+  const cName = r.Constructor?.name || 'Formula 1 Team';
+  const cColor = getTeamColorHex(cName);
+  const given = r.Driver?.givenName || '';
+  const family = r.Driver?.familyName || '';
+  const code = r.Driver?.code || family.slice(0, 3).toUpperCase();
+  const num = Number(r.number || r.Driver?.permanentNumber) || 1;
+  const nat = r.Driver?.nationality || 'FIA';
+  const id = absHash(`${family}-${num}-${cName}`) || fallbackId;
+  return {
+    id,
+    driver_number: num,
+    broadcast_name: code ? `${code}` : `${given[0] || ''}. ${family.toUpperCase()}`,
+    full_name: `${given} ${family}`.trim() || 'Driver',
+    team_name: cName,
+    color_hex: cColor,
+    country_code: nat.slice(0, 3).toUpperCase(),
+  };
+}
+
 export const f1Api = {
   async getRaces(season: number = 2026): Promise<Race[]> {
+    if (season === 2026) {
+      return MOCK_RACES;
+    }
     if (season === 2024) {
       return SEASON_2024_RACES;
+    }
+    // 1. Return verified pre-seeded dataset if available (2000-2025)
+    if (HISTORICAL_RACES[season] && HISTORICAL_RACES[season].length > 0) {
+      return HISTORICAL_RACES[season];
+    }
+    // 2. Try fetching live Jolpica API for any additional seasons
+    try {
+      const data = await fetchJolpicaClient(`/${season}.json`);
+      const races = data?.MRData?.RaceTable?.Races;
+      if (Array.isArray(races) && races.length > 0) {
+        return races.map((r: any) => {
+          const roundNum = Number(r.round) || 1;
+          const circuitName = r.Circuit?.circuitName || 'Grand Prix Circuit';
+          const locality = r.Circuit?.Location?.locality || 'Host City';
+          const country = r.Circuit?.Location?.country || 'FIA';
+          const countryCode = country.slice(0, 3).toUpperCase();
+          const circuitId = absHash(`${circuitName}-${country}`) || roundNum;
+          return {
+            id: absHash(`${season}-${roundNum}`) || roundNum,
+            season,
+            round_number: roundNum,
+            race_name: r.raceName,
+            official_event_name: `${season} Formula 1 ${r.raceName}`,
+            circuit: {
+              id: circuitId,
+              circuit_name: circuitName,
+              location: locality,
+              country,
+              country_code: countryCode,
+              lat: Number(r.Circuit?.Location?.lat) || 0,
+              lng: Number(r.Circuit?.Location?.long) || 0,
+              length_km: 5.4,
+              corners_count: 16,
+              drs_zones: 2,
+              full_throttle_pct: 65,
+              downforce_level: 'MEDIUM' as const,
+              tyre_stress_level: 3 as const,
+              brake_wear_index: 'MEDIUM' as const,
+              gear_shifts_per_lap: 48,
+              pit_loss_time_sec: 22,
+              first_grand_prix_year: season,
+              elevation_gain_m: 20,
+              description: `Official Formula 1 Grand Prix host venue: ${circuitName}.`,
+              svg_path: 'M100 100 L400 100 L400 400 L100 400 Z',
+              corners: [],
+            },
+            date: r.date,
+            status: 'COMPLETED' as const,
+            sessions: [
+              { id: 1, race_id: roundNum, session_type: 'FP1' as const, session_name: 'Practice 1', date: r.FirstPractice?.date || r.date },
+              { id: 2, race_id: roundNum, session_type: 'FP2' as const, session_name: 'Practice 2', date: r.SecondPractice?.date || r.date },
+              { id: 3, race_id: roundNum, session_type: 'FP3' as const, session_name: 'Practice 3', date: r.ThirdPractice?.date || r.date },
+              { id: 4, race_id: roundNum, session_type: 'Q' as const, session_name: 'Qualifying', date: r.Qualifying?.date || r.date },
+              { id: 5, race_id: roundNum, session_type: 'R' as const, session_name: 'Grand Prix Race', date: r.date },
+            ],
+          };
+        });
+      }
+    } catch (e) {
+      console.warn(`[getRaces] Error fetching ${season} from Jolpica:`, e);
     }
     return MOCK_RACES.map((r) => ({ ...r, season }));
   },
@@ -2618,73 +4030,87 @@ export const f1Api = {
   },
 
   async getRaceResult(roundOrRaceId: number, season: number = 2026): Promise<RaceResult> {
+    const seasonRaces = season === 2026
+      ? MOCK_RACES
+      : (HISTORICAL_RACES[season] || (season === 2024 ? SEASON_2024_RACES : MOCK_RACES));
+
+    const targetRace = (seasonRaces as Race[]).find((r: Race) => r.round_number === roundOrRaceId || r.id === roundOrRaceId)
+      || (roundOrRaceId >= 1 && roundOrRaceId <= seasonRaces.length ? seasonRaces[roundOrRaceId - 1] : seasonRaces[0]);
+
+    const roundNumber = targetRace?.round_number || (roundOrRaceId < 100 ? roundOrRaceId : 1);
+
     // 2024 Verified Official Historical Results
     if (season === 2024) {
-      const match = SEASON_2024_RESULTS[roundOrRaceId] || Object.values(SEASON_2024_RESULTS).find(r => r.race_id === roundOrRaceId);
+      const match = SEASON_2024_RESULTS[roundNumber] || Object.values(SEASON_2024_RESULTS).find(r => r.race_id === roundOrRaceId || r.round_number === roundNumber);
       if (match) return match;
     }
 
     // 2026 Completed Results for Rounds 1 - 16
-    if (season === 2026 && SEASON_2026_RESULTS[roundOrRaceId]) {
-      return SEASON_2026_RESULTS[roundOrRaceId];
+    if (season === 2026 && SEASON_2026_RESULTS[roundNumber]) {
+      return SEASON_2026_RESULTS[roundNumber];
     }
 
     // Try fetching live results from Jolpica for completed rounds
-    const liveRes = await fetchJolpicaClient(`/${season}/${roundOrRaceId}/results.json`);
+    const liveRes = await fetchJolpicaClient(`/${season}/${roundNumber}/results.json`);
     const liveRace = liveRes?.MRData?.RaceTable?.Races?.[0];
     if (liveRace && liveRace.Results && liveRace.Results.length >= 3) {
       const r1 = liveRace.Results[0];
       const r2 = liveRace.Results[1];
       const r3 = liveRace.Results[2];
 
-      const driverP1 = MOCK_DRIVERS.find(d => d.broadcast_name.includes(r1.Driver.familyName.toUpperCase())) || {
-        id: 901, driver_number: Number(r1.number) || 1, broadcast_name: `${r1.Driver.givenName[0]}. ${r1.Driver.familyName.toUpperCase()}`,
-        full_name: `${r1.Driver.givenName} ${r1.Driver.familyName}`, team_name: r1.Constructor.name, color_hex: getTeamColorHex(r1.Constructor.name), country_code: 'FIA'
-      };
-      const driverP2 = MOCK_DRIVERS.find(d => d.broadcast_name.includes(r2.Driver.familyName.toUpperCase())) || {
-        id: 902, driver_number: Number(r2.number) || 2, broadcast_name: `${r2.Driver.givenName[0]}. ${r2.Driver.familyName.toUpperCase()}`,
-        full_name: `${r2.Driver.givenName} ${r2.Driver.familyName}`, team_name: r2.Constructor.name, color_hex: getTeamColorHex(r2.Constructor.name), country_code: 'FIA'
-      };
-      const driverP3 = MOCK_DRIVERS.find(d => d.broadcast_name.includes(r3.Driver.familyName.toUpperCase())) || {
-        id: 903, driver_number: Number(r3.number) || 3, broadcast_name: `${r3.Driver.givenName[0]}. ${r3.Driver.familyName.toUpperCase()}`,
-        full_name: `${r3.Driver.givenName} ${r3.Driver.familyName}`, team_name: r3.Constructor.name, color_hex: getTeamColorHex(r3.Constructor.name), country_code: 'FIA'
-      };
+      const driverP1 = makeDriverFromResult(r1, 901);
+      const driverP2 = makeDriverFromResult(r2, 902);
+      const driverP3 = makeDriverFromResult(r3, 903);
+
+      const fastestLapRes = liveRace.Results.find((r: any) => r.FastestLap?.rank === '1') || liveRace.Results[0];
+      const flDriver = makeDriverFromResult(fastestLapRes, 900);
+      const poleRes = liveRace.Results.find((r: any) => r.grid === '1') || liveRace.Results[0];
+      const poleDriver = makeDriverFromResult(poleRes, 900);
+
+      const lapsCount = Number(r1.laps) || 53;
 
       return {
-        race_id: roundOrRaceId,
+        race_id: targetRace?.id || roundOrRaceId,
         season,
-        round_number: Number(liveRace.round),
+        round_number: roundNumber,
         race_name: liveRace.raceName,
-        circuit_name: liveRace.Circuit.circuitName,
-        country: liveRace.Circuit.Location.country,
-        country_code: liveRace.Circuit.Location.country.slice(0, 3).toUpperCase(),
-        date: liveRace.date,
+        circuit_name: liveRace.Circuit?.circuitName || targetRace?.circuit?.circuit_name || 'Grand Prix Circuit',
+        country: liveRace.Circuit?.Location?.country || targetRace?.circuit?.country || 'FIA',
+        country_code: (liveRace.Circuit?.Location?.country?.slice(0, 3) || targetRace?.circuit?.country_code || 'FIA').toUpperCase(),
+        date: liveRace.date || targetRace?.date || '2026-09-01',
         status: 'COMPLETED',
-        laps_completed: Number(r1.laps) || 53,
-        total_laps: Number(r1.laps) || 53,
+        laps_completed: lapsCount,
+        total_laps: lapsCount,
         podium: {
-          p1: { position: 1, driver: driverP1, time_or_gap: r1.Time?.time || 'WIN', points: Number(r1.points) || 25, fastest_lap: false },
-          p2: { position: 2, driver: driverP2, time_or_gap: r2.Time?.time || '+2.5s', points: Number(r2.points) || 18, fastest_lap: false },
-          p3: { position: 3, driver: driverP3, time_or_gap: r3.Time?.time || '+5.0s', points: Number(r3.points) || 15, fastest_lap: false },
+          p1: { position: 1, driver: driverP1, time_or_gap: r1.Time?.time || 'WIN', points: Number(r1.points) || 25, fastest_lap: fastestLapRes === r1 },
+          p2: { position: 2, driver: driverP2, time_or_gap: r2.Time?.time || '+2.5s', points: Number(r2.points) || 18, fastest_lap: fastestLapRes === r2 },
+          p3: { position: 3, driver: driverP3, time_or_gap: r3.Time?.time || '+5.0s', points: Number(r3.points) || 15, fastest_lap: fastestLapRes === r3 },
         },
-        fastest_lap: { driver: driverP1, lap_time: '1:21.000', lap_number: 50 },
-        pole_position: { driver: driverP1, q3_time: '1:19.500' },
-        top_finishers: liveRace.Results.slice(0, 10).map((r: any) => ({
-          position: Number(r.position),
-          driver: MOCK_DRIVERS.find(d => d.broadcast_name.includes(r.Driver.familyName.toUpperCase())) || driverP1,
-          team_name: r.Constructor.name,
-          team_color: getTeamColorHex(r.Constructor.name),
+        fastest_lap: {
+          driver: flDriver,
+          lap_time: fastestLapRes.FastestLap?.Time?.time || '1:21.000',
+          lap_number: Number(fastestLapRes.FastestLap?.lap) || 50,
+        },
+        pole_position: {
+          driver: poleDriver,
+          q3_time: '1:19.500',
+        },
+        top_finishers: liveRace.Results.slice(0, 10).map((r: any, idx: number) => ({
+          position: Number(r.position) || (idx + 1),
+          driver: makeDriverFromResult(r, 910 + idx),
+          team_name: r.Constructor?.name || 'Formula 1 Team',
+          team_color: getTeamColorHex(r.Constructor?.name),
           points: Number(r.points) || 0,
-          time_or_gap: r.Time?.time || r.status,
+          time_or_gap: r.Time?.time || r.status || 'Finished',
         })),
       };
     }
 
-    // Default Upcoming Events: Strictly return null podium (no fake classifications)
-    const races = season === 2024 ? SEASON_2024_RACES : MOCK_RACES;
-    const race = races.find((r) => r.round_number === roundOrRaceId || r.id === roundOrRaceId) || races[16] || races[0];
-
+    // Default Upcoming or Completed without live timing: Clean structure without fake podium
+    const isHistorical = season < 2026;
+    const race = targetRace || seasonRaces[0];
     const totalLaps = Math.max(44, Math.round(305 / (race.circuit.length_km || 5.0)));
+
     return {
       race_id: race.id,
       season,
@@ -2694,8 +4120,8 @@ export const f1Api = {
       country: race.circuit.country,
       country_code: race.circuit.country_code,
       date: race.date || '2026-09-26',
-      status: race.status || 'UPCOMING',
-      laps_completed: 0,
+      status: isHistorical ? 'COMPLETED' : (race.status || 'UPCOMING'),
+      laps_completed: isHistorical ? totalLaps : 0,
       total_laps: totalLaps,
       podium: null,
       top_finishers: [],
@@ -2712,7 +4138,13 @@ export const f1Api = {
     return CIRCUIT_MAP_BY_ID.get(id) || MOCK_CIRCUITS[0];
   },
 
-  async getDrivers(): Promise<Driver[]> {
+  async getDrivers(season?: number): Promise<Driver[]> {
+    if (season && season !== 2026) {
+      const standings = await this.getDriverStandings(season);
+      if (standings && standings.length > 0) {
+        return standings.map((s) => s.driver);
+      }
+    }
     return MOCK_DRIVERS;
   },
 
@@ -2725,40 +4157,41 @@ export const f1Api = {
     const live = await fetchJolpicaClient(`/${season}/driverStandings.json`);
     const list = live?.MRData?.StandingsTable?.StandingsLists?.[0]?.DriverStandings;
     if (list && list.length > 0) {
-      return list.map((d: any) => {
-        const matchingDriver = MOCK_DRIVERS.find(
-          (m) => m.broadcast_name.includes(d.Driver.familyName.toUpperCase()) ||
-                 m.full_name.toLowerCase().includes(d.Driver.familyName.toLowerCase())
-        );
-        const driverObj: Driver = matchingDriver || {
-          id: absHash(d.Driver.driverId),
-          driver_number: Number(d.Driver.permanentNumber) || Number(d.position),
-          broadcast_name: `${d.Driver.givenName[0]}. ${d.Driver.familyName.toUpperCase()}`,
-          full_name: `${d.Driver.givenName} ${d.Driver.familyName}`,
-          team_name: d.Constructors[0]?.name || 'Formula 1',
-          color_hex: getTeamColorHex(d.Constructors[0]?.name),
-          country_code: d.Driver.nationality?.slice(0, 3).toUpperCase() || 'FIA',
+      return list.map((d: any, index: number) => {
+        const constructorName = d.Constructors?.[0]?.name || 'Formula 1';
+        const teamColor = getTeamColorHex(constructorName);
+        const driverNumber = Number(d.Driver.permanentNumber) || Number(d.position) || (index + 1);
+        const pos = Number(d.position);
+        const validPos = Number.isFinite(pos) && pos > 0 ? pos : (index + 1);
+
+        const driverObj: Driver = {
+          id: absHash(d.Driver.driverId || `${d.Driver.givenName}-${d.Driver.familyName}`),
+          driver_number: driverNumber,
+          broadcast_name: d.Driver.code 
+            ? d.Driver.code.toUpperCase()
+            : `${d.Driver.givenName?.[0] || ''}. ${(d.Driver.familyName || '').toUpperCase()}`,
+          full_name: `${d.Driver.givenName || ''} ${d.Driver.familyName || ''}`.trim(),
+          team_name: constructorName, // Dynamic constructor for that season!
+          color_hex: teamColor,       // Dynamic team color!
+          country_code: d.Driver.nationality ? d.Driver.nationality.slice(0, 3).toUpperCase() : 'FIA',
         };
+
         return {
-          position: Number(d.position),
-          points: Number(d.points),
+          position: validPos,
+          points: Number(d.points) || 0,
           wins: Number(d.wins || 0),
           driver: driverObj,
         };
       });
     }
 
-    // 2. Fallback to Verified Historical Archive
+    // 2. Fallback to Verified Historical Archive (covers 2000 to 2026)
     if (HISTORICAL_DRIVER_STANDINGS[season]) {
       return HISTORICAL_DRIVER_STANDINGS[season];
     }
     const champ = CHAMPIONS_ARCHIVE[season];
     return [
-      { position: 1, points: champ?.wdc_points || 380, wins: champ?.wdc_wins || 10, driver: { id: 99, driver_number: 1, broadcast_name: champ?.wdc_driver || 'CHAMPION', full_name: champ?.wdc_driver || 'World Champion', team_name: champ?.wdc_team || 'Team', color_hex: '#E80020', country_code: 'FIA' } },
-      { position: 2, points: Math.round((champ?.wdc_points || 380) * 0.85), wins: 4, driver: MOCK_DRIVERS[0] },
-      { position: 3, points: Math.round((champ?.wdc_points || 380) * 0.72), wins: 2, driver: MOCK_DRIVERS[1] },
-      { position: 4, points: Math.round((champ?.wdc_points || 380) * 0.60), wins: 1, driver: MOCK_DRIVERS[3] },
-      { position: 5, points: Math.round((champ?.wdc_points || 380) * 0.50), wins: 1, driver: MOCK_DRIVERS[4] },
+      { position: 1, points: champ?.wdc_points || 380, wins: champ?.wdc_wins || 10, driver: { id: 99, driver_number: 1, broadcast_name: champ?.wdc_driver || 'CHAMPION', full_name: champ?.wdc_driver || 'World Champion', team_name: champ?.wdc_team || 'Team', color_hex: getTeamColorHex(champ?.wdc_team), country_code: 'FIA' } },
     ];
   },
 
@@ -2767,50 +4200,76 @@ export const f1Api = {
     const live = await fetchJolpicaClient(`/${season}/constructorStandings.json`);
     const list = live?.MRData?.StandingsTable?.StandingsLists?.[0]?.ConstructorStandings;
     if (list && list.length > 0) {
-      return list.map((c: any) => {
-        const matchingTeam = MOCK_CONSTRUCTORS.find(
-          (m) => m.name.toLowerCase().includes(c.Constructor.name.toLowerCase()) ||
-                 c.Constructor.name.toLowerCase().includes(m.name.toLowerCase())
-        );
-        const constrObj: Constructor = matchingTeam || {
-          id: absHash(c.Constructor.constructorId),
-          name: c.Constructor.name,
-          full_name: c.Constructor.name,
-          color_hex: getTeamColorHex(c.Constructor.name),
+      return list.map((c: any, index: number) => {
+        const teamName = c.Constructor.name || 'Formula 1';
+        const constrObj: Constructor = {
+          id: absHash(c.Constructor.constructorId || teamName),
+          name: teamName,
+          full_name: teamName,
+          color_hex: getTeamColorHex(teamName),
           country_code: c.Constructor.nationality?.slice(0, 3).toUpperCase() || 'FIA',
         };
+        const pos = Number(c.position);
+        const validPos = Number.isFinite(pos) && pos > 0 ? pos : (index + 1);
         return {
-          position: Number(c.position),
-          points: Number(c.points),
+          position: validPos,
+          points: Number(c.points) || 0,
           wins: Number(c.wins || 0),
           constructor: constrObj,
         };
       });
     }
 
-    // 2. Fallback to Verified Historical Archive
+    // 2. Fallback to Verified Historical Archive (covers 2000 to 2026)
     if (HISTORICAL_CONSTRUCTOR_STANDINGS[season]) {
       return HISTORICAL_CONSTRUCTOR_STANDINGS[season];
     }
     const champ = CHAMPIONS_ARCHIVE[season];
     return [
-      { position: 1, points: champ?.wcc_points || 650, wins: champ?.wcc_wins || 12, constructor: { id: 99, name: champ?.wcc_team || 'Champion Team', full_name: champ?.wcc_team || 'Champion Team', color_hex: '#E80020' } },
-      { position: 2, points: Math.round((champ?.wcc_points || 650) * 0.82), wins: 5, constructor: MOCK_CONSTRUCTORS[1] },
-      { position: 3, points: Math.round((champ?.wcc_points || 650) * 0.68), wins: 3, constructor: MOCK_CONSTRUCTORS[2] },
+      { position: 1, points: champ?.wcc_points || 600, wins: champ?.wcc_wins || 12, constructor: { id: 99, name: champ?.wcc_team || 'CHAMPION', full_name: champ?.wcc_team || 'World Champion Team', color_hex: getTeamColorHex(champ?.wcc_team), country_code: 'FIA' } },
     ];
   },
+
+  async getHistoricalConstructors(): Promise<Constructor[]> {
+    return HISTORICAL_CONSTRUCTORS;
+  },
+
+  async getActiveConstructors(): Promise<Constructor[]> {
+    return ACTIVE_CONSTRUCTORS;
+  },
+
+  async getConstructors(season?: number): Promise<Constructor[]> {
+    if (season && season !== 2026) {
+      const standings = await this.getConstructorStandings(season);
+      if (standings && standings.length > 0) {
+        return standings.map((s) => s.constructor);
+      }
+    }
+    return ALL_CONSTRUCTORS;
+  },
+
   async getHeadToHead(driverAId: number, driverBId: number, season: number = 2024): Promise<HeadToHeadComparison> {
-    const driverA = DRIVER_MAP_BY_ID.get(driverAId) || MOCK_DRIVERS[0];
-    const driverB = DRIVER_MAP_BY_ID.get(driverBId) || MOCK_DRIVERS[1];
+    const standings = await this.getDriverStandings(season);
+    const standingA = standings.find(s => s.driver.id === driverAId);
+    const standingB = standings.find(s => s.driver.id === driverBId);
+
+    const driverA = standingA?.driver || DRIVER_MAP_BY_ID.get(driverAId) || (standings[0]?.driver ?? MOCK_DRIVERS[0]);
+    const driverB = standingB?.driver || DRIVER_MAP_BY_ID.get(driverBId) || (standings[1]?.driver ?? MOCK_DRIVERS[1]);
+
+    const pointsA = standingA ? standingA.points : 279;
+    const pointsB = standingB ? standingB.points : 245;
+    const winsA = standingA ? standingA.wins : 3;
+    const winsB = standingB ? standingB.wins : 2;
+
     return {
       season,
       driver_a: driverA,
       driver_b: driverB,
-      qualifying_head_to_head: { driver_a_ahead: 12, driver_b_ahead: 6 },
-      race_head_to_head: { driver_a_ahead: 11, driver_b_ahead: 7 },
-      points: { driver_a: 279, driver_b: 245 },
-      podiums: { driver_a: 11, driver_b: 9 },
-      wins: { driver_a: 3, driver_b: 2 },
+      qualifying_head_to_head: { driver_a_ahead: Math.max(1, winsA * 2 + 5), driver_b_ahead: Math.max(1, winsB * 2 + 4) },
+      race_head_to_head: { driver_a_ahead: Math.max(1, winsA + 6), driver_b_ahead: Math.max(1, winsB + 5) },
+      points: { driver_a: pointsA, driver_b: pointsB },
+      podiums: { driver_a: Math.max(winsA, Math.round(pointsA / 28)), driver_b: Math.max(winsB, Math.round(pointsB / 28)) },
+      wins: { driver_a: winsA, driver_b: winsB },
       avg_apex_speed_kmh: { driver_a: 168.4, driver_b: 166.9 },
       avg_qualifying_delta_ms: -142,
     };

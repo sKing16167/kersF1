@@ -49,8 +49,12 @@ export function RaceCalendarWithPodium({ initialSeason = 2026 }: RaceCalendarWit
       const raceList = await f1Api.getRaces(activeSeason);
       if (!isCancelled) {
         setRaces(raceList);
-        if (raceList.length > 0 && !raceList.some((r) => r.id === activeRaceId)) {
-          setActiveRaceId(raceList[0].id);
+        if (raceList.length > 0) {
+          const match = raceList.find((r) => r.id === activeRaceId);
+          if (!match) {
+            setActiveRaceId(raceList[0].id);
+            setSelectedRace(raceList[0]);
+          }
         }
       }
     }
@@ -58,7 +62,7 @@ export function RaceCalendarWithPodium({ initialSeason = 2026 }: RaceCalendarWit
     return () => {
       isCancelled = true;
     };
-  }, [activeSeason, activeRaceId]);
+  }, [activeSeason]);
 
   const currentRace = useMemo<Race>(
     () => races.find((r) => r.id === activeRaceId) || races[0] || MOCK_RACES[0],
@@ -72,7 +76,8 @@ export function RaceCalendarWithPodium({ initialSeason = 2026 }: RaceCalendarWit
       if (!currentRace) return;
       setLoadingResult(true);
       try {
-        const res = await f1Api.getRaceResult(currentRace.id, activeSeason);
+        const roundToFetch = currentRace.round_number || (currentRace.id < 100 ? currentRace.id : 1);
+        const res = await f1Api.getRaceResult(roundToFetch, activeSeason);
         if (!isCancelled) {
           setRaceResult(res);
         }
@@ -93,8 +98,23 @@ export function RaceCalendarWithPodium({ initialSeason = 2026 }: RaceCalendarWit
     setSelectedRace(r);
   };
 
-  // Quick feature chips
-  const featuredRounds = [1, 8, 12, 16, 24];
+  // Dynamically compute authentic key race chips based on current season's actual rounds
+  const featuredRounds = useMemo(() => {
+    if (!races || races.length === 0) return [1];
+    const total = races.length;
+    const r1 = 1;
+    const rLast = total;
+    const rMid1 = Math.max(2, Math.round(total * 0.35));
+    const rMid2 = Math.max(3, Math.round(total * 0.70));
+    const monaco = races.find((r) => r.circuit?.country_code === 'MON' || r.race_name.toLowerCase().includes('monaco'))?.round_number;
+    const monza = races.find((r) => r.circuit?.country_code === 'ITA' || r.race_name.toLowerCase().includes('italian'))?.round_number;
+    const silv = races.find((r) => r.circuit?.country_code === 'GBR' || r.circuit?.country_code === 'UK' || r.race_name.toLowerCase().includes('british'))?.round_number;
+
+    const candidates = [r1, monaco, silv, monza, rMid1, rMid2, rLast]
+      .filter((n): n is number => typeof n === 'number' && n >= 1 && n <= total);
+
+    return Array.from(new Set(candidates)).sort((a, b) => a - b).slice(0, 5);
+  }, [races]);
 
   return (
     <div className="w-full space-y-6">

@@ -192,12 +192,14 @@ export function StandingsTable() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/[0.04]">
-                {(showAllDrivers ? driverStandings : driverStandings.slice(0, 10)).map((s) => {
-                  const isP1 = s.position === 1;
-                  const isPodium = s.position <= 3;
+                {(showAllDrivers ? driverStandings : driverStandings.slice(0, 10)).map((s, idx) => {
+                  const rawPos = Number(s.position);
+                  const position = Number.isFinite(rawPos) && rawPos > 0 ? rawPos : (idx + 1);
+                  const isP1 = position === 1;
+                  const isPodium = position <= 3;
                   return (
                     <tr
-                      key={s.driver.id}
+                      key={s.driver.id || `${s.driver.full_name}-${position}`}
                       className={`transition-all hover:bg-white/[0.03] ${
                         isP1 ? 'border-l-2 border-l-[#FF1801] bg-red-500/[0.02]' : ''
                       }`}
@@ -209,10 +211,10 @@ export function StandingsTable() {
                           </span>
                         ) : isPodium ? (
                           <span className="inline-flex items-center justify-center w-5 h-5 rounded-sm bg-white/10 text-white font-semibold text-[10px]">
-                            {s.position}
+                            {position}
                           </span>
                         ) : (
-                          <span className="text-neutral-400 pl-1.5">{s.position}</span>
+                          <span className="text-neutral-400 pl-1.5">{position}</span>
                         )}
                       </td>
                       <td className="py-3 px-3">
@@ -282,12 +284,14 @@ export function StandingsTable() {
               </tr>
             </thead>
             <tbody className="divide-y divide-white/[0.04]">
-              {constructorStandings.map((s) => {
-                const isP1 = s.position === 1;
-                const isPodium = s.position <= 3;
+              {constructorStandings.map((s, idx) => {
+                const rawPos = Number(s.position);
+                const position = Number.isFinite(rawPos) && rawPos > 0 ? rawPos : (idx + 1);
+                const isP1 = position === 1;
+                const isPodium = position <= 3;
                 return (
                   <tr
-                    key={s.constructor.id}
+                    key={s.constructor.id || `${s.constructor.name}-${position}`}
                     className={`transition-all hover:bg-white/[0.03] ${
                       isP1 ? 'border-l-2 border-l-[#FF1801] bg-red-500/[0.02]' : ''
                     }`}
@@ -299,10 +303,10 @@ export function StandingsTable() {
                         </span>
                       ) : isPodium ? (
                         <span className="inline-flex items-center justify-center w-5 h-5 rounded-sm bg-white/10 text-white font-semibold text-[10px]">
-                          {s.position}
+                          {position}
                         </span>
                       ) : (
-                        <span className="text-neutral-400 pl-1.5">{s.position}</span>
+                        <span className="text-neutral-400 pl-1.5">{position}</span>
                       )}
                     </td>
                     <td className="py-3 px-3">

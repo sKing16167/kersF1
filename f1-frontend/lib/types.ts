@@ -53,12 +53,26 @@ export interface Driver {
   headshot_url?: string;
 }
 
+export interface ConstructorMember {
+  name: string;
+  role: string;
+  nationality?: string;
+  notes?: string;
+}
+
 export interface Constructor {
   id: number;
   name: string;
   full_name: string;
   color_hex: string;
   country_code?: string;
+  era?: string;
+  is_active?: boolean;
+  base_location?: string;
+  championships?: { wdc: number; wcc: number };
+  notable_drivers?: string[];
+  members?: ConstructorMember[];
+  description?: string;
 }
 
 export interface DriverStanding {

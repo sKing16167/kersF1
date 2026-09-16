@@ -36,10 +36,10 @@ const securityHeaders = [
       "script-src 'self' 'unsafe-eval' 'unsafe-inline'",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com data:",
-      "img-src 'self' data: blob: https:",
-      "connect-src 'self' https://api.jolpi.ca http://localhost:8000 ws://localhost:3000 wss://localhost:3000",
+      "img-src 'self' data: blob: https: http:",
+      "connect-src 'self' https: http: wss: ws: https://api.jolpi.ca http://localhost:8000 ws://localhost:3000 wss://localhost:3000 *.ngrok-free.app *.ngrok.app *.ngrok.io",
       "media-src 'self' https://livetiming.formula1.com data: blob:",
-      "frame-ancestors 'none'",
+      "frame-ancestors 'self' https://*.ngrok-free.app https://*.ngrok.app https://*.ngrok.io",
     ].join('; '),
   },
 ];
@@ -47,6 +47,17 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
+  experimental: {
+    serverActions: {
+      allowedOrigins: [
+        'localhost:3000',
+        '127.0.0.1:3000',
+        '*.ngrok-free.app',
+        '*.ngrok.app',
+        '*.ngrok.io',
+      ],
+    },
+  },
   async headers() {
     return [
       {

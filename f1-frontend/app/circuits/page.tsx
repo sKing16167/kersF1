@@ -26,9 +26,9 @@ export default function CircuitsPage() {
 
   const filteredCircuits = circuits.filter((c) => {
     if (filterRegion === 'ALL') return true;
-    if (filterRegion === 'EUROPE') return ['ITA', 'BEL', 'GBR', 'MON', 'AUT', 'NED', 'ESP'].includes(c.country_code);
+    if (filterRegion === 'EUROPE') return ['ITA', 'BEL', 'GBR', 'MON', 'AUT', 'NED', 'ESP', 'FRA', 'GER', 'TUR', 'POR', 'RUS'].includes(c.country_code);
     if (filterRegion === 'AMERICAS') return ['BRA', 'USA', 'CAN', 'MEX'].includes(c.country_code);
-    if (filterRegion === 'ASIA_MIDDLE_EAST') return ['JPN', 'SGP', 'AZE', 'BHR', 'SAU', 'QAT', 'UAE', 'CHN', 'AUS'].includes(c.country_code);
+    if (filterRegion === 'ASIA_MIDDLE_EAST') return ['JPN', 'SGP', 'AZE', 'BHR', 'SAU', 'QAT', 'UAE', 'CHN', 'AUS', 'MAL', 'IND', 'KOR'].includes(c.country_code);
     return true;
   });
 

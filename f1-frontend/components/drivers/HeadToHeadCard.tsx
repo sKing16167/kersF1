@@ -2,18 +2,36 @@
 
 import React, { useState, useEffect } from 'react';
 import { f1Api, AVAILABLE_SEASONS } from '@/lib/api';
-import { HeadToHeadComparison } from '@/lib/types';
+import { HeadToHeadComparison, Driver } from '@/lib/types';
 import { useTelemetryStore } from '@/lib/store';
 import { Swords, Calendar } from 'lucide-react';
 
 export function HeadToHeadCard() {
   const { driverA, driverB, setDriverA, setDriverB, drivers, season: storeSeason } = useTelemetryStore();
   const [selectedSeason, setSelectedSeason] = useState<number>(storeSeason || 2026);
+  const [seasonDrivers, setSeasonDrivers] = useState<Driver[]>(drivers);
   const [h2h, setH2h] = useState<HeadToHeadComparison | null>(null);
 
   useEffect(() => {
     if (storeSeason) setSelectedSeason(storeSeason);
   }, [storeSeason]);
+
+  // Load authentic drivers for selected season
+  useEffect(() => {
+    async function loadSeasonDrivers() {
+      const d = await f1Api.getDrivers(selectedSeason);
+      if (d && d.length > 0) {
+        setSeasonDrivers(d);
+        if (!d.some((item) => item.id === driverA.id)) {
+          setDriverA(d[0]);
+        }
+        if (!d.some((item) => item.id === driverB.id)) {
+          setDriverB(d[1] || d[0]);
+        }
+      }
+    }
+    loadSeasonDrivers();
+  }, [selectedSeason]);
 
   useEffect(() => {
     async function loadComparison() {
@@ -78,13 +96,13 @@ export function HeadToHeadCard() {
           <select
             value={driverA.id}
             onChange={(e) => {
-              const d = drivers.find((item) => item.id === Number(e.target.value));
+              const d = seasonDrivers.find((item) => item.id === Number(e.target.value));
               if (d) setDriverA(d);
             }}
             aria-label="Select Driver A"
             className="f1-pill px-3 py-1.5 text-xs text-neutral-300 bg-transparent focus:outline-none cursor-pointer font-mono"
           >
-            {drivers.map((d) => (
+            {seasonDrivers.map((d) => (
               <option key={d.id} value={d.id} className="bg-[#0D1117]">
                 {d.broadcast_name}
               </option>
@@ -109,13 +127,13 @@ export function HeadToHeadCard() {
           <select
             value={driverB.id}
             onChange={(e) => {
-              const d = drivers.find((item) => item.id === Number(e.target.value));
+              const d = seasonDrivers.find((item) => item.id === Number(e.target.value));
               if (d) setDriverB(d);
             }}
             aria-label="Select Driver B"
             className="f1-pill px-3 py-1.5 text-xs text-neutral-300 bg-transparent focus:outline-none cursor-pointer font-mono"
           >
-            {drivers.map((d) => (
+            {seasonDrivers.map((d) => (
               <option key={d.id} value={d.id} className="bg-[#0D1117]">
                 {d.broadcast_name}
               </option>
