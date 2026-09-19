@@ -81,7 +81,7 @@ export default function Error({
         <div className="flex items-center justify-between text-[10px] text-neutral-500 pt-2 border-t border-white/[0.04]">
           <span className="flex items-center gap-1.5">
             <Activity className="w-3 h-3 text-[#FF1801]" />
-            KERS FIA Telemetry Core v2.4
+            kersF1 FIA Telemetry Core v2.4
           </span>
           <span>Fail-Safe Mode Active</span>
         </div>

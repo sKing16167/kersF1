@@ -180,12 +180,19 @@ export function KersLogo({
     );
   };
 
+  const f1BadgeStyle =
+    colorScheme === 'white'
+      ? 'text-white bg-black/35 border border-white/40 shadow-sm'
+      : 'text-[#FF1801] bg-[#FF1801]/15 border border-[#FF1801]/30';
+
   const ersTextElement = (
-    <span className="inline-flex items-center gap-1">
+    <span
+      className={`inline-flex items-center gap-1.5 select-none ${
+        animated ? 'animate-kersErs' : ''
+      }`}
+    >
       <span
-        className={`font-mono font-black italic tracking-[0.14em] select-none text-white ${
-          animated ? 'animate-kersErs' : ''
-        } ${textClassName}`}
+        className={`font-mono font-black italic tracking-[0.14em] text-white ${textClassName}`}
         style={{
           fontSize: `${Math.round(size * 0.74)}px`,
           lineHeight: 1,
@@ -195,7 +202,7 @@ export function KersLogo({
         ERS
       </span>
       <span
-        className="font-mono font-black italic tracking-tight text-[#FF1801] px-1 py-0.5 rounded bg-[#FF1801]/15 border border-[#FF1801]/30 leading-none select-none inline-block"
+        className={`font-mono font-black italic tracking-tight px-1 py-0.5 rounded leading-none select-none inline-block ${f1BadgeStyle}`}
         style={{
           fontSize: `${Math.max(9, Math.round(size * 0.54))}px`,
         }}
@@ -217,7 +224,7 @@ export function KersLogo({
               <span className={`font-mono font-black italic tracking-[0.16em] text-white text-base ${textClassName}`}>
                 ERS
               </span>
-              <span className="text-[9px] font-mono font-black italic tracking-tight text-[#FF1801] px-1 py-0.5 rounded bg-[#FF1801]/15 border border-[#FF1801]/30 uppercase">
+              <span className={`text-[9px] font-mono font-black italic tracking-tight px-1 py-0.5 rounded uppercase ${f1BadgeStyle}`}>
                 F1
               </span>
             </div>

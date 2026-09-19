@@ -72,7 +72,7 @@ export function KersIntroExperience() {
       <div className="w-full max-w-5xl flex items-center justify-between z-30">
         <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-neutral-300">
           <span className="w-2 h-2 rounded-full bg-[#FF1801] animate-pulse" />
-          <span className="tracking-widest uppercase text-[10px] font-bold">FIA TELEMETRY PLATFORM</span>
+          <span className="tracking-widest uppercase text-[10px] font-bold">kersF1 • FIA TELEMETRY PLATFORM</span>
         </div>
 
         <button
@@ -135,7 +135,7 @@ export function KersIntroExperience() {
       <div className="w-full max-w-5xl flex items-center justify-between text-[11px] font-mono text-neutral-500 z-30">
         <div className="flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-          <span>2026 WORLD CHAMPIONSHIP • FASTF1 TELEMETRY READY</span>
+          <span>kersF1 • 2026 WORLD CHAMPIONSHIP • FASTF1 READY</span>
         </div>
 
         <span className="hidden sm:inline text-neutral-600 font-medium">CLICK ANYWHERE TO ENTER</span>

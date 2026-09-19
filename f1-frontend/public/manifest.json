@@ -1,7 +1,7 @@
 {
-  "name": "KERS F1 | Telemetry & Race Analytics",
-  "short_name": "KERS F1",
-  "description": "Precision Formula 1 telemetry ghosting arena, micro-sector velocity maps, and race strategy prediction.",
+  "name": "kersF1 | Formula 1 Telemetry & Race Analytics",
+  "short_name": "kersF1",
+  "description": "Precision Formula 1 telemetry ghosting arena, 39 calibrated circuit layouts, micro-sector velocity maps, and race strategy prediction.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#030407",

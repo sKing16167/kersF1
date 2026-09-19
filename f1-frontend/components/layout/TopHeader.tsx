@@ -92,11 +92,11 @@ export function TopHeader() {
       <header className="sticky top-2 z-40 mx-2 md:mx-4 my-2 flex flex-col gap-2">
         {/* Main F1 Signature Navigation Bar (Inspired by Screenshot) */}
         <div className="h-14 px-3 f1-glass rounded-lg flex items-center justify-between gap-3 relative overflow-visible border border-white/[0.1] shadow-2xl">
-          {/* Top Left: F1 Angled Red Notch with Refined KERS Logo */}
+          {/* Top Left: F1 Angled Red Notch with Refined kersF1 Logo */}
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="flex items-center gap-2 px-4 py-2.5 -ml-3 -my-3 f1-header-notch group transition-transform active:scale-95 shrink-0"
+              className="flex items-center gap-2 pl-3.5 pr-7 py-2.5 -ml-3 -my-3 f1-header-notch group transition-transform active:scale-95 shrink-0"
             >
               <KersLogo size={24} showText={true} colorScheme="white" />
             </Link>
@@ -184,11 +184,11 @@ export function TopHeader() {
               <span>JOIN LIVE</span>
             </Link>
 
-            {/* Replay KERS Animation */}
+            {/* Replay kersF1 Animation */}
             <button
               onClick={() => setShowIntro(true)}
               className="p-1.5 rounded-md f1-pill text-neutral-300 hover:text-white transition-all hover:scale-105 active:scale-95 hidden sm:flex"
-              title="Replay KERS Starting Animation"
+              title="Replay kersF1 Starting Animation"
             >
               <RotateCcw className="w-3.5 h-3.5 text-[#FF1801]" />
             </button>

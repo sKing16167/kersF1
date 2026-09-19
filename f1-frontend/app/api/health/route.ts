@@ -5,8 +5,8 @@ export async function GET() {
     {
       status: 'OK',
       timestamp: new Date().toISOString(),
-      service: 'KERS F1 Telemetry Hub',
-      circuits_catalog_count: 23,
+      service: 'kersF1 Telemetry Hub',
+      circuits_catalog_count: 39,
       championship_seasons_supported: '1998-2026',
       api_version: '2.4.0',
     },

@@ -47,7 +47,7 @@ export function middleware(request: NextRequest) {
   // 1. Block common attack & reconnaissance probes with HTTP 403 Forbidden
   for (const pattern of PROBE_PATTERNS) {
     if (pattern.test(pathname)) {
-      return new NextResponse('Access Denied: Malicious probe detected by KERS Security Firewall.', {
+      return new NextResponse('Access Denied: Malicious probe detected by kersF1 Security Firewall.', {
         status: 403,
         headers: {
           'Content-Type': 'text/plain',
@@ -73,7 +73,7 @@ export function middleware(request: NextRequest) {
   // 3. Clone the response and attach protective security headers
   const response = NextResponse.next();
 
-  response.headers.set('X-KERS-Firewall', 'active-v2');
+  response.headers.set('X-kersF1-Firewall', 'active-v2');
 
   // Prevent MIME-sniffing and cross-origin framing
   response.headers.set('X-Content-Type-Options', 'nosniff');

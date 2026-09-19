@@ -107,7 +107,7 @@ export function Sidebar() {
         >
           <div className="flex items-center gap-2">
             <Zap className="w-3.5 h-3.5 text-[#E10600] group-hover:scale-110 transition-transform fill-[#E10600]" />
-            <span>Launch KERS Intro</span>
+            <span>Launch kersF1 Intro</span>
           </div>
           <span className="text-[9px] font-mono px-1.5 py-0.5 rounded-sm bg-white/10 text-neutral-200">
             ANIM
