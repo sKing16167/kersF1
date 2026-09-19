@@ -40,6 +40,17 @@ class Settings(BaseSettings):
     def cors_origins_list(self) -> List[str]:
         return [o.strip() for o in self.CORS_ORIGINS.split(",") if o.strip()]
 
+    def validate_security(self) -> None:
+        if self.APP_ENV == "production" and self.SECRET_KEY in (
+            "changeme",
+            "changeme-generate-a-long-random-string",
+            "",
+        ):
+            raise ValueError(
+                "CRITICAL SECURITY CONFIGURATION ERROR: SECRET_KEY must be set to a "
+                "strong random secret in production mode. Refusing to start with insecure default."
+            )
+
 
 @lru_cache
 def get_settings() -> Settings:
@@ -47,3 +58,4 @@ def get_settings() -> Settings:
 
 
 settings = get_settings()
+settings.validate_security()

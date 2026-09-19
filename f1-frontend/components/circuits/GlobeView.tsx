@@ -6,8 +6,6 @@ import { feature } from 'topojson-client';
 import countriesData from 'world-atlas/countries-110m.json';
 import { Circuit } from '@/lib/types';
 import {
-  Compass,
-  RotateCw,
   MapPin,
   Globe,
   ChevronRight,
@@ -28,12 +26,18 @@ export function GlobeView({ circuits, selectedCircuit, onSelectCircuit }: GlobeV
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
+  // Responsive Dimensions & DPR tracking
+  const dimensionsRef = useRef<{ width: number; height: number; dpr: number }>({
+    width: 720,
+    height: 460,
+    dpr: 1,
+  });
+
   // Interaction & Animation Refs
   const rotationRef = useRef<[number, number]>([0, -20]);
-  const defaultScale = 260;
-  const zoomScaleRef = useRef<number>(defaultScale);
-  const minScale = 140;
-  const maxScale = 750;
+  const zoomMultiplierRef = useRef<number>(1.0);
+  const minZoom = 0.55;
+  const maxZoom = 2.8;
 
   const isDraggingRef = useRef(false);
   const dragStartPosRef = useRef<[number, number]>([0, 0]);
@@ -127,19 +131,58 @@ export function GlobeView({ circuits, selectedCircuit, onSelectCircuit }: GlobeV
     }
   }, [selectedCircuit, flyToCircuit]);
 
-  // Zoom Helpers
-  const applyZoom = useCallback((newScale: number) => {
-    if (typeof newScale !== 'number' || isNaN(newScale) || !isFinite(newScale)) return;
-    const clamped = Math.max(minScale, Math.min(maxScale, newScale));
-    zoomScaleRef.current = clamped;
-    const pct = Math.round((clamped / (defaultScale || 260)) * 100);
-    setZoomPercent(isNaN(pct) || !isFinite(pct) ? 100 : pct);
-  }, [defaultScale, minScale, maxScale]);
+  // Responsive Canvas Buffer & Aspect Ratio Synchronizer
+  useEffect(() => {
+    const container = containerRef.current;
+    const canvas = canvasRef.current;
+    if (!container || !canvas) return;
 
-  const handleZoomIn = () => applyZoom(zoomScaleRef.current * 1.25);
-  const handleZoomOut = () => applyZoom(zoomScaleRef.current * 0.8);
+    const updateSize = () => {
+      const rect = container.getBoundingClientRect();
+      if (rect.width <= 0 || rect.height <= 0) return;
+
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const displayWidth = Math.round(rect.width);
+      const displayHeight = Math.round(rect.height);
+
+      dimensionsRef.current = {
+        width: displayWidth,
+        height: displayHeight,
+        dpr,
+      };
+
+      const pixelWidth = Math.round(displayWidth * dpr);
+      const pixelHeight = Math.round(displayHeight * dpr);
+
+      if (canvas.width !== pixelWidth || canvas.height !== pixelHeight) {
+        canvas.width = pixelWidth;
+        canvas.height = pixelHeight;
+      }
+    };
+
+    updateSize();
+    const observer = new ResizeObserver(() => {
+      updateSize();
+    });
+    observer.observe(container);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  // Zoom Helpers
+  const applyZoom = useCallback((newMultiplier: number) => {
+    if (typeof newMultiplier !== 'number' || isNaN(newMultiplier) || !isFinite(newMultiplier)) return;
+    const clamped = Math.max(minZoom, Math.min(maxZoom, newMultiplier));
+    zoomMultiplierRef.current = clamped;
+    setZoomPercent(Math.round(clamped * 100));
+  }, [minZoom, maxZoom]);
+
+  const handleZoomIn = () => applyZoom(zoomMultiplierRef.current * 1.25);
+  const handleZoomOut = () => applyZoom(zoomMultiplierRef.current * 0.8);
   const handleResetView = () => {
-    applyZoom(defaultScale);
+    applyZoom(1.0);
     if (selectedCircuitRef.current) {
       flyToCircuit(selectedCircuitRef.current);
     } else {
@@ -154,9 +197,8 @@ export function GlobeView({ circuits, selectedCircuit, onSelectCircuit }: GlobeV
 
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
-      // If pinch-to-zoom (trackpad pinch sets ctrlKey) or wheel scroll
       const zoomFactor = e.ctrlKey ? Math.exp(-e.deltaY * 0.015) : Math.exp(-e.deltaY * 0.0018);
-      applyZoom(zoomScaleRef.current * zoomFactor);
+      applyZoom(zoomMultiplierRef.current * zoomFactor);
     };
 
     container.addEventListener('wheel', onWheel, { passive: false });
@@ -165,42 +207,48 @@ export function GlobeView({ circuits, selectedCircuit, onSelectCircuit }: GlobeV
     };
   }, [applyZoom]);
 
-  // Continuous Canvas Render Loop (never torn down on hover/selection)
+  // Continuous Canvas Render Loop
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const width = canvas.width;
-    const height = canvas.height;
-
-    const projection = d3
-      .geoOrthographic()
-      .scale(zoomScaleRef.current)
-      .translate([width / 2, height / 2])
-      .clipAngle(90);
-
+    const projection = d3.geoOrthographic().clipAngle(90);
     const path = d3.geoPath(projection, ctx);
     const graticule = d3.geoGraticule10();
 
     function render(time: number) {
       if (!ctx || !canvas) return;
 
+      const { width, height, dpr } = dimensionsRef.current;
+      if (width <= 0 || height <= 0) {
+        animationFrameRef.current = requestAnimationFrame(render);
+        return;
+      }
+
       // Smooth auto-rotation when idle
       if (!isDraggingRef.current && !isFlyingRef.current && autoRotateRef.current && !hoveredCircuitRef.current) {
         rotationRef.current[0] += 0.18;
       }
 
-      projection.scale(zoomScaleRef.current);
-      projection.rotate(rotationRef.current);
+      // Responsive base scale guarantees globe is always a 1:1 perfect circle
+      const minDimension = Math.min(width, height);
+      const baseScale = Math.max(110, minDimension * 0.44);
+      const radius = baseScale * zoomMultiplierRef.current;
 
-      ctx.clearRect(0, 0, width, height);
+      projection
+        .scale(radius)
+        .translate([width / 2, height / 2])
+        .rotate(rotationRef.current);
+
+      ctx.save();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.scale(dpr, dpr);
 
       const center = projection.translate();
-      const radius = projection.scale();
 
-      // 1. Vibrant Atmosphere Glow (Intense F1 Neon Red)
+      // 1. Atmosphere Glow (Intense F1 Neon Red)
       const glowGrad = ctx.createRadialGradient(
         center[0],
         center[1],
@@ -258,7 +306,7 @@ export function GlobeView({ circuits, selectedCircuit, onSelectCircuit }: GlobeV
 
       // 5. Draw Interactive Circuit Pins
       const pulseSize = 4 + Math.sin(time * 0.006) * 3;
-      const zoomFactor = radius / defaultScale;
+      const zoomFactor = zoomMultiplierRef.current;
       const activeCircuits = circuitsRef.current;
       const selectedId = selectedCircuitRef.current?.id;
       const hoveredId = hoveredCircuitRef.current?.id;
@@ -275,7 +323,7 @@ export function GlobeView({ circuits, selectedCircuit, onSelectCircuit }: GlobeV
             const isHovered = hoveredId === circuit.id;
             const isHighlighted = isSelected || isHovered;
 
-            // Vibrant Pulsating Radar Ring
+            // Pulsating Radar Ring
             ctx.beginPath();
             const ringRadius = isHighlighted
               ? Math.max(12, pulseSize * 2.8 * Math.sqrt(zoomFactor))
@@ -327,6 +375,7 @@ export function GlobeView({ circuits, selectedCircuit, onSelectCircuit }: GlobeV
         }
       }
 
+      ctx.restore();
       animationFrameRef.current = requestAnimationFrame(render);
     }
 
@@ -335,30 +384,31 @@ export function GlobeView({ circuits, selectedCircuit, onSelectCircuit }: GlobeV
     return () => {
       if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
     };
-  }, [land, defaultScale]);
+  }, [land]);
 
-  // Accurate Hit-Testing accounting for canvas resolution scaling & current zoom
+  // Accurate Hit-Testing accounting for responsive canvas scaling & current zoom
   const findCircuitAtPoint = (clientX: number, clientY: number): Circuit | null => {
     const canvas = canvasRef.current;
     if (!canvas) return null;
     const rect = canvas.getBoundingClientRect();
-    const scaleX = canvas.width / rect.width;
-    const scaleY = canvas.height / rect.height;
-    const x = (clientX - rect.left) * scaleX;
-    const y = (clientY - rect.top) * scaleY;
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
 
-    const width = canvas.width;
-    const height = canvas.height;
+    const { width, height } = dimensionsRef.current;
+    if (width <= 0 || height <= 0) return null;
+
+    const minDimension = Math.min(width, height);
+    const baseScale = Math.max(110, minDimension * 0.44);
+    const radius = baseScale * zoomMultiplierRef.current;
 
     const projection = d3
       .geoOrthographic()
-      .scale(zoomScaleRef.current)
+      .scale(radius)
       .translate([width / 2, height / 2])
       .clipAngle(90)
       .rotate(rotationRef.current);
 
-    const zoomRatio = zoomScaleRef.current / defaultScale;
-    const hitRadius = Math.max(16, 22 * Math.sqrt(zoomRatio));
+    const hitRadius = Math.max(18, 24 * Math.sqrt(zoomMultiplierRef.current));
 
     for (const circuit of circuitsRef.current) {
       const coords: [number, number] = [circuit.lng, circuit.lat];
@@ -379,7 +429,6 @@ export function GlobeView({ circuits, selectedCircuit, onSelectCircuit }: GlobeV
 
   // Pointer Handlers (Drag, Grab, and Click)
   const handlePointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
-    // Interrupt any ongoing fly animation if user grabs globe
     if (isFlyingRef.current && flyAnimationIdRef.current) {
       cancelAnimationFrame(flyAnimationIdRef.current);
       flyAnimationIdRef.current = null;
@@ -412,8 +461,7 @@ export function GlobeView({ circuits, selectedCircuit, onSelectCircuit }: GlobeV
       lastMousePosRef.current = [e.clientX, e.clientY];
 
       // Drag sensitivity inversely proportional to zoom
-      const zoomRatio = defaultScale / zoomScaleRef.current;
-      const sensitivity = 0.38 * Math.min(1.2, Math.max(0.4, zoomRatio));
+      const sensitivity = 0.38 / Math.max(0.5, zoomMultiplierRef.current);
 
       rotationRef.current[0] += dx * sensitivity;
       rotationRef.current[1] = Math.max(-78, Math.min(78, rotationRef.current[1] - dy * sensitivity));
@@ -459,33 +507,31 @@ export function GlobeView({ circuits, selectedCircuit, onSelectCircuit }: GlobeV
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[460px] flex items-center justify-center select-none overflow-hidden rounded-lg bg-[#07090E] border border-white/[0.08] shadow-2xl"
+      className="relative w-full h-[360px] sm:h-[460px] flex items-center justify-center select-none overflow-hidden rounded-lg bg-[#07090E] border border-white/[0.08] shadow-2xl"
     >
-      {/* 3D Earth Canvas */}
+      {/* Responsive 3D Earth Canvas */}
       <canvas
         ref={canvasRef}
-        width={720}
-        height={460}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
-        className={`w-full h-full max-w-[720px] max-h-[460px] block touch-none ${
+        className={`w-full h-full block touch-none ${
           hoveredCircuit ? 'cursor-pointer' : 'cursor-grab active:cursor-grabbing'
         }`}
       />
 
       {/* Top Left: Floating Instructions HUD */}
-      <div className="absolute top-4 left-4 f1-pill px-3 py-1.5 flex items-center gap-2 text-xs border border-white/[0.1] shadow-lg">
+      <div className="absolute top-3 left-3 sm:top-4 sm:left-4 f1-pill px-2.5 py-1 sm:px-3 sm:py-1.5 flex items-center gap-2 text-xs border border-white/[0.1] shadow-lg">
         <Globe className="w-3.5 h-3.5 text-[#FF1801] animate-pulse" />
-        <span className="font-bold text-white font-mono">Interactive 3D Earth</span>
-        <span className="text-neutral-400 font-mono text-[11px] hidden sm:inline">
+        <span className="font-bold text-white font-mono text-[11px] sm:text-xs">Interactive 3D Earth</span>
+        <span className="text-neutral-400 font-mono text-[11px] hidden md:inline">
           • Drag to orbit • Pinch / Scroll to zoom • Tap pin to select
         </span>
       </div>
 
       {/* Top Right: Tactile Zoom & Auto-Rotate Controls */}
-      <div className="absolute top-4 right-4 flex items-center gap-1.5 p-1 rounded-md bg-[#0D111A]/90 border border-white/[0.12] backdrop-blur-md shadow-xl z-10">
+      <div className="absolute top-3 right-3 sm:top-4 sm:right-4 flex items-center gap-1 sm:gap-1.5 p-1 rounded-md bg-[#0D111A]/90 border border-white/[0.12] backdrop-blur-md shadow-xl z-10">
         <button
           onClick={handleZoomIn}
           title="Zoom In (or pinch trackpad)"
@@ -529,8 +575,8 @@ export function GlobeView({ circuits, selectedCircuit, onSelectCircuit }: GlobeV
         <div
           className="absolute p-3 rounded-lg pointer-events-none text-xs space-y-1 z-20 shadow-2xl animate-fadeIn border-l-2 border-[#FF1801] bg-[#0A0D15]/95 backdrop-blur-xl border border-white/[0.1] shadow-[0_0_25px_rgba(255,24,1,0.25)]"
           style={{
-            left: `${Math.min(520, Math.max(20, tooltipPos.x + 16))}px`,
-            top: `${Math.min(340, Math.max(20, tooltipPos.y - 24))}px`,
+            left: `${Math.min(dimensionsRef.current.width - 240, Math.max(16, tooltipPos.x + 16))}px`,
+            top: `${Math.min(dimensionsRef.current.height - 100, Math.max(16, tooltipPos.y - 24))}px`,
           }}
         >
           <div className="font-bold text-white flex items-center gap-1.5 font-mono">
@@ -549,13 +595,13 @@ export function GlobeView({ circuits, selectedCircuit, onSelectCircuit }: GlobeV
 
       {/* Selected Target Circuit Coordinates Badge */}
       {selectedCircuit && (
-        <div className="absolute bottom-4 left-4 p-3.5 rounded-lg flex items-center gap-3 border-l-2 border-[#FF1801] bg-[#0A0E17]/95 backdrop-blur-xl border border-white/[0.1] shadow-2xl animate-fadeIn">
-          <div className="p-2 rounded-md bg-[#FF1801]/15 text-[#FF1801] border border-[#FF1801]/30">
-            <MapPin className="w-4 h-4" />
+        <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 p-2.5 sm:p-3.5 rounded-lg flex items-center gap-2.5 sm:gap-3 border-l-2 border-[#FF1801] bg-[#0A0E17]/95 backdrop-blur-xl border border-white/[0.1] shadow-2xl animate-fadeIn">
+          <div className="p-1.5 sm:p-2 rounded-md bg-[#FF1801]/15 text-[#FF1801] border border-[#FF1801]/30">
+            <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </div>
           <div>
-            <div className="font-bold text-xs text-white font-mono">{selectedCircuit.circuit_name}</div>
-            <div className="text-[10px] font-mono text-neutral-400">
+            <div className="font-bold text-[11px] sm:text-xs text-white font-mono">{selectedCircuit.circuit_name}</div>
+            <div className="text-[9px] sm:text-[10px] font-mono text-neutral-400">
               {selectedCircuit.lat.toFixed(4)}° N, {selectedCircuit.lng.toFixed(4)}° E • {selectedCircuit.country}
             </div>
           </div>

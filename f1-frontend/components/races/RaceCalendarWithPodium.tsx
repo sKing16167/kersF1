@@ -11,7 +11,6 @@ import {
   Flag,
   Trophy,
   ChevronRight,
-  Sparkles,
   MapPin,
   Clock,
   Flame,

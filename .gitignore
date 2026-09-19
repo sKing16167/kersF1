@@ -60,3 +60,14 @@ Desktop.ini
 .idea/
 *.swp
 *.swo
+
+# 5. Agent & Tooling Metadata
+.agents/
+skills-lock.json
+.gemini/
+
+# 6. Temporary Scraped Data & Intermediate Scraping JSONs
+f1-backend/scripts/all_repo_svgs.json
+f1-backend/scripts/extended_circuits_data*.json
+f1-backend/scripts/julesr0y_circuits*.json
+

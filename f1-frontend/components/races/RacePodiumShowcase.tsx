@@ -17,7 +17,6 @@ import {
   TrendingUp,
   TrendingDown,
   Minus,
-  Sparkles,
   Calendar,
   MapPin,
   Clock,
@@ -38,7 +37,13 @@ export function RacePodiumShowcase({ race, result }: RacePodiumShowcaseProps) {
   const [showFullClassification, setShowFullClassification] = useState(false);
 
   const { podium, fastest_lap, pole_position, top_finishers, status } = result;
-  const isUpcoming = status === 'UPCOMING' || !podium;
+  const isPastRace = race.status === 'COMPLETED' ||
+    (race.season && race.season < 2026) ||
+    (race.date && new Date(race.date).getTime() < Date.now()) ||
+    status === 'COMPLETED';
+  const isLive = !isPastRace && (race.status === 'LIVE' || status === 'LIVE');
+  const isUpcoming = !isPastRace && !isLive;
+  const isShowUpcoming = isUpcoming || !podium;
 
   return (
     <div className="w-full f1-glass-card p-6 md:p-8 relative flex flex-col gap-6">
@@ -61,14 +66,14 @@ export function RacePodiumShowcase({ race, result }: RacePodiumShowcaseProps) {
             <span className="text-neutral-500">•</span>
             <span
               className={`text-[10px] font-mono px-2 py-0.5 rounded-sm font-bold border ${
-                status === 'COMPLETED'
+                isPastRace
                   ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
-                  : status === 'LIVE'
+                  : isLive
                   ? 'bg-red-500/20 text-red-400 border-red-500/30 animate-pulse'
                   : 'bg-amber-500/15 text-amber-400 border-amber-500/30'
               }`}
             >
-              {status === 'UPCOMING' ? 'SCHEDULED / UPCOMING' : status}
+              {isPastRace ? 'OFFICIAL CLASSIFICATION • COMPLETED' : isLive ? 'LIVE SESSION' : 'SCHEDULED / UPCOMING'}
             </span>
           </div>
 
@@ -104,20 +109,22 @@ export function RacePodiumShowcase({ race, result }: RacePodiumShowcaseProps) {
         SCENARIO A: UPCOMING RACE (STRICTLY NO FAKE DATA - CLEAN EVENT PREVIEW)
         ========================================================================
       */}
-      {isUpcoming ? (
+      {isShowUpcoming ? (
         <div className="relative z-10 space-y-6 py-2">
           {/* Informational Status Banner */}
           <div className="p-4 rounded-lg bg-[#0F1420] border border-amber-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-md bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 flex-shrink-0">
-                <Info className="w-5 h-5" />
+                {isPastRace ? <Flag className="w-5 h-5 text-emerald-400" /> : <Info className="w-5 h-5" />}
               </div>
               <div>
                 <h3 className="font-mono text-sm font-bold text-white uppercase tracking-wider">
-                  Upcoming Grand Prix Weekend
+                  {isPastRace ? 'Historical Race Session' : 'Upcoming Grand Prix Weekend'}
                 </h3>
                 <p className="text-xs text-neutral-300">
-                  Race classification and telemetry data will be published live following official FIA session timing.
+                  {isPastRace
+                    ? 'Loading official session classification and telemetry archive...'
+                    : 'Race classification and telemetry data will be published live following official FIA session timing.'}
                 </p>
               </div>
             </div>
@@ -329,7 +336,7 @@ export function RacePodiumShowcase({ race, result }: RacePodiumShowcaseProps) {
                     1
                   </span>
                   <div className="absolute bottom-2 text-[10px] font-mono font-bold tracking-widest text-amber-400 uppercase flex items-center gap-1">
-                    <Sparkles className="w-3 h-3 text-amber-400" />
+                    <Trophy className="w-3 h-3 text-amber-400" />
                     P1 VICTORY
                   </div>
                 </div>

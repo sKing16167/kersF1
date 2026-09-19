@@ -12,8 +12,20 @@ export const HISTORICAL_DRIVER_STANDINGS: Record<number, DriverStanding[]> = {
     { position: 6, points: 145, wins: 0, driver: { id: 3, driver_number: 1, broadcast_name: 'M. VERSTAPPEN', full_name: 'Max Verstappen', team_name: 'Red Bull Racing', color_hex: '#3671C6', country_code: 'NED' } },
     { position: 7, points: 120, wins: 0, driver: { id: 4, driver_number: 81, broadcast_name: 'O. PIASTRI', full_name: 'Oscar Piastri', team_name: 'McLaren', color_hex: '#FF8000', country_code: 'AUS' } },
     { position: 8, points: 71, wins: 0, driver: { id: 19, driver_number: 6, broadcast_name: 'I. HADJAR', full_name: 'Isack Hadjar', team_name: 'Red Bull Racing', color_hex: '#3671C6', country_code: 'FRA' } },
-    { position: 9, points: 59, wins: 0, driver: { id: 11, driver_number: 30, broadcast_name: 'L. LAWSON', full_name: 'Liam Lawson', team_name: 'Red Bull Racing', color_hex: '#3671C6', country_code: 'NZL' } },
-    { position: 10, points: 48, wins: 0, driver: { id: 10, driver_number: 23, broadcast_name: 'A. ALBON', full_name: 'Alexander Albon', team_name: 'Williams', color_hex: '#64C4FF', country_code: 'THA' } },
+    { position: 9, points: 59, wins: 0, driver: { id: 11, driver_number: 30, broadcast_name: 'L. LAWSON', full_name: 'Liam Lawson', team_name: 'RB', color_hex: '#6692FF', country_code: 'NZL' } },
+    { position: 10, points: 41, wins: 0, driver: { id: 14, driver_number: 10, broadcast_name: 'P. GASLY', full_name: 'Pierre Gasly', team_name: 'Alpine', color_hex: '#0093CC', country_code: 'FRA' } },
+    { position: 11, points: 27, wins: 0, driver: { id: 15, driver_number: 43, broadcast_name: 'F. COLAPINTO', full_name: 'Franco Colapinto', team_name: 'Alpine', color_hex: '#0093CC', country_code: 'ARG' } },
+    { position: 12, points: 18, wins: 0, driver: { id: 12, driver_number: 87, broadcast_name: 'O. BEARMAN', full_name: 'Oliver Bearman', team_name: 'Haas', color_hex: '#B6BABD', country_code: 'GBR' } },
+    { position: 13, points: 10, wins: 0, driver: { id: 17, driver_number: 5, broadcast_name: 'G. BORTOLETO', full_name: 'Gabriel Bortoleto', team_name: 'Audi', color_hex: '#E30613', country_code: 'BRA' } },
+    { position: 14, points: 7, wins: 0, driver: { id: 16, driver_number: 27, broadcast_name: 'N. HULKENBERG', full_name: 'Nico Hülkenberg', team_name: 'Audi', color_hex: '#E30613', country_code: 'GER' } },
+    { position: 15, points: 6, wins: 0, driver: { id: 5, driver_number: 55, broadcast_name: 'C. SAINZ', full_name: 'Carlos Sainz', team_name: 'Williams', color_hex: '#64C4FF', country_code: 'ESP' } },
+    { position: 16, points: 5, wins: 0, driver: { id: 10, driver_number: 23, broadcast_name: 'A. ALBON', full_name: 'Alexander Albon', team_name: 'Williams', color_hex: '#64C4FF', country_code: 'THA' } },
+    { position: 17, points: 3, wins: 0, driver: { id: 13, driver_number: 31, broadcast_name: 'E. OCON', full_name: 'Esteban Ocon', team_name: 'Haas', color_hex: '#B6BABD', country_code: 'FRA' } },
+    { position: 18, points: 3, wins: 0, driver: { id: 9, driver_number: 14, broadcast_name: 'F. ALONSO', full_name: 'Fernando Alonso', team_name: 'Aston Martin', color_hex: '#229971', country_code: 'ESP' } },
+    { position: 19, points: 1, wins: 0, driver: { id: 18, driver_number: 22, broadcast_name: 'Y. TSUNODA', full_name: 'Yuki Tsunoda', team_name: 'RB', color_hex: '#6692FF', country_code: 'JPN' } },
+    { position: 20, points: 0, wins: 0, driver: { id: 20, driver_number: 18, broadcast_name: 'L. STROLL', full_name: 'Lance Stroll', team_name: 'Aston Martin', color_hex: '#229971', country_code: 'CAN' } },
+    { position: 21, points: 0, wins: 0, driver: { id: 21, driver_number: 77, broadcast_name: 'V. BOTTAS', full_name: 'Valtteri Bottas', team_name: 'Cadillac', color_hex: '#C0C0C0', country_code: 'FIN' } },
+    { position: 22, points: 0, wins: 0, driver: { id: 22, driver_number: 11, broadcast_name: 'S. PEREZ', full_name: 'Sergio Pérez', team_name: 'Cadillac', color_hex: '#C0C0C0', country_code: 'MEX' } },
   ],
   2025: [
     { position: 1, points: 423, wins: 7, driver: { id: 1, driver_number: 4, broadcast_name: 'L. NORRIS', full_name: 'Lando Norris', team_name: 'McLaren', color_hex: '#FF8000', country_code: 'GBR' } },
@@ -67,22 +79,23 @@ export const HISTORICAL_DRIVER_STANDINGS: Record<number, DriverStanding[]> = {
 
 export const HISTORICAL_CONSTRUCTOR_STANDINGS: Record<number, ConstructorStanding[]> = {
   2026: [
-    { position: 1, points: 503, wins: 10, constructor: { id: 4, name: 'Mercedes', full_name: 'Mercedes-AMG PETRONAS F1 Team', color_hex: '#27F4D2', country_code: 'GER' } }, // Mercedes
-    { position: 2, points: 358, wins: 2, constructor: { id: 2, name: 'Ferrari', full_name: 'Scuderia Ferrari HP', color_hex: '#E80020', country_code: 'ITA' } }, // Ferrari
-    { position: 3, points: 306, wins: 2, constructor: { id: 1, name: 'McLaren', full_name: 'McLaren F1 Team', color_hex: '#FF8000', country_code: 'GBR' } }, // McLaren
-    { position: 4, points: 230, wins: 0, constructor: { id: 3, name: 'Red Bull Racing', full_name: 'Oracle Red Bull Racing', color_hex: '#3671C6', country_code: 'AUT' } }, // Red Bull
-    { position: 5, points: 77, wins: 0, constructor: { id: 9, name: 'RB', full_name: 'Visa Cash App RB Formula One Team', color_hex: '#6692FF', country_code: 'ITA' } }, // RB
-    { position: 6, points: 68, wins: 0, constructor: { id: 7, name: 'Alpine', full_name: 'BWT Alpine F1 Team', color_hex: '#0093CC', country_code: 'FRA' } }, // Alpine
-    { position: 7, points: 21, wins: 0, constructor: { id: 8, name: 'Haas', full_name: 'MoneyGram Haas F1 Team', color_hex: '#B6BABD', country_code: 'USA' } }, // Haas
-    { position: 8, points: 17, wins: 0, constructor: { id: 10, name: 'Kick Sauber', full_name: 'Stake F1 Team Kick Sauber', color_hex: '#52E252', country_code: 'SUI' } }, // Sauber / Audi
-    { position: 9, points: 11, wins: 0, constructor: { id: 6, name: 'Williams', full_name: 'Williams Racing', color_hex: '#64C4FF', country_code: 'GBR' } }, // Williams
-    { position: 10, points: 3, wins: 0, constructor: { id: 5, name: 'Aston Martin', full_name: 'Aston Martin Aramco F1 Team', color_hex: '#229971', country_code: 'GBR' } }, // Aston Martin
+    { position: 1, points: 503, wins: 10, constructor: { id: 4, name: 'Mercedes', full_name: 'Mercedes-AMG PETRONAS F1 Team', color_hex: '#27F4D2', country_code: 'GER' } },
+    { position: 2, points: 358, wins: 2, constructor: { id: 2, name: 'Ferrari', full_name: 'Scuderia Ferrari HP', color_hex: '#E80020', country_code: 'ITA' } },
+    { position: 3, points: 306, wins: 2, constructor: { id: 1, name: 'McLaren', full_name: 'McLaren F1 Team', color_hex: '#FF8000', country_code: 'GBR' } },
+    { position: 4, points: 230, wins: 0, constructor: { id: 3, name: 'Red Bull Racing', full_name: 'Oracle Red Bull Racing', color_hex: '#3671C6', country_code: 'AUT' } },
+    { position: 5, points: 77, wins: 0, constructor: { id: 9, name: 'RB', full_name: 'Visa Cash App RB Formula One Team', color_hex: '#6692FF', country_code: 'ITA' } },
+    { position: 6, points: 68, wins: 0, constructor: { id: 7, name: 'Alpine', full_name: 'BWT Alpine F1 Team', color_hex: '#0093CC', country_code: 'FRA' } },
+    { position: 7, points: 21, wins: 0, constructor: { id: 8, name: 'Haas', full_name: 'MoneyGram Haas F1 Team', color_hex: '#B6BABD', country_code: 'USA' } },
+    { position: 8, points: 17, wins: 0, constructor: { id: 10, name: 'Audi', full_name: 'Audi Revolut F1 Team', color_hex: '#E30613', country_code: 'GER' } },
+    { position: 9, points: 11, wins: 0, constructor: { id: 6, name: 'Williams', full_name: 'Williams Racing', color_hex: '#64C4FF', country_code: 'GBR' } },
+    { position: 10, points: 3, wins: 0, constructor: { id: 5, name: 'Aston Martin', full_name: 'Aston Martin Aramco F1 Team', color_hex: '#229971', country_code: 'GBR' } },
+    { position: 11, points: 0, wins: 0, constructor: { id: 11, name: 'Cadillac', full_name: 'Cadillac Formula 1 Team', color_hex: '#C0C0C0', country_code: 'USA' } },
   ],
   2025: [
-    { position: 1, points: 833, wins: 14, constructor: { id: 1, name: 'McLaren', full_name: 'McLaren F1 Team', color_hex: '#FF8000', country_code: 'GBR' } }, // McLaren Champions
-    { position: 2, points: 469, wins: 2, constructor: { id: 4, name: 'Mercedes', full_name: 'Mercedes-AMG PETRONAS F1 Team', color_hex: '#27F4D2', country_code: 'GER' } }, // Mercedes
-    { position: 3, points: 451, wins: 8, constructor: { id: 3, name: 'Red Bull Racing', full_name: 'Oracle Red Bull Racing', color_hex: '#3671C6', country_code: 'AUT' } }, // Red Bull
-    { position: 4, points: 398, wins: 0, constructor: { id: 2, name: 'Ferrari', full_name: 'Scuderia Ferrari HP', color_hex: '#E80020', country_code: 'ITA' } }, // Ferrari
+    { position: 1, points: 833, wins: 14, constructor: { id: 1, name: 'McLaren', full_name: 'McLaren F1 Team', color_hex: '#FF8000', country_code: 'GBR' } },
+    { position: 2, points: 469, wins: 2, constructor: { id: 4, name: 'Mercedes', full_name: 'Mercedes-AMG PETRONAS F1 Team', color_hex: '#27F4D2', country_code: 'GER' } },
+    { position: 3, points: 451, wins: 8, constructor: { id: 3, name: 'Red Bull Racing', full_name: 'Oracle Red Bull Racing', color_hex: '#3671C6', country_code: 'AUT' } },
+    { position: 4, points: 398, wins: 0, constructor: { id: 2, name: 'Ferrari', full_name: 'Scuderia Ferrari HP', color_hex: '#E80020', country_code: 'ITA' } },
     { position: 5, points: 137, wins: 0, constructor: { id: 6, name: 'Williams', full_name: 'Williams Racing', color_hex: '#64C4FF', country_code: 'GBR' } }, // Williams
     { position: 6, points: 92, wins: 0, constructor: { id: 9, name: 'RB', full_name: 'Visa Cash App RB Formula One Team', color_hex: '#6692FF', country_code: 'ITA' } }, // RB
     { position: 7, points: 89, wins: 0, constructor: { id: 5, name: 'Aston Martin', full_name: 'Aston Martin Aramco F1 Team', color_hex: '#229971', country_code: 'GBR' } }, // Aston Martin

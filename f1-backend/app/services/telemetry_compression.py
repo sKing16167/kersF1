@@ -83,6 +83,8 @@ def normalize_and_compress_lap(
     return buf.getvalue()
 
 
+import re
+
 def build_and_upload_lap_asset(
     raw_telemetry: pd.DataFrame,
     season_year: int,
@@ -96,10 +98,16 @@ def build_and_upload_lap_asset(
     persist in TelemetryAsset. Called from the Celery ingestion task, never
     from a request handler.
     """
+    safe_circuit = re.sub(r"[^a-zA-Z0-9_-]", "", str(circuit_ref))
+    safe_session = re.sub(r"[^a-zA-Z0-9_-]", "", str(session_type))
+    safe_driver = re.sub(r"[^a-zA-Z0-9_-]", "", str(driver_code))
+    safe_year = int(season_year)
+    safe_lap = int(lap_number)
+
     parquet_bytes = normalize_and_compress_lap(raw_telemetry)
     key = (
-        f"telemetry/{season_year}/{circuit_ref}/{session_type}/"
-        f"{driver_code}/lap_{lap_number:03d}.parquet"
+        f"telemetry/{safe_year}/{safe_circuit}/{safe_session}/"
+        f"{safe_driver}/lap_{safe_lap:03d}.parquet"
     )
     s3_client.upload_bytes(key, parquet_bytes, content_type="application/octet-stream")
 

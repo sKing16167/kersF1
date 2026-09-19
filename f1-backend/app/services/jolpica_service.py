@@ -29,10 +29,11 @@ def _fetch_jolpica(path: str, params: Optional[Dict[str, Any]] = None) -> Option
     if cached is not None:
         return cached
 
-    base_url = getattr(settings, "JOLPICA_BASE_URL", "http://api.jolpi.ca/ergast/f1")
+    base_url = getattr(settings, "JOLPICA_BASE_URL", "https://api.jolpi.ca/ergast/f1")
+    if base_url.startswith("http://"):
+        base_url = "https://" + base_url[len("http://"):]
     urls_to_try = [
         f"{base_url}{path}",
-        f"http://api.jolpi.ca/ergast/f1{path}",
         f"https://api.jolpi.ca/ergast/f1{path}",
     ]
 

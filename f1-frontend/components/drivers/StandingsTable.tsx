@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { f1Api, AVAILABLE_SEASONS } from '@/lib/api';
 import { DriverStanding, ConstructorStanding, SeasonChampion } from '@/lib/types';
-import { Trophy, Calendar, Award, Star, Flame, Sparkles, CheckCircle2, ChevronDown, ChevronUp } from 'lucide-react';
+import { Trophy, Calendar, Award, Star, Flame, CheckCircle2, ChevronDown, ChevronUp } from 'lucide-react';
 import { useTelemetryStore } from '@/lib/store';
 import { EmptyState } from '@/components/ui/EmptyState';
 

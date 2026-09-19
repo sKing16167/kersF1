@@ -12,7 +12,6 @@ import {
   Users,
   Swords,
   Layers,
-  Sparkles,
   Filter,
   TrendingUp,
   Zap,
@@ -89,7 +88,7 @@ export default function TrackMapPage() {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-mono text-[#E10600] font-bold">23 OFFICIAL FIA TRACKS</span>
+                <span className="text-xs font-mono text-[#E10600] font-bold">{MOCK_CIRCUITS.length} OFFICIAL FIA TRACKS</span>
                 <span className="text-xs text-neutral-500">•</span>
                 <span className="text-xs font-mono text-neutral-400">60-SECTOR APEX OVERLAY</span>
               </div>

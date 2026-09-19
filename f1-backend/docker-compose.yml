@@ -19,8 +19,8 @@ services:
   redis:
     image: redis:7-alpine
     restart: unless-stopped
-    ports:
-      - "6379:6379"
+    expose:
+      - "6379"
 
   api:
     build: .
@@ -62,12 +62,12 @@ services:
 
   flower:
     build: .
-    command: celery -A app.core.celery_app flower --port=5555
+    command: celery -A app.core.celery_app flower --port=5555 --basic_auth=${FLOWER_USER:-admin}:${FLOWER_PASSWORD:-changeme_flower_secret}
     volumes:
       - .:/app
     env_file: .env
     ports:
-      - "5555:5555"
+      - "127.0.0.1:5555:5555"
     depends_on:
       - celery_worker
 

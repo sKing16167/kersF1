@@ -46,9 +46,18 @@ def get_client():
     return _client
 
 
+def _resolve_safe_local_path(key: str) -> str:
+    base_dir = os.path.abspath(LOCAL_STORAGE_DIR)
+    sanitized_key = key.lstrip("/\\")
+    file_path = os.path.abspath(os.path.join(base_dir, sanitized_key))
+    if os.path.commonpath([base_dir, file_path]) != base_dir:
+        raise ValueError(f"Path traversal attempt detected in storage key: {key}")
+    return file_path
+
+
 def upload_bytes(key: str, data: bytes, content_type: str = "application/octet-stream") -> None:
     if is_local_storage():
-        file_path = os.path.join(LOCAL_STORAGE_DIR, key)
+        file_path = _resolve_safe_local_path(key)
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
         with open(file_path, "wb") as f:
             f.write(data)
@@ -79,7 +88,7 @@ def upload_fileobj(key: str, fileobj: io.BytesIO, content_type: str = "applicati
 
 def read_bytes(key: str) -> bytes:
     if is_local_storage():
-        file_path = os.path.join(LOCAL_STORAGE_DIR, key)
+        file_path = _resolve_safe_local_path(key)
         with open(file_path, "rb") as f:
             return f.read()
 
@@ -108,8 +117,11 @@ def generate_presigned_url(key: str, expires_in: int = 3600) -> str:
 
 def object_exists(key: str) -> bool:
     if is_local_storage():
-        file_path = os.path.join(LOCAL_STORAGE_DIR, key)
-        return os.path.exists(file_path)
+        try:
+            file_path = _resolve_safe_local_path(key)
+            return os.path.exists(file_path)
+        except ValueError:
+            return False
 
     try:
         get_client().head_object(Bucket=settings.STORAGE_BUCKET, Key=key)

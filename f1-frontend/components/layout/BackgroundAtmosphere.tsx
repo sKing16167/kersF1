@@ -2,6 +2,8 @@
 
 import React, { useMemo } from 'react';
 
+import { FlutteringFinishFlag } from './FlutteringFinishFlag';
+
 interface Particle {
   id: number;
   left: string;
@@ -28,41 +30,30 @@ export function BackgroundAtmosphere() {
 
   return (
     <div aria-hidden="true" className="fixed inset-0 pointer-events-none overflow-hidden z-0 select-none">
-      {/* Subtle Atmospheric Ambient Red & Cyan Radial Flares */}
-      <div
-        className="absolute -top-[15%] left-[10%] w-[600px] h-[500px] rounded-full blur-[140px] opacity-20 pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(225,6,0,0.5) 0%, rgba(225,6,0,0) 70%)',
-        }}
-      />
-      <div
-        className="absolute top-[40%] -right-[10%] w-[550px] h-[450px] rounded-full blur-[150px] opacity-15 pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(39,244,210,0.4) 0%, rgba(39,244,210,0) 70%)',
-        }}
-      />
-      <div
-        className="absolute -bottom-[20%] left-[30%] w-[700px] h-[400px] rounded-full blur-[160px] opacity-15 pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(225,6,0,0.35) 0%, rgba(225,6,0,0) 70%)',
-        }}
-      />
-
-      {/* Technical Motorsport Telemetry Coordinate Grid (High-Visibility for Optical Glass Refraction) */}
-      <div className="absolute inset-0 opacity-[0.20]">
-        <div
-          className="w-full h-full"
-          style={{
-            backgroundImage: `
-              linear-gradient(to right, rgba(255,255,255,0.18) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(255,255,255,0.18) 1px, transparent 1px),
-              linear-gradient(to right, rgba(255,24,1,0.28) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(255,24,1,0.28) 1px, transparent 1px)
-            `,
-            backgroundSize: '36px 36px, 36px 36px, 144px 144px, 144px 144px',
-          }}
-        />
+      {/* Active Fluttering F1 Race Finish Flag (Cloth Physics & 3D Wave Shading on Laptop/Desktop) */}
+      <div className="hidden sm:block">
+        <FlutteringFinishFlag opacity={0.36} />
       </div>
+
+      {/* Subtle Atmospheric Ambient Red & Cyan Radial Flares (GPU accelerated) */}
+      <div
+        className="absolute -top-[15%] left-[10%] w-[500px] h-[400px] rounded-full blur-[60px] opacity-25 pointer-events-none transform-gpu will-change-transform"
+        style={{
+          background: 'radial-gradient(circle, rgba(225,6,0,0.45) 0%, rgba(225,6,0,0) 70%)',
+        }}
+      />
+      <div
+        className="absolute top-[40%] -right-[10%] w-[450px] h-[350px] rounded-full blur-[60px] opacity-20 pointer-events-none transform-gpu will-change-transform"
+        style={{
+          background: 'radial-gradient(circle, rgba(39,244,210,0.35) 0%, rgba(39,244,210,0) 70%)',
+        }}
+      />
+      <div
+        className="absolute -bottom-[20%] left-[30%] w-[550px] h-[350px] rounded-full blur-[60px] opacity-20 pointer-events-none transform-gpu will-change-transform"
+        style={{
+          background: 'radial-gradient(circle, rgba(225,6,0,0.3) 0%, rgba(225,6,0,0) 70%)',
+        }}
+      />
 
       {/* Speed Particle Layer */}
       <div className="absolute inset-0">

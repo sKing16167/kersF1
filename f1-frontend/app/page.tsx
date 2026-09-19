@@ -4,9 +4,6 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTelemetryStore } from '@/lib/store';
-import { generateSyntheticTelemetry } from '@/lib/parquet-loader';
-import { MultiTraceCanvas } from '@/components/telemetry/MultiTraceCanvas';
-import { TelemetryHUD } from '@/components/telemetry/TelemetryHUD';
 import { StandingsTable } from '@/components/drivers/StandingsTable';
 import { RaceCalendarWithPodium } from '@/components/races/RaceCalendarWithPodium';
 import { UpdateLapRecordModal } from '@/components/circuits/UpdateLapRecordModal';
@@ -25,7 +22,6 @@ import {
   Wind,
   Thermometer,
   Flag,
-  Sparkles,
   Layers,
   BarChart3,
   Timer,
@@ -41,9 +37,6 @@ import {
 
 export default function DashboardPage() {
   const {
-    driverA,
-    driverB,
-    activeDistanceM,
     selectedRace,
     setSelectedRace,
     season,
@@ -106,15 +99,6 @@ export default function DashboardPage() {
     };
   }, [currentRace.id, currentRace.round_number, currentRace.season, season]);
 
-  // Dynamic telemetry traces calibrated to active circuit length
-  const telemetryA = useMemo(() => {
-    return generateSyntheticTelemetry(0, 0, Math.round(activeCircuit.length_km * 1000));
-  }, [activeCircuit.length_km]);
-
-  const telemetryB = useMemo(() => {
-    return generateSyntheticTelemetry(1, -2.5, Math.round(activeCircuit.length_km * 1000));
-  }, [activeCircuit.length_km]);
-
   const [activeCorner, setActiveCorner] = useState<CornerDetail | null>(null);
 
   // Sync active corner when circuit changes
@@ -126,11 +110,12 @@ export default function DashboardPage() {
     }
   }, [activeCircuit]);
 
-  const pointA = telemetryA.find((p) => p.distance >= activeDistanceM) || telemetryA[0];
-  const pointB = telemetryB.find((p) => p.distance >= activeDistanceM) || telemetryB[0];
-
-  const isUpcoming = currentRace.status === 'UPCOMING' || raceResult?.status === 'UPCOMING' || !raceResult?.podium;
-  const isLive = currentRace.status === 'LIVE' || raceResult?.status === 'LIVE';
+  const isPastRace = currentRace.status === 'COMPLETED' ||
+    (currentRace.season && currentRace.season < 2026) ||
+    (currentRace.date && new Date(currentRace.date).getTime() < Date.now()) ||
+    raceResult?.status === 'COMPLETED';
+  const isLive = !isPastRace && (currentRace.status === 'LIVE' || raceResult?.status === 'LIVE');
+  const isUpcoming = !isPastRace && !isLive;
 
   return (
     <div className="space-y-6 animate-fadeIn pb-12">
@@ -162,7 +147,7 @@ export default function DashboardPage() {
               ) : (
                 <span className="px-2.5 py-0.5 rounded-sm bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono text-[11px] font-bold tracking-wider flex items-center gap-1.5 shadow-sm">
                   <Flag className="w-3.5 h-3.5 text-emerald-400" />
-                  OFFICIAL RESULT
+                  OFFICIAL CLASSIFICATION • COMPLETED
                 </span>
               )}
 
@@ -353,7 +338,7 @@ export default function DashboardPage() {
                 <div className="h-9 bg-white/[0.04] rounded border-l-2 border-white/20" />
                 <div className="h-9 bg-white/[0.04] rounded border-l-2 border-white/20" />
               </div>
-            ) : isUpcoming || !raceResult?.podium ? (
+            ) : isUpcoming ? (
               <div className="p-4 rounded-lg bg-[#05070B] border border-white/[0.08] space-y-2.5 font-mono">
                 <div className="flex items-center justify-between text-xs text-neutral-400 pb-1.5 border-b border-white/[0.06]">
                   <span className="font-bold text-amber-400 flex items-center gap-1.5">
@@ -392,7 +377,7 @@ export default function DashboardPage() {
                   </span>
                 </div>
               </div>
-            ) : (
+            ) : raceResult?.podium ? (
               <div className="p-4 rounded-lg bg-[#05070B] border border-white/[0.08] space-y-2.5 font-mono">
                 {/* P1 Leader */}
                 <div
@@ -469,8 +454,69 @@ export default function DashboardPage() {
                     {raceResult.podium.p3.fastest_lap ? '(FL)' : ''}
                   </span>
                 </div>
+
+                {/* P4 to P10 Post-Race Grid Standings */}
+                {raceResult.top_finishers && raceResult.top_finishers.length > 3 && (
+                  <div className="pt-2 border-t border-white/[0.08] space-y-1.5">
+                    <div className="flex items-center justify-between text-[10px] font-mono text-neutral-400 pb-0.5">
+                      <span className="font-bold text-neutral-300 uppercase tracking-wider">
+                        POST-RACE GRID STANDINGS (P4–P{Math.min(10, raceResult.top_finishers.length)})
+                      </span>
+                      <span>POINTS</span>
+                    </div>
+                    <div className="max-h-36 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
+                      {raceResult.top_finishers.slice(3, 10).map((finisher) => (
+                        <div
+                          key={finisher.position}
+                          className="flex items-center justify-between py-1 px-2 rounded bg-white/[0.02] border-l-2 text-[11px] font-mono"
+                          style={{ borderLeftColor: finisher.team_color || finisher.driver.color_hex }}
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className="text-neutral-400 font-bold w-3 text-right">{finisher.position}</span>
+                            <span
+                              className="w-1 h-3 rounded-full"
+                              style={{ backgroundColor: finisher.team_color || finisher.driver.color_hex }}
+                            />
+                            <span className="text-white font-sans truncate max-w-[130px] sm:max-w-[170px]">
+                              {finisher.driver.full_name || finisher.driver.broadcast_name}
+                            </span>
+                            <span className="text-[10px] text-neutral-500 font-sans hidden sm:inline">
+                              {finisher.team_name}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2 text-right">
+                            <span className="text-[10px] text-neutral-400">{finisher.time_or_gap}</span>
+                            <span className="text-[10px] font-bold text-emerald-400">+{finisher.points}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Pole Position & Fastest Lap Strip */}
+                {(raceResult.pole_position || raceResult.fastest_lap) && (
+                  <div className="pt-1.5 border-t border-white/[0.06] flex items-center justify-between text-[10px] font-mono text-neutral-400">
+                    {raceResult.pole_position && (
+                      <span className="flex items-center gap-1 truncate max-w-[48%]">
+                        <Flag className="w-3 h-3 text-white" />
+                        <span className="text-neutral-500">POLE:</span>
+                        <span className="text-white font-bold truncate">{raceResult.pole_position.driver.broadcast_name}</span>
+                        <span className="text-neutral-500 hidden sm:inline">({raceResult.pole_position.q3_time})</span>
+                      </span>
+                    )}
+                    {raceResult.fastest_lap && (
+                      <span className="flex items-center gap-1 truncate max-w-[48%] text-right justify-end">
+                        <Timer className="w-3 h-3 text-purple-400" />
+                        <span className="text-neutral-500">FL:</span>
+                        <span className="text-purple-300 font-bold truncate">{raceResult.fastest_lap.driver.broadcast_name}</span>
+                        <span className="text-neutral-400">({raceResult.fastest_lap.lap_time})</span>
+                      </span>
+                    )}
+                  </div>
+                )}
               </div>
-            )}
+            ) : null}
 
             {/* High Impact Red Action CTA */}
             {isUpcoming ? (
@@ -487,7 +533,7 @@ export default function DashboardPage() {
                 className="w-full py-3 px-4 rounded-md f1-btn-primary flex items-center justify-center gap-2 text-sm font-mono font-bold uppercase tracking-wider transition-all cursor-pointer"
               >
                 <Activity className="w-4 h-4" />
-                <span>JOIN LIVE TELEMETRY SESSION</span>
+                <span>OPEN TELEMETRY & GHOSTING ARENA</span>
               </Link>
             )}
           </div>
@@ -866,28 +912,7 @@ export default function DashboardPage() {
 
       {/* 
         ========================================================================
-        4. COCKPIT HUD & MULTI-TRACE PARQUET CANVAS (Scaled to Active Circuit)
-        ========================================================================
-      */}
-      <TelemetryHUD
-        pointA={pointA}
-        pointB={pointB}
-        driverA={driverA}
-        driverB={driverB}
-      />
-
-      <MultiTraceCanvas
-        telemetryA={telemetryA}
-        telemetryB={telemetryB}
-        driverAColor={driverA.color_hex}
-        driverBColor={driverB.color_hex}
-        driverAName={driverA.broadcast_name}
-        driverBName={driverB.broadcast_name}
-      />
-
-      {/* 
-        ========================================================================
-        5. HISTORICAL WORLD CHAMPIONS STANDINGS ARCHIVE
+        4. HISTORICAL WORLD CHAMPIONS STANDINGS ARCHIVE
         ========================================================================
       */}
       <StandingsTable />

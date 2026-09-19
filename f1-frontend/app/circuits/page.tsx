@@ -1,12 +1,34 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { f1Api, MOCK_CIRCUITS } from '@/lib/api';
 import { Circuit } from '@/lib/types';
 import { useTelemetryStore } from '@/lib/store';
-import { GlobeView } from '@/components/circuits/GlobeView';
 import { TrackLayoutViewer } from '@/components/circuits/TrackLayoutViewer';
-import { Compass, MapPin, Globe, Sparkles, Filter } from 'lucide-react';
+import { Compass, MapPin, Globe, Filter } from 'lucide-react';
+
+const GlobeView = dynamic(
+  () => import('@/components/circuits/GlobeView').then((mod) => mod.GlobeView),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[480px] f1-glass-card rounded-xl flex flex-col items-center justify-center p-6 space-y-4">
+        <div className="w-16 h-16 rounded-full border-2 border-[#00E5FF]/20 border-t-[#00E5FF] animate-spin flex items-center justify-center">
+          <Globe className="w-6 h-6 text-[#00E5FF]/60 animate-pulse" />
+        </div>
+        <div className="text-center space-y-1 font-mono">
+          <div className="text-sm font-bold text-white tracking-wide">
+            INITIALIZING 3D REVOLVING EARTH GLOBE
+          </div>
+          <p className="text-xs text-neutral-400">
+            Calibrating orbital projection for 39 global Grand Prix circuits...
+          </p>
+        </div>
+      </div>
+    ),
+  }
+);
 
 export default function CircuitsPage() {
   const [circuits, setCircuits] = useState<Circuit[]>(MOCK_CIRCUITS);
@@ -26,7 +48,7 @@ export default function CircuitsPage() {
 
   const filteredCircuits = circuits.filter((c) => {
     if (filterRegion === 'ALL') return true;
-    if (filterRegion === 'EUROPE') return ['ITA', 'BEL', 'GBR', 'MON', 'AUT', 'NED', 'ESP', 'FRA', 'GER', 'TUR', 'POR', 'RUS'].includes(c.country_code);
+    if (filterRegion === 'EUROPE') return ['ITA', 'BEL', 'GBR', 'MON', 'AUT', 'NED', 'ESP', 'FRA', 'GER', 'TUR', 'POR', 'RUS', 'HUN'].includes(c.country_code);
     if (filterRegion === 'AMERICAS') return ['BRA', 'USA', 'CAN', 'MEX'].includes(c.country_code);
     if (filterRegion === 'ASIA_MIDDLE_EAST') return ['JPN', 'SGP', 'AZE', 'BHR', 'SAU', 'QAT', 'UAE', 'CHN', 'AUS', 'MAL', 'IND', 'KOR'].includes(c.country_code);
     return true;

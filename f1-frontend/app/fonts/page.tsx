@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Check, ExternalLink, Gauge, Zap, Timer, Flame, Eye, Sparkles } from 'lucide-react';
+import { ArrowLeft, Check, ExternalLink, Gauge, Zap, Timer, Flame, Eye, Palette } from 'lucide-react';
 
 interface FontOption {
   id: string;
@@ -127,7 +127,7 @@ export default function FontsPage() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-5">
         <div>
           <div className="flex items-center gap-2 text-xs font-mono tracking-widest text-[#FF1801] uppercase mb-1">
-            <Sparkles className="w-3.5 h-3.5" />
+            <Palette className="w-3.5 h-3.5" />
             <span>Typography Design System</span>
           </div>
           <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-white flex items-center gap-3">
@@ -187,7 +187,7 @@ export default function FontsPage() {
 
               {option.recommendation && (
                 <div className="mb-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#FF1801]/15 border border-[#FF1801]/30 text-[11px] text-[#FF9E94] font-medium">
-                  <Sparkles className="w-3 h-3 text-[#FF1801]" />
+                  <Flame className="w-3 h-3 text-[#FF1801]" />
                   <span>{option.recommendation}</span>
                 </div>
               )}

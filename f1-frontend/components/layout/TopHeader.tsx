@@ -14,8 +14,10 @@ import {
   Palette,
   Flag,
   Calendar,
-  Sparkles,
+  RotateCcw,
   ChevronDown,
+  ChevronUp,
+  SlidersHorizontal,
   Zap,
   Menu,
   X,
@@ -42,13 +44,14 @@ const NAV_OPTIONS: NavOption[] = [
   { label: 'Micro-Sectors', href: '/track-map' },
   { label: 'Race Strategy', href: '/strategy' },
   { label: 'Drivers & Teams', href: '/drivers' },
-  { label: 'Font Lab', href: '/fonts', badge: 'NEW' },
 ];
 
 export function TopHeader() {
   const pathname = usePathname();
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isControlsMinimized, setIsControlsMinimized] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const {
     season,
@@ -69,7 +72,13 @@ export function TopHeader() {
     setShowIntro,
     activeDistanceM,
     circuitLengthM,
+    hydrateFromStorage,
   } = useTelemetryStore();
+
+  React.useEffect(() => {
+    hydrateFromStorage();
+    setMounted(true);
+  }, [hydrateFromStorage]);
 
   const handleThemeChange = (newTheme: ThemeType) => {
     setTheme(newTheme);
@@ -181,7 +190,7 @@ export function TopHeader() {
               className="p-1.5 rounded-md f1-pill text-neutral-300 hover:text-white transition-all hover:scale-105 active:scale-95 hidden sm:flex"
               title="Replay KERS Starting Animation"
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#FF1801]" />
+              <RotateCcw className="w-3.5 h-3.5 text-[#FF1801]" />
             </button>
 
             {/* Mobile Hamburger Toggle */}
@@ -222,141 +231,222 @@ export function TopHeader() {
           )}
         </AnimatePresence>
 
-        {/* Secondary Telemetry & Session Control Sub-Bar */}
-        <div className="px-3 py-1.5 f1-glass rounded-md flex flex-wrap items-center justify-between gap-3 border border-white/[0.06] text-xs font-mono">
-          {/* Left: Season & Race Switchers */}
-          <div className="flex flex-wrap items-center gap-2">
-            {/* Season Selector */}
-            <div className="flex items-center gap-1.5 f1-pill px-2.5 py-0.5">
-              <Calendar className="w-3 h-3 text-[#FF1801]" />
-              <select
-                value={season}
-                onChange={(e) => setSeason(Number(e.target.value))}
-                aria-label="Select F1 Season"
-                className="bg-transparent text-white font-mono font-bold text-xs focus:outline-none cursor-pointer"
+        {/* Collapsible Secondary Telemetry & Session Control Sub-Bar */}
+        <div className="relative">
+          <AnimatePresence initial={false} mode="wait">
+            {isControlsMinimized ? (
+              /* Minimized Compact Bar (Unblocks underlying sections & 3D Earth Globe) */
+              <motion.div
+                key="controls-minimized"
+                initial={{ opacity: 0, y: -6, height: 0 }}
+                animate={{ opacity: 1, y: 0, height: 'auto' }}
+                exit={{ opacity: 0, y: -6, height: 0 }}
+                transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                className="overflow-hidden"
               >
-                {AVAILABLE_SEASONS.map((s) => (
-                  <option key={s} value={s} className="bg-[#0D1117] text-white">
-                    Season {s}
-                  </option>
-                ))}
-              </select>
-            </div>
+                <div
+                  onClick={() => setIsControlsMinimized(false)}
+                  className="px-3 py-1.5 f1-glass rounded-md flex items-center justify-between gap-2 border border-white/[0.08] text-xs font-mono cursor-pointer hover:border-white/20 transition-all group"
+                  title="Click to expand full race selector and telemetry controls"
+                >
+                  {/* Left: Active Race & Session Indicator */}
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="w-2 h-2 rounded-full bg-[#FF1801] shadow-[0_0_8px_#FF1801] animate-pulse shrink-0" />
+                    <span className="font-bold text-white text-xs truncate">
+                      {selectedRace?.race_name || 'Grand Prix'}
+                    </span>
+                    <span className="text-neutral-400 text-[11px] hidden sm:inline">
+                      • Season {season}
+                    </span>
+                    {selectedSession && (
+                      <span className="px-1.5 py-0.5 rounded bg-[#FF1801]/20 border border-[#FF1801]/40 text-[#FF1801] text-[10px] font-bold">
+                        {selectedSession.session_type}
+                      </span>
+                    )}
+                  </div>
 
-            {/* Race Dropdown */}
-            <div className="flex items-center gap-1.5 f1-pill px-2.5 py-0.5">
-              <Flag className="w-3 h-3 text-neutral-400" />
-              <select
-                value={selectedRace?.id || ''}
-                onChange={(e) => {
-                  const r = races.find((item) => item.id === Number(e.target.value));
-                  if (r) setSelectedRace(r);
-                }}
-                aria-label="Select Grand Prix"
-                className="bg-transparent text-white text-xs font-medium focus:outline-none cursor-pointer max-w-[150px] truncate"
+                  {/* Right: Expand Button */}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsControlsMinimized(false);
+                    }}
+                    className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-white/[0.08] group-hover:bg-[#FF1801] text-neutral-200 group-hover:text-white text-[11px] font-bold font-mono transition-all shrink-0 border border-white/10"
+                    aria-label="Expand race selector and telemetry controls"
+                  >
+                    <SlidersHorizontal className="w-3 h-3" />
+                    <span>Controls</span>
+                    <ChevronDown className="w-3 h-3" />
+                  </button>
+                </div>
+              </motion.div>
+            ) : (
+              /* Expanded Full Controls Bar */
+              <motion.div
+                key="controls-expanded"
+                initial={{ opacity: 0, y: -6, height: 0 }}
+                animate={{ opacity: 1, y: 0, height: 'auto' }}
+                exit={{ opacity: 0, y: -6, height: 0 }}
+                transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                className="overflow-hidden"
               >
-                {races.map((r) => (
-                  <option key={r.id} value={r.id} className="bg-[#0D1117] text-white">
-                    {r.race_name}
-                  </option>
-                ))}
-              </select>
-            </div>
+                <div className="px-3 py-1.5 f1-glass rounded-md flex flex-wrap items-center justify-between gap-2.5 border border-white/[0.06] text-xs font-mono">
+                  {/* Left: Season & Race Switchers */}
+                  <div className="flex flex-wrap items-center gap-2">
+                    {/* Season Selector */}
+                    <div className="flex items-center gap-1.5 f1-pill px-2.5 py-0.5">
+                      <Calendar className="w-3 h-3 text-[#FF1801]" />
+                      <select
+                        value={season}
+                        onChange={(e) => setSeason(Number(e.target.value))}
+                        aria-label="Select F1 Season"
+                        className="bg-transparent text-white font-mono font-bold text-xs focus:outline-none cursor-pointer"
+                      >
+                        {AVAILABLE_SEASONS.map((s) => (
+                          <option key={s} value={s} className="bg-[#0D1117] text-white">
+                            Season {s}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
 
-            {/* Session Switcher */}
-            {selectedRace && selectedRace.sessions && selectedRace.sessions.length > 0 && (
-              <div className="hidden sm:flex items-center f1-pill p-0.5 gap-0.5">
-                {selectedRace.sessions.map((s) => {
-                  const isSelected = selectedSession?.id === s.id;
-                  return (
+                    {/* Race Dropdown */}
+                    <div className="flex items-center gap-1.5 f1-pill px-2.5 py-0.5">
+                      <Flag className="w-3 h-3 text-neutral-400" />
+                      <select
+                        value={selectedRace?.id || ''}
+                        onChange={(e) => {
+                          const r = races.find((item) => item.id === Number(e.target.value));
+                          if (r) setSelectedRace(r);
+                        }}
+                        aria-label="Select Grand Prix"
+                        className="bg-transparent text-white text-xs font-medium focus:outline-none cursor-pointer max-w-[150px] truncate"
+                      >
+                        {races.map((r) => (
+                          <option key={r.id} value={r.id} className="bg-[#0D1117] text-white">
+                            {r.race_name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {/* Session Switcher */}
+                    {selectedRace && selectedRace.sessions && selectedRace.sessions.length > 0 && (
+                      <div className="hidden sm:flex items-center f1-pill p-0.5 gap-0.5">
+                        {selectedRace.sessions.map((s) => {
+                          const isSelected = selectedSession?.id === s.id;
+                          return (
+                            <button
+                              key={s.id}
+                              onClick={() => setSelectedSession(s)}
+                              className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold transition-all ${
+                                isSelected
+                                  ? 'bg-[#FF1801] text-white shadow-sm'
+                                  : 'text-neutral-400 hover:text-white'
+                              }`}
+                            >
+                              {s.session_type}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Center: Live Driver Telemetry Delta (H2H) */}
+                  <div className="hidden md:flex items-center gap-2.5 f1-pill px-3 py-0.5" suppressHydrationWarning>
+                    <div className="flex items-center gap-1.5" suppressHydrationWarning>
+                      <span
+                        className="w-1.5 h-3 rounded-none shadow-sm inline-block transition-colors"
+                        style={{ backgroundColor: mounted ? driverA.color_hex : '#FF8000' }}
+                        suppressHydrationWarning
+                      />
+                      <span className="font-bold text-white" suppressHydrationWarning>
+                        {mounted ? driverA.broadcast_name : 'NOR'}
+                      </span>
+                    </div>
+
+                    <span className="text-neutral-500 text-[10px] font-bold">VS</span>
+
+                    <div className="flex items-center gap-1.5" suppressHydrationWarning>
+                      <span
+                        className="w-1.5 h-3 rounded-none shadow-sm inline-block transition-colors"
+                        style={{ backgroundColor: mounted ? driverB.color_hex : '#E80020' }}
+                        suppressHydrationWarning
+                      />
+                      <span className="font-bold text-white" suppressHydrationWarning>
+                        {mounted ? driverB.broadcast_name : 'HAM'}
+                      </span>
+                    </div>
+
+                    <span className="text-neutral-500 pl-2 border-l border-white/[0.08] text-[10px] flex items-center gap-1" suppressHydrationWarning>
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      <span suppressHydrationWarning>{activeDistanceM}m</span>
+                      <span className="text-neutral-400" suppressHydrationWarning>({progressPct}%)</span>
+                    </span>
+                  </div>
+
+                  {/* Right: Telemetry Playback, Theme & Minimize Toggle */}
+                  <div className="flex items-center gap-1.5">
+                    {/* Playback Controls */}
+                    <div className="flex items-center f1-pill p-0.5">
+                      <button
+                        onClick={togglePlayback}
+                        className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold flex items-center gap-1 transition-all ${
+                          isPlaying
+                            ? 'bg-amber-400/20 text-amber-300'
+                            : 'bg-white/10 text-neutral-200 hover:bg-white/15'
+                        }`}
+                      >
+                        {isPlaying ? <Pause className="w-2.5 h-2.5 fill-current" /> : <Play className="w-2.5 h-2.5 fill-current" />}
+                        <span>{isPlaying ? 'PAUSE' : 'PLAY'}</span>
+                      </button>
+
+                      <select
+                        value={playbackSpeed}
+                        onChange={(e) => setPlaybackSpeed(Number(e.target.value))}
+                        aria-label="Playback speed"
+                        className="bg-transparent text-[10px] font-mono text-neutral-400 focus:outline-none cursor-pointer px-1"
+                      >
+                        <option value={1} className="bg-[#0D1117]">1x</option>
+                        <option value={2} className="bg-[#0D1117]">2x</option>
+                        <option value={5} className="bg-[#0D1117]">5x</option>
+                      </select>
+                    </div>
+
+                    {/* Theme Selector */}
+                    <div className="flex items-center f1-pill px-2 py-0.5">
+                      <Palette className="w-3 h-3 text-neutral-400 mr-1" />
+                      <select
+                        value={theme}
+                        onChange={(e) => handleThemeChange(e.target.value as ThemeType)}
+                        aria-label="Theme selection"
+                        className="bg-transparent text-neutral-300 text-xs font-mono focus:outline-none cursor-pointer"
+                      >
+                        <option value="obsidian" className="bg-[#0D1117]">Obsidian</option>
+                        <option value="scuderia" className="bg-[#0D1117]">Scuderia</option>
+                        <option value="petronas" className="bg-[#0D1117]">Petronas</option>
+                        <option value="monaco" className="bg-[#0D1117]">Monaco</option>
+                      </select>
+                    </div>
+
+                    {/* Minimize Button */}
                     <button
-                      key={s.id}
-                      onClick={() => setSelectedSession(s)}
-                      className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold transition-all ${
-                        isSelected
-                          ? 'bg-[#FF1801] text-white shadow-sm'
-                          : 'text-neutral-400 hover:text-white'
-                      }`}
+                      type="button"
+                      onClick={() => setIsControlsMinimized(true)}
+                      className="px-2 py-1 rounded f1-pill text-neutral-400 hover:text-white hover:bg-white/10 transition-colors flex items-center gap-1 text-[11px] font-mono border border-white/[0.08]"
+                      title="Minimize controls bar to unblock view"
+                      aria-label="Minimize controls bar"
                     >
-                      {s.session_type}
+                      <span className="hidden xs:inline">Minimize</span>
+                      <ChevronUp className="w-3.5 h-3.5 text-[#FF1801]" />
                     </button>
-                  );
-                })}
-              </div>
+                  </div>
+                </div>
+              </motion.div>
             )}
-          </div>
-
-          {/* Center: Live Driver Telemetry Delta (H2H) */}
-          <div className="hidden md:flex items-center gap-2.5 f1-pill px-3 py-0.5">
-            <div className="flex items-center gap-1.5">
-              <span
-                className="w-1.5 h-3 rounded-none shadow-sm inline-block"
-                style={{ backgroundColor: driverA.color_hex }}
-              />
-              <span className="font-bold text-white">{driverA.broadcast_name}</span>
-            </div>
-
-            <span className="text-neutral-500 text-[10px] font-bold">VS</span>
-
-            <div className="flex items-center gap-1.5">
-              <span
-                className="w-1.5 h-3 rounded-none shadow-sm inline-block"
-                style={{ backgroundColor: driverB.color_hex }}
-              />
-              <span className="font-bold text-white">{driverB.broadcast_name}</span>
-            </div>
-
-            <span className="text-neutral-500 pl-2 border-l border-white/[0.08] text-[10px] flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span>{activeDistanceM}m</span>
-              <span className="text-neutral-400">({progressPct}%)</span>
-            </span>
-          </div>
-
-          {/* Right: Telemetry Playback & Theme */}
-          <div className="flex items-center gap-2">
-            {/* Playback Controls */}
-            <div className="flex items-center f1-pill p-0.5">
-              <button
-                onClick={togglePlayback}
-                className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold flex items-center gap-1 transition-all ${
-                  isPlaying
-                    ? 'bg-amber-400/20 text-amber-300'
-                    : 'bg-white/10 text-neutral-200 hover:bg-white/15'
-                }`}
-              >
-                {isPlaying ? <Pause className="w-2.5 h-2.5 fill-current" /> : <Play className="w-2.5 h-2.5 fill-current" />}
-                <span>{isPlaying ? 'PAUSE' : 'PLAY'}</span>
-              </button>
-
-              <select
-                value={playbackSpeed}
-                onChange={(e) => setPlaybackSpeed(Number(e.target.value))}
-                aria-label="Playback speed"
-                className="bg-transparent text-[10px] font-mono text-neutral-400 focus:outline-none cursor-pointer px-1"
-              >
-                <option value={1} className="bg-[#0D1117]">1x</option>
-                <option value={2} className="bg-[#0D1117]">2x</option>
-                <option value={5} className="bg-[#0D1117]">5x</option>
-              </select>
-            </div>
-
-            {/* Theme Selector */}
-            <div className="flex items-center f1-pill px-2 py-0.5">
-              <Palette className="w-3 h-3 text-neutral-400 mr-1" />
-              <select
-                value={theme}
-                onChange={(e) => handleThemeChange(e.target.value as ThemeType)}
-                aria-label="Theme selection"
-                className="bg-transparent text-neutral-300 text-xs font-mono focus:outline-none cursor-pointer"
-              >
-                <option value="obsidian" className="bg-[#0D1117]">Obsidian</option>
-                <option value="scuderia" className="bg-[#0D1117]">Scuderia</option>
-                <option value="petronas" className="bg-[#0D1117]">Petronas</option>
-                <option value="monaco" className="bg-[#0D1117]">Monaco</option>
-              </select>
-            </div>
-          </div>
+          </AnimatePresence>
         </div>
       </header>
     </>
