@@ -79,7 +79,7 @@ export function CookieConsentBanner() {
 
           {/* Description */}
           <p className="text-xs font-sans text-neutral-300 leading-relaxed">
-            KERS utilizes essential local storage to remember your audio mute states, UI theme, and custom lap times. 
+            kersF1 utilizes essential local storage to remember your audio mute states, UI theme, and custom lap times. 
             With your permission, we also collect anonymized telemetry diagnostics to benchmark micro-sector render speeds.
           </p>
 

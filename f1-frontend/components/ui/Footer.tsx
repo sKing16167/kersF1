@@ -26,7 +26,7 @@ export function Footer() {
               <KersLogo size={28} showText={true} />
             </Link>
             <p className="text-xs text-neutral-400 font-sans leading-relaxed max-w-sm">
-              Kinetic Energy Recovery System (KERS) F1 Telemetry Hub. Ultra-high frequency ghosting comparisons, 39 calibrated circuit layouts, micro-sector apex velocities, and dynamic tire strategy modeling.
+              kersF1 — Formula 1 Telemetry & Precision Analytics Hub. Ultra-high frequency ghosting comparisons, 39 calibrated circuit layouts, micro-sector apex velocities, and dynamic tire strategy modeling.
             </p>
             <div className="flex items-center gap-3 pt-1">
               <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px]">
@@ -108,14 +108,14 @@ export function Footer() {
           </p>
           <p>
             Formula 1, F1, FORMULA ONE, FIA FORMULA ONE WORLD CHAMPIONSHIP, GRAND PRIX, team constructors, and driver names are trademarks and copyright of Formula One Licensing B.V. and the FIA. 
-            KERS F1 is an independent, non-commercial educational open-source software project. This site is not associated with, sponsored by, or endorsed by the Formula One companies.
+            kersF1 is an independent, non-commercial educational open-source software project. This site is not associated with, sponsored by, or endorsed by the Formula One companies.
           </p>
         </div>
 
         {/* Bottom Bar */}
         <div className="pt-4 border-t border-white/[0.06] flex flex-wrap items-center justify-between gap-3 text-[11px] text-neutral-400">
           <div>
-            &copy; {new Date().getFullYear()} KERS F1 Telemetry Analytics. Released under MIT Open Source.
+            &copy; {new Date().getFullYear()} kersF1 Telemetry Analytics. Released under MIT Open Source.
           </div>
           <div className="flex items-center gap-3">
             <Link

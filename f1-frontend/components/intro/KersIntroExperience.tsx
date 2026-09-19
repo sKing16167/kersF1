@@ -111,7 +111,7 @@ export function KersIntroExperience() {
           {/* Subtitle */}
           <div className="space-y-1">
             <p className="text-xs sm:text-sm font-mono tracking-[0.3em] text-neutral-300 uppercase font-bold">
-              Formula 1 Telemetry & Strategy Hub
+              kersF1 • Telemetry & Strategy Hub
             </p>
           </div>
 

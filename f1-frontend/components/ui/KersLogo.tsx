@@ -181,17 +181,27 @@ export function KersLogo({
   };
 
   const ersTextElement = (
-    <span
-      className={`font-mono font-black italic tracking-[0.16em] select-none text-white ${
-        animated ? 'animate-kersErs' : ''
-      } ${textClassName}`}
-      style={{
-        fontSize: `${Math.round(size * 0.74)}px`,
-        lineHeight: 1,
-        marginLeft: `-${Math.round(size * 0.08)}px`,
-      }}
-    >
-      ERS
+    <span className="inline-flex items-center gap-1">
+      <span
+        className={`font-mono font-black italic tracking-[0.14em] select-none text-white ${
+          animated ? 'animate-kersErs' : ''
+        } ${textClassName}`}
+        style={{
+          fontSize: `${Math.round(size * 0.74)}px`,
+          lineHeight: 1,
+          marginLeft: `-${Math.round(size * 0.08)}px`,
+        }}
+      >
+        ERS
+      </span>
+      <span
+        className="font-mono font-black italic tracking-tight text-[#FF1801] px-1 py-0.5 rounded bg-[#FF1801]/15 border border-[#FF1801]/30 leading-none select-none inline-block"
+        style={{
+          fontSize: `${Math.max(9, Math.round(size * 0.54))}px`,
+        }}
+      >
+        F1
+      </span>
     </span>
   );
 
@@ -204,11 +214,11 @@ export function KersLogo({
         {showText && (
           <div className="flex flex-col leading-none">
             <div className="flex items-center gap-1.5">
-              <span className={`font-mono font-black italic tracking-[0.18em] text-white text-base ${textClassName}`}>
+              <span className={`font-mono font-black italic tracking-[0.16em] text-white text-base ${textClassName}`}>
                 ERS
               </span>
-              <span className="text-[8px] font-mono font-bold tracking-widest text-neutral-400 px-1 py-0.2 rounded bg-white/[0.08] border border-white/[0.08] uppercase">
-                PRO
+              <span className="text-[9px] font-mono font-black italic tracking-tight text-[#FF1801] px-1 py-0.5 rounded bg-[#FF1801]/15 border border-[#FF1801]/30 uppercase">
+                F1
               </span>
             </div>
             {subtitle && (

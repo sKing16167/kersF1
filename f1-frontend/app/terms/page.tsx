@@ -39,7 +39,7 @@ export default function TermsPage() {
             Mandatory Formula 1 Trademark & Non-Affiliation Disclaimer
           </div>
           <p className="leading-relaxed text-neutral-300">
-            This platform, <strong>KERS F1 (Kinetic Energy Recovery System)</strong>, is an independent, open-source educational 
+            This platform, <strong>kersF1</strong>, is an independent, open-source educational 
             telemetry analysis hub developed strictly for research, non-commercial software demonstration, and enthusiast analysis.
           </p>
           <p className="leading-relaxed text-neutral-400">
@@ -59,7 +59,7 @@ export default function TermsPage() {
             <h2>1. Agreement to Terms</h2>
           </div>
           <p className="text-xs font-sans text-neutral-300 leading-relaxed">
-            By accessing or interacting with the KERS F1 application, including the Ghosting Arena, Micro-Sector velocity maps, 
+            By accessing or interacting with the kersF1 application, including the Ghosting Arena, Micro-Sector velocity maps, 
             3D Globe circuit views, or race strategy simulations, you agree to be bound by these Terms & Conditions. 
             If you disagree with any portion of these terms, your sole remedy is to discontinue use of the platform.
           </p>
@@ -97,7 +97,7 @@ export default function TermsPage() {
             </div>
             <div className="p-3 rounded-lg bg-black/40 border border-white/[0.06] space-y-1">
               <span className="text-red-400 font-bold">Commercial Resale</span>
-              <p className="text-[11px] text-neutral-400">Sub-licensing, packaging, or selling access to KERS telemetry visualizations for commercial profit.</p>
+              <p className="text-[11px] text-neutral-400">Sub-licensing, packaging, or selling access to kersF1 telemetry visualizations for commercial profit.</p>
             </div>
             <div className="p-3 rounded-lg bg-black/40 border border-white/[0.06] space-y-1">
               <span className="text-red-400 font-bold">Exploit Probing</span>
@@ -105,7 +105,7 @@ export default function TermsPage() {
             </div>
             <div className="p-3 rounded-lg bg-black/40 border border-white/[0.06] space-y-1">
               <span className="text-red-400 font-bold">Trademark Infringement</span>
-              <p className="text-[11px] text-neutral-400">Misrepresenting KERS as an official Formula 1 application or attempting trademark squatting.</p>
+              <p className="text-[11px] text-neutral-400">Misrepresenting kersF1 as an official Formula 1 application or attempting trademark squatting.</p>
             </div>
           </div>
         </div>
@@ -114,7 +114,7 @@ export default function TermsPage() {
         <div className="f1-glass-card p-6 rounded-xl border border-white/[0.08] space-y-3">
           <h2 className="text-white font-display font-bold text-base">4. Proprietary Software Architecture</h2>
           <p className="text-xs font-sans text-neutral-300 leading-relaxed">
-            The source code, custom SVG turnwise calibration algorithms, WebGL cloth physics engines, and user interface designs of KERS are the intellectual property of the project contributors and licensed under the MIT Open Source License. Third-party logos, team trademarks, and circuit silhouettes remain the property of their respective trademark holders.
+            The source code, custom SVG turnwise calibration algorithms, WebGL cloth physics engines, and user interface designs of kersF1 are the intellectual property of the project contributors and licensed under the MIT Open Source License. Third-party logos, team trademarks, and circuit silhouettes remain the property of their respective trademark holders.
           </p>
         </div>
 

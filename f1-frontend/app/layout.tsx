@@ -75,8 +75,46 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'KERS F1 | Telemetry & Race Analytics Hub',
-  description: 'Precision Formula 1 telemetry ghosting arena, micro-sector velocity maps, and race strategy prediction.',
+  title: 'kersF1 | Formula 1 Telemetry & Precision Race Analytics Hub',
+  description: 'kersF1 is the advanced Formula 1 telemetry platform featuring real-time driver ghosting comparison, 39 calibrated FIA circuits, micro-sector velocity maps, and undercut strategy predictions.',
+  keywords: [
+    'kersF1',
+    'F1',
+    'Formula 1',
+    'F1 telemetry',
+    'Formula 1 telemetry',
+    'F1 live timing',
+    'F1 telemetry analysis',
+    'F1 telemetry comparison',
+    'F1 ghosting arena',
+    'F1 circuit apex speed',
+    'F1 tire strategy',
+    'F1 undercut prediction',
+    'Formula 1 2026',
+    'Formula 1 2025',
+  ],
+  authors: [{ name: 'kersF1' }],
+  openGraph: {
+    title: 'kersF1 | Formula 1 Telemetry & Precision Race Analytics Hub',
+    description: 'Advanced Formula 1 telemetry platform: real-time driver ghosting, 39 calibrated circuits, micro-sector velocity maps, and undercut race strategy predictions.',
+    url: 'https://kers-f1.vercel.app',
+    siteName: 'kersF1',
+    images: [
+      {
+        url: '/icon.png',
+        width: 512,
+        height: 512,
+        alt: 'kersF1 Motorsport Telemetry Hub',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'kersF1 | Formula 1 Telemetry & Precision Race Analytics Hub',
+    description: 'Precision Formula 1 telemetry ghosting arena, 39 calibrated circuits, micro-sector velocity maps, and live race strategy predictions.',
+  },
   icons: {
     icon: [
       { url: '/favicon.ico?v=kers2', sizes: 'any' },
