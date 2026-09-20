@@ -98,6 +98,7 @@ export const metadata: Metadata = {
   verification: {
     google: 'google88992bcd95212f5c',
   },
+  applicationName: 'kersF1',
   openGraph: {
     title: 'kersF1 | Formula 1 Telemetry & Precision Race Analytics Hub',
     description: 'Advanced Formula 1 telemetry platform: real-time driver ghosting, 39 calibrated circuits, micro-sector velocity maps, and undercut race strategy predictions.',
@@ -121,10 +122,12 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/favicon-48x48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/icon-96.png', sizes: '96x96', type: 'image/png' },
       { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
       { url: '/icon.png', sizes: '512x512', type: 'image/png' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: 'any' },
     ],
     shortcut: ['/favicon.ico'],
     apple: [
@@ -146,11 +149,28 @@ export default function RootLayout({
       className={`${orbitron.variable} ${chakraPetch.variable} ${shareTechMono.variable} ${plusJakarta.variable} ${syne.variable} ${spaceMono.variable} ${inter.variable}`}
     >
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        {/* Google Official Favicon Specification (Multiple of 48px square) */}
+        <link rel="icon" href="/favicon-48x48.png" sizes="48x48" type="image/png" />
+        <link rel="icon" href="/icon-96.png" sizes="96x96" type="image/png" />
+        <link rel="icon" href="/icon-192.png" sizes="192x192" type="image/png" />
+        <link rel="icon" href="/icon.png" sizes="512x512" type="image/png" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-        <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
-        <link rel="icon" href="/icon.png" type="image/png" sizes="512x512" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+
+        {/* Google Official Site Name Structured Data (Schema.org WebSite) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: 'kersF1',
+              alternateName: ['KERS', 'kersF1 Telemetry', 'kersF1 | Formula 1 Telemetry'],
+              url: 'https://kersf1.vercel.app/',
+            }),
+          }}
+        />
       </head>
       <body className="font-sans antialiased min-h-screen flex flex-col text-white selection:bg-white/20 selection:text-white relative bg-[#07080B]">
         {/* Optical Glass Refraction & Light-Bending SVG Filter Pipeline */}
