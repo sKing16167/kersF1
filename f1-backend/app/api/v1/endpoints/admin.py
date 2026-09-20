@@ -6,6 +6,7 @@ network rule, or an API-key header check) before exposing it publicly —
 it is not authenticated by default.
 """
 from enum import Enum
+import hmac
 from fastapi import APIRouter, Depends, HTTPException, Security, status
 from fastapi.security.api_key import APIKeyHeader
 from pydantic import BaseModel, Field
@@ -18,7 +19,7 @@ api_key_header = APIKeyHeader(name="X-Admin-API-Key", auto_error=False)
 
 
 def verify_admin_key(key: str = Security(api_key_header)):
-    if not key or key != settings.SECRET_KEY:
+    if not key or not hmac.compare_digest(key, settings.SECRET_KEY):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid or missing administrative API key"

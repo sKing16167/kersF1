@@ -34,59 +34,125 @@ def compare_drivers_head_to_head(
     if not driver_a or not driver_b:
         raise HTTPException(status_code=404, detail="One or both drivers not found")
 
-    q_sessions = (
-        db.query(models.RaceSession)
+    q_query = (
+        db.query(models.RaceSession.id)
         .join(models.Race)
         .filter(models.RaceSession.session_type.in_(["Q", "SQ"]))
     )
-    r_sessions = (
-        db.query(models.RaceSession)
+    r_query = (
+        db.query(models.RaceSession.id)
         .join(models.Race)
         .filter(models.RaceSession.session_type == "R")
     )
     if season:
-        q_sessions = q_sessions.filter(models.Race.season_year == season)
-        r_sessions = r_sessions.filter(models.Race.season_year == season)
+        q_query = q_query.filter(models.Race.season_year == season)
+        r_query = r_query.filter(models.Race.season_year == season)
 
-    # Qualifying gap
+    q_session_ids = [r[0] for r in q_query.all()]
+    r_session_ids = [r[0] for r in r_query.all()]
+
+    # Qualifying gap (single grouped query instead of per-session loop)
     q_diffs = []
-    for s in q_sessions.all():
-        best_a = db.query(func.min(models.LapTime.lap_time_ms)).filter_by(session_id=s.id, driver_id=driver_a_id).scalar()
-        best_b = db.query(func.min(models.LapTime.lap_time_ms)).filter_by(session_id=s.id, driver_id=driver_b_id).scalar()
-        if best_a and best_b:
-            q_diffs.append(best_a - best_b)
+    if q_session_ids:
+        q_bests = (
+            db.query(
+                models.LapTime.session_id,
+                models.LapTime.driver_id,
+                func.min(models.LapTime.lap_time_ms).label("best_ms")
+            )
+            .filter(
+                models.LapTime.session_id.in_(q_session_ids),
+                models.LapTime.driver_id.in_([driver_a_id, driver_b_id]),
+                models.LapTime.lap_time_ms.isnot(None),
+                models.LapTime.is_deleted.is_(False)
+            )
+            .group_by(models.LapTime.session_id, models.LapTime.driver_id)
+            .all()
+        )
+        q_map = {}
+        for s_id, d_id, best_ms in q_bests:
+            q_map.setdefault(s_id, {})[d_id] = best_ms
+        for s_id in q_session_ids:
+            s_data = q_map.get(s_id, {})
+            best_a = s_data.get(driver_a_id)
+            best_b = s_data.get(driver_b_id)
+            if best_a and best_b:
+                q_diffs.append(best_a - best_b)
 
-    # Race head-to-head & pace delta
+    # Race head-to-head & pace delta (batched grouped queries instead of per-session loop)
     driver_a_wins = 0
     driver_b_wins = 0
     race_pace_diffs = []
     sessions_compared = 0
 
-    for s in r_sessions.all():
-        last_a = (
-            db.query(models.LapTime)
-            .filter_by(session_id=s.id, driver_id=driver_a_id)
-            .order_by(models.LapTime.lap_number.desc())
-            .first()
+    if r_session_ids:
+        # 1. Average race lap pace
+        r_avgs = (
+            db.query(
+                models.LapTime.session_id,
+                models.LapTime.driver_id,
+                func.avg(models.LapTime.lap_time_ms).label("avg_ms")
+            )
+            .filter(
+                models.LapTime.session_id.in_(r_session_ids),
+                models.LapTime.driver_id.in_([driver_a_id, driver_b_id]),
+                models.LapTime.is_deleted.is_(False),
+                models.LapTime.lap_time_ms.isnot(None)
+            )
+            .group_by(models.LapTime.session_id, models.LapTime.driver_id)
+            .all()
         )
-        last_b = (
-            db.query(models.LapTime)
-            .filter_by(session_id=s.id, driver_id=driver_b_id)
-            .order_by(models.LapTime.lap_number.desc())
-            .first()
-        )
-        if last_a and last_b and last_a.position and last_b.position:
-            sessions_compared += 1
-            if last_a.position < last_b.position:
-                driver_a_wins += 1
-            elif last_b.position < last_a.position:
-                driver_b_wins += 1
+        avg_map = {}
+        for s_id, d_id, avg_ms in r_avgs:
+            avg_map.setdefault(s_id, {})[d_id] = avg_ms
 
-            # Average race lap pace
-            avg_a = db.query(func.avg(models.LapTime.lap_time_ms)).filter_by(session_id=s.id, driver_id=driver_a_id).filter(models.LapTime.is_deleted.is_(False)).scalar()
-            avg_b = db.query(func.avg(models.LapTime.lap_time_ms)).filter_by(session_id=s.id, driver_id=driver_b_id).filter(models.LapTime.is_deleted.is_(False)).scalar()
-            if avg_a and avg_b:
-                race_pace_diffs.append(float(avg_a - avg_b))
+        # 2. Final race positions via max lap subquery
+        max_laps_subquery = (
+            db.query(
+                models.LapTime.session_id.label("session_id"),
+                models.LapTime.driver_id.label("driver_id"),
+                func.max(models.LapTime.lap_number).label("max_lap")
+            )
+            .filter(
+                models.LapTime.session_id.in_(r_session_ids),
+                models.LapTime.driver_id.in_([driver_a_id, driver_b_id]),
+            )
+            .group_by(models.LapTime.session_id, models.LapTime.driver_id)
+            .subquery()
+        )
+        last_laps = (
+            db.query(
+                models.LapTime.session_id,
+                models.LapTime.driver_id,
+                models.LapTime.position
+            )
+            .join(
+                max_laps_subquery,
+                (models.LapTime.session_id == max_laps_subquery.c.session_id)
+                & (models.LapTime.driver_id == max_laps_subquery.c.driver_id)
+                & (models.LapTime.lap_number == max_laps_subquery.c.max_lap)
+            )
+            .all()
+        )
+        last_map = {}
+        for s_id, d_id, pos in last_laps:
+            last_map.setdefault(s_id, {})[d_id] = pos
+
+        for s_id in r_session_ids:
+            s_pos = last_map.get(s_id, {})
+            pos_a = s_pos.get(driver_a_id)
+            pos_b = s_pos.get(driver_b_id)
+            if pos_a and pos_b:
+                sessions_compared += 1
+                if pos_a < pos_b:
+                    driver_a_wins += 1
+                elif pos_b < pos_a:
+                    driver_b_wins += 1
+
+                avg_a = avg_map.get(s_id, {}).get(driver_a_id)
+                avg_b = avg_map.get(s_id, {}).get(driver_b_id)
+                if avg_a and avg_b:
+                    race_pace_diffs.append(float(avg_a - avg_b))
 
     return HeadToHeadStat(
         driver_a=DriverOut.model_validate(driver_a),
@@ -113,12 +179,22 @@ def get_driver_standings(season: int = 2024, db: Session = Depends(get_db)):
         .all()
     )
     if standings:
+        driver_ids = [s.driver_id for s in standings if s.driver_id]
+        drivers_map = {d.id: d for d in db.query(models.Driver).filter(models.Driver.id.in_(driver_ids)).all()}
+        entries = db.query(models.DriverConstructorEntry).filter(
+            models.DriverConstructorEntry.season_year == season,
+            models.DriverConstructorEntry.driver_id.in_(driver_ids)
+        ).all()
+        entry_map = {e.driver_id: e for e in entries}
+        constructor_ids = [e.constructor_id for e in entries if e.constructor_id]
+        constructors_map = {c.id: c for c in db.query(models.Constructor).filter(models.Constructor.id.in_(constructor_ids)).all()}
+
         out = []
         for s in standings:
-            driver = db.query(models.Driver).get(s.driver_id)
+            driver = drivers_map.get(s.driver_id)
             if driver:
-                entry = db.query(models.DriverConstructorEntry).filter_by(season_year=season, driver_id=driver.id).first()
-                constructor = db.query(models.Constructor).get(entry.constructor_id) if entry else None
+                entry = entry_map.get(driver.id)
+                constructor = constructors_map.get(entry.constructor_id) if entry else None
                 out.append(DriverStandingOut(
                     position=s.position,
                     points=s.points,

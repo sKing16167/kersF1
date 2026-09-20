@@ -1,0 +1,16 @@
+.env
+.env.*
+*.env
+__pycache__/
+*.py[cod]
+*$py.class
+.git
+.gitignore
+.vscode
+.idea
+fastf1_cache/
+telemetry_storage/
+venv/
+.venv/
+.pytest_cache/
+*.log
