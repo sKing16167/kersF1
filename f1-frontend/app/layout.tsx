@@ -75,6 +75,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://kersf1.vercel.app'),
   title: 'kersF1 | Formula 1 Telemetry & Precision Race Analytics Hub',
   description: 'kersF1 is the advanced Formula 1 telemetry platform featuring real-time driver ghosting comparison, 39 calibrated FIA circuits, micro-sector velocity maps, and undercut strategy predictions.',
   keywords: [
@@ -97,7 +98,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'kersF1 | Formula 1 Telemetry & Precision Race Analytics Hub',
     description: 'Advanced Formula 1 telemetry platform: real-time driver ghosting, 39 calibrated circuits, micro-sector velocity maps, and undercut race strategy predictions.',
-    url: 'https://kers-f1.vercel.app',
+    url: 'https://kersf1.vercel.app',
     siteName: 'kersF1',
     images: [
       {

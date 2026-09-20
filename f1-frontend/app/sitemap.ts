@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://kers-f1.vercel.app';
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://kersf1.vercel.app';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const currentDate = new Date().toISOString();
