@@ -95,6 +95,9 @@ export const metadata: Metadata = {
     'Formula 1 2025',
   ],
   authors: [{ name: 'kersF1' }],
+  verification: {
+    google: 'google88992bcd95212f5c',
+  },
   openGraph: {
     title: 'kersF1 | Formula 1 Telemetry & Precision Race Analytics Hub',
     description: 'Advanced Formula 1 telemetry platform: real-time driver ghosting, 39 calibrated circuits, micro-sector velocity maps, and undercut race strategy predictions.',
