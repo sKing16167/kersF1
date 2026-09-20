@@ -117,8 +117,9 @@ export interface Race {
   official_event_name?: string;
   circuit: Circuit;
   sessions?: Session[];
-  status?: 'COMPLETED' | 'UPCOMING' | 'LIVE';
+  status?: 'COMPLETED' | 'UPCOMING' | 'LIVE' | 'CANCELLED';
   date?: string;
+  cancellation_reason?: string;
 }
 
 export interface PodiumFinisher {
@@ -157,7 +158,8 @@ export interface RaceResult {
   country: string;
   country_code: string;
   date: string;
-  status: 'COMPLETED' | 'UPCOMING' | 'LIVE';
+  status: 'COMPLETED' | 'UPCOMING' | 'LIVE' | 'CANCELLED';
+  cancellation_reason?: string;
   laps_completed: number;
   total_laps: number;
   podium?: {

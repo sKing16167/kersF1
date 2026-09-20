@@ -227,6 +227,8 @@ export function RaceCalendarWithPodium({ initialSeason = 2026 }: RaceCalendarWit
                           ? 'text-emerald-400 bg-emerald-500/10'
                           : r.status === 'LIVE'
                           ? 'text-red-400 bg-red-500/20 animate-pulse'
+                          : r.status === 'CANCELLED'
+                          ? 'text-red-400 bg-red-500/20 border border-red-500/30'
                           : 'text-neutral-400 bg-white/[0.04]'
                       }`}
                     >

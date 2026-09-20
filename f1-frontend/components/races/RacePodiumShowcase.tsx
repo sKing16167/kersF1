@@ -25,6 +25,7 @@ import {
   Wind,
   CheckCircle2,
   Info,
+  AlertTriangle,
 } from 'lucide-react';
 
 interface RacePodiumShowcaseProps {
@@ -37,13 +38,13 @@ export function RacePodiumShowcase({ race, result }: RacePodiumShowcaseProps) {
   const [showFullClassification, setShowFullClassification] = useState(false);
 
   const { podium, fastest_lap, pole_position, top_finishers, status } = result;
-  const isPastRace = race.status === 'COMPLETED' ||
-    (race.season && race.season < 2026) ||
-    (race.date && new Date(race.date).getTime() < Date.now()) ||
-    status === 'COMPLETED';
-  const isLive = !isPastRace && (race.status === 'LIVE' || status === 'LIVE');
-  const isUpcoming = !isPastRace && !isLive;
-  const isShowUpcoming = isUpcoming || !podium;
+  const isCancelled = race.status === 'CANCELLED' || status === 'CANCELLED';
+  const isPastRace = !isCancelled && (race.status === 'COMPLETED' ||
+    (race.season && race.season < 2026 && Boolean(race.date && new Date(race.date).getTime() < Date.now())) ||
+    status === 'COMPLETED');
+  const isLive = !isCancelled && !isPastRace && (race.status === 'LIVE' || status === 'LIVE');
+  const isUpcoming = !isCancelled && !isPastRace && !isLive;
+  const isShowUpcoming = !isCancelled && (isUpcoming || !podium);
 
   return (
     <div className="w-full f1-glass-card p-6 md:p-8 relative flex flex-col gap-6">
@@ -65,15 +66,28 @@ export function RacePodiumShowcase({ race, result }: RacePodiumShowcaseProps) {
             </span>
             <span className="text-neutral-500">•</span>
             <span
-              className={`text-[10px] font-mono px-2 py-0.5 rounded-sm font-bold border ${
-                isPastRace
+              className={`text-[10px] font-mono px-2 py-0.5 rounded-sm font-bold border flex items-center gap-1 ${
+                isCancelled
+                  ? 'bg-red-500/20 text-red-400 border-red-500/30'
+                  : isPastRace
                   ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
                   : isLive
                   ? 'bg-red-500/20 text-red-400 border-red-500/30 animate-pulse'
                   : 'bg-amber-500/15 text-amber-400 border-amber-500/30'
               }`}
             >
-              {isPastRace ? 'OFFICIAL CLASSIFICATION • COMPLETED' : isLive ? 'LIVE SESSION' : 'SCHEDULED / UPCOMING'}
+              {isCancelled ? (
+                <>
+                  <AlertTriangle className="w-3 h-3 text-red-400" />
+                  EVENT CANCELLED
+                </>
+              ) : isPastRace ? (
+                'OFFICIAL CLASSIFICATION • COMPLETED'
+              ) : isLive ? (
+                'LIVE SESSION'
+              ) : (
+                'SCHEDULED / UPCOMING'
+              )}
             </span>
           </div>
 
@@ -106,10 +120,123 @@ export function RacePodiumShowcase({ race, result }: RacePodiumShowcaseProps) {
 
       {/* 
         ========================================================================
-        SCENARIO A: UPCOMING RACE (STRICTLY NO FAKE DATA - CLEAN EVENT PREVIEW)
+        SCENARIO 0: CANCELLED RACE (OFFICIAL FIA CANCELLATION NOTICE)
         ========================================================================
       */}
-      {isShowUpcoming ? (
+      {isCancelled ? (
+        <div className="relative z-10 space-y-6 py-2">
+          {/* Cancellation Alert Banner */}
+          <div className="p-5 rounded-lg bg-red-950/25 border border-red-500/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl">
+            <div className="flex items-center gap-3.5">
+              <div className="w-11 h-11 rounded-md bg-red-500/20 border border-red-500/40 flex items-center justify-center text-red-400 flex-shrink-0">
+                <AlertTriangle className="w-6 h-6" />
+              </div>
+              <div className="space-y-1">
+                <h3 className="font-mono text-sm font-bold text-red-300 uppercase tracking-wider flex items-center gap-2">
+                  <span>Grand Prix Cancelled by FIA Notice</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30">OFFICIAL AMENDMENT</span>
+                </h3>
+                <p className="text-xs text-neutral-300 leading-relaxed">
+                  {race.cancellation_reason || result.cancellation_reason || 'This Grand Prix event was officially cancelled and removed from the championship calendar.'}
+                </p>
+                <p className="text-[11px] text-neutral-400">
+                  Zero championship points, laps, or official session times were contested for this event.
+                </p>
+              </div>
+            </div>
+
+            <div className="px-3 py-1.5 rounded bg-black/50 border border-red-500/30 text-xs font-mono text-red-300 flex items-center gap-1.5 self-stretch sm:self-auto justify-center">
+              <AlertTriangle className="w-3.5 h-3.5 text-red-400" />
+              <span>0 LAPS CONTESTED</span>
+            </div>
+          </div>
+
+          {/* Timetable and Track Profile */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* Cancelled Timetable */}
+            <div className="lg:col-span-6 space-y-3 font-mono">
+              <div className="flex items-center gap-2 mb-1">
+                <Calendar className="w-4 h-4 text-red-500" />
+                <span className="text-xs font-bold text-neutral-300 uppercase tracking-wider">
+                  SCHEDULED SESSIONS (CANCELLED)
+                </span>
+              </div>
+
+              <div className="space-y-2">
+                {race.sessions && race.sessions.length > 0 ? (
+                  race.sessions.map((s, idx) => (
+                    <div
+                      key={s.id || idx}
+                      className="p-3 rounded-lg bg-[#0B0E15] border border-red-500/20 flex items-center justify-between opacity-75"
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="w-8 h-6 rounded bg-red-500/20 text-red-400 flex items-center justify-center text-xs font-bold">
+                          {s.session_type}
+                        </span>
+                        <div>
+                          <span className="text-xs font-bold text-neutral-300 line-through">{s.session_name}</span>
+                          <p className="text-[10px] text-neutral-500">{s.date || race.date}</p>
+                        </div>
+                      </div>
+                      <span className="text-[10px] font-mono font-bold text-red-400 bg-red-500/10 px-2 py-0.5 rounded border border-red-500/20">
+                        CANCELLED
+                      </span>
+                    </div>
+                  ))
+                ) : (
+                  <div className="p-3 rounded-lg bg-[#0B0E15] border border-red-500/20 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <span className="w-8 h-6 rounded bg-red-500/20 text-red-400 flex items-center justify-center text-xs font-bold">
+                        GP
+                      </span>
+                      <span className="text-xs font-bold text-neutral-300">Grand Prix Weekend</span>
+                    </div>
+                    <span className="text-[10px] font-mono font-bold text-red-400">CANCELLED</span>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Circuit Specifications */}
+            <div className="lg:col-span-6 space-y-3 font-mono">
+              <div className="flex items-center gap-2 mb-1">
+                <Gauge className="w-4 h-4 text-cyan-400" />
+                <span className="text-xs font-bold text-neutral-300 uppercase tracking-wider">
+                  CIRCUIT VENUE PROFILE
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2.5">
+                <div className="p-3 rounded-lg bg-[#0B0E15] border border-white/[0.06]">
+                  <span className="text-[10px] text-neutral-500 uppercase">VENUE</span>
+                  <p className="text-sm font-bold text-white mt-0.5 truncate">{race.circuit.circuit_name}</p>
+                  <span className="text-[10px] text-neutral-400">{race.circuit.location}, {race.circuit.country}</span>
+                </div>
+
+                <div className="p-3 rounded-lg bg-[#0B0E15] border border-white/[0.06]">
+                  <span className="text-[10px] text-neutral-500 uppercase">TRACK LENGTH</span>
+                  <p className="text-base font-bold text-white mt-0.5">{race.circuit.length_km} km</p>
+                  <span className="text-[10px] text-neutral-400">{race.circuit.corners_count} Turns</span>
+                </div>
+
+                <div className="p-3 rounded-lg bg-[#0B0E15] border border-white/[0.06]">
+                  <span className="text-[10px] text-neutral-500 uppercase">EVENT STATUS</span>
+                  <p className="text-base font-bold text-red-400 mt-0.5">NOT HELD</p>
+                  <span className="text-[10px] text-neutral-400">Official Cancellation</span>
+                </div>
+
+                <div className="p-3 rounded-lg bg-[#0B0E15] border border-white/[0.06]">
+                  <span className="text-[10px] text-neutral-500 uppercase">HISTORICAL LAP RECORD</span>
+                  <p className="text-base font-bold text-white mt-0.5">{race.circuit.lap_record || 'N/A'}</p>
+                  <span className="text-[10px] text-neutral-400">
+                    {race.circuit.lap_record_driver || 'FIA Archive'}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : isShowUpcoming || !podium ? (
         <div className="relative z-10 space-y-6 py-2">
           {/* Informational Status Banner */}
           <div className="p-4 rounded-lg bg-[#0F1420] border border-amber-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl">

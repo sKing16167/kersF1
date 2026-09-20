@@ -2013,7 +2013,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Chinese Grand Prix',
     official_event_name: 'Formula 1 Lenovo Chinese Grand Prix 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 16) || MOCK_CIRCUITS[0], // Shanghai
-    status: 'COMPLETED',
+    status: 'UPCOMING',
     date: '2026-03-15',
     sessions: [
       { id: 6, race_id: 2, session_type: 'Q', session_name: 'Qualifying', date: '2026-03-14' },
@@ -2027,7 +2027,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Japanese Grand Prix',
     official_event_name: 'Formula 1 MSC Cruises Japanese Grand Prix 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 5) || MOCK_CIRCUITS[0], // Suzuka
-    status: 'COMPLETED',
+    status: 'UPCOMING',
     date: '2026-03-29',
     sessions: [
       { id: 8, race_id: 3, session_type: 'Q', session_name: 'Qualifying', date: '2026-03-28' },
@@ -2041,11 +2041,12 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Bahrain Grand Prix',
     official_event_name: 'Formula 1 Gulf Air Bahrain Grand Prix 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 13) || MOCK_CIRCUITS[0], // Bahrain
-    status: 'COMPLETED',
+    status: 'CANCELLED',
+    cancellation_reason: 'OFFICIAL FIA NOTICE: The Bahrain Grand Prix was cancelled and removed from the 2026 championship schedule.',
     date: '2026-04-12',
     sessions: [
-      { id: 10, race_id: 4, session_type: 'Q', session_name: 'Qualifying', date: '2026-04-11' },
-      { id: 11, race_id: 4, session_type: 'R', session_name: 'Race', date: '2026-04-12' },
+      { id: 10, race_id: 4, session_type: 'Q', session_name: 'Qualifying (Cancelled)', date: '2026-04-11' },
+      { id: 11, race_id: 4, session_type: 'R', session_name: 'Race (Cancelled)', date: '2026-04-12' },
     ],
   },
   {
@@ -2055,11 +2056,12 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Saudi Arabian Grand Prix',
     official_event_name: 'Formula 1 STC Saudi Arabian Grand Prix 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 14) || MOCK_CIRCUITS[0], // Jeddah
-    status: 'COMPLETED',
+    status: 'CANCELLED',
+    cancellation_reason: 'OFFICIAL FIA NOTICE: The Saudi Arabian Grand Prix was cancelled and removed from the 2026 championship schedule.',
     date: '2026-04-19',
     sessions: [
-      { id: 12, race_id: 5, session_type: 'Q', session_name: 'Qualifying', date: '2026-04-18' },
-      { id: 13, race_id: 5, session_type: 'R', session_name: 'Race', date: '2026-04-19' },
+      { id: 12, race_id: 5, session_type: 'Q', session_name: 'Qualifying (Cancelled)', date: '2026-04-18' },
+      { id: 13, race_id: 5, session_type: 'R', session_name: 'Race (Cancelled)', date: '2026-04-19' },
     ],
   },
   {
@@ -2069,7 +2071,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Miami Grand Prix',
     official_event_name: 'Formula 1 Crypto.com Miami Grand Prix 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 17) || MOCK_CIRCUITS[0], // Miami
-    status: 'COMPLETED',
+    status: 'UPCOMING',
     date: '2026-05-03',
     sessions: [
       { id: 14, race_id: 6, session_type: 'Q', session_name: 'Qualifying', date: '2026-05-02' },
@@ -2083,7 +2085,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Canadian Grand Prix',
     official_event_name: 'Formula 1 AWS Grand Prix du Canada 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 11) || MOCK_CIRCUITS[0], // Montreal
-    status: 'COMPLETED',
+    status: 'UPCOMING',
     date: '2026-05-24',
     sessions: [
       { id: 16, race_id: 7, session_type: 'Q', session_name: 'Qualifying', date: '2026-05-23' },
@@ -2097,7 +2099,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Monaco Grand Prix',
     official_event_name: 'Formula 1 Grand Prix de Monaco 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 4) || MOCK_CIRCUITS[0], // Monaco
-    status: 'COMPLETED',
+    status: 'UPCOMING',
     date: '2026-06-07',
     sessions: [
       { id: 18, race_id: 8, session_type: 'Q', session_name: 'Qualifying', date: '2026-06-06' },
@@ -2111,7 +2113,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Barcelona Grand Prix',
     official_event_name: 'Formula 1 AWS Gran Premio de España 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 18) || MOCK_CIRCUITS[0], // Barcelona
-    status: 'COMPLETED',
+    status: 'UPCOMING',
     date: '2026-06-14',
     sessions: [
       { id: 20, race_id: 9, session_type: 'Q', session_name: 'Qualifying', date: '2026-06-13' },
@@ -2125,7 +2127,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Austrian Grand Prix',
     official_event_name: 'Formula 1 Qatar Airways Großer Preis von Österreich 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 10) || MOCK_CIRCUITS[0], // Red Bull Ring
-    status: 'COMPLETED',
+    status: 'UPCOMING',
     date: '2026-06-28',
     sessions: [
       { id: 22, race_id: 10, session_type: 'Q', session_name: 'Qualifying', date: '2026-06-27' },
@@ -2139,7 +2141,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'British Grand Prix',
     official_event_name: 'Formula 1 Qatar Airways British Grand Prix 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 3) || MOCK_CIRCUITS[0], // Silverstone
-    status: 'COMPLETED',
+    status: 'UPCOMING',
     date: '2026-07-05',
     sessions: [
       { id: 24, race_id: 11, session_type: 'Q', session_name: 'Qualifying', date: '2026-07-04' },
@@ -2153,7 +2155,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Belgian Grand Prix',
     official_event_name: 'Formula 1 Rolex Belgian Grand Prix 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 2) || MOCK_CIRCUITS[0], // Spa
-    status: 'COMPLETED',
+    status: 'UPCOMING',
     date: '2026-07-19',
     sessions: [
       { id: 26, race_id: 12, session_type: 'Q', session_name: 'Qualifying', date: '2026-07-18' },
@@ -2167,7 +2169,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Hungarian Grand Prix',
     official_event_name: 'Formula 1 Hungarian Grand Prix 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 19) || MOCK_CIRCUITS[0], // Hungaroring
-    status: 'COMPLETED',
+    status: 'UPCOMING',
     date: '2026-07-26',
     sessions: [
       { id: 28, race_id: 13, session_type: 'Q', session_name: 'Qualifying', date: '2026-07-25' },
@@ -2181,7 +2183,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Dutch Grand Prix',
     official_event_name: 'Formula 1 Heineken Dutch Grand Prix 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 12) || MOCK_CIRCUITS[0], // Zandvoort
-    status: 'COMPLETED',
+    status: 'UPCOMING',
     date: '2026-08-23',
     sessions: [
       { id: 30, race_id: 14, session_type: 'Q', session_name: 'Qualifying', date: '2026-08-22' },
@@ -2195,7 +2197,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Italian Grand Prix',
     official_event_name: 'Formula 1 Pirelli Gran Premio d\'Italia 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 1) || MOCK_CIRCUITS[0], // Monza
-    status: 'COMPLETED',
+    status: 'UPCOMING',
     date: '2026-09-06',
     sessions: [
       { id: 32, race_id: 15, session_type: 'FP1', session_name: 'Practice 1', date: '2026-09-04' },
@@ -2212,7 +2214,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Spanish Grand Prix',
     official_event_name: 'Formula 1 Gran Premio de España (Madrid) 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 39) || MOCK_CIRCUITS[0], // Madring
-    status: 'COMPLETED',
+    status: 'UPCOMING',
     date: '2026-09-13',
     sessions: [
       { id: 37, race_id: 16, session_type: 'Q', session_name: 'Qualifying', date: '2026-09-12' },
@@ -2844,277 +2846,41 @@ export const SEASON_2024_RESULTS: Record<number, RaceResult> = {
 export const AVAILABLE_SEASONS = Array.from({ length: 27 }, (_, i) => 2026 - i); // 2026 down to 2000
 
 export const SEASON_2026_RESULTS: Record<number, RaceResult> = {
-  1: {
-    race_id: 1, season: 2026, round_number: 1, race_name: "Australian Grand Prix",
-    circuit_name: "Albert Park Circuit", country: "Australia", country_code: "AUS",
-    date: "2026-03-08", status: "COMPLETED", laps_completed: 58, total_laps: 58,
-    podium: {
-      p1: { position: 1, driver: MOCK_DRIVERS[6], time_or_gap: "1:23:06.801", points: 25, fastest_lap: false },
-      p2: { position: 2, driver: MOCK_DRIVERS[7], time_or_gap: "+2.974", points: 18, fastest_lap: false },
-      p3: { position: 3, driver: MOCK_DRIVERS[1], time_or_gap: "+15.519", points: 15, fastest_lap: false },
-    },
-    fastest_lap: { driver: MOCK_DRIVERS[6], lap_time: "1:19.813", lap_number: 53 },
-    pole_position: { driver: MOCK_DRIVERS[6], q3_time: "1:16.241" },
-    top_finishers: [
-      { position: 1, driver: MOCK_DRIVERS[6], team_name: "Mercedes", team_color: "#27F4D2", points: 25, time_or_gap: "1:23:06.801" },
-      { position: 2, driver: MOCK_DRIVERS[7], team_name: "Mercedes", team_color: "#27F4D2", points: 18, time_or_gap: "+2.974" },
-      { position: 3, driver: MOCK_DRIVERS[1], team_name: "Ferrari", team_color: "#E80020", points: 15, time_or_gap: "+15.519" },
-    ],
-  },
-  2: {
-    race_id: 2, season: 2026, round_number: 2, race_name: "Chinese Grand Prix",
-    circuit_name: "Shanghai International Circuit", country: "China", country_code: "CHN",
-    date: "2026-03-15", status: "COMPLETED", laps_completed: 56, total_laps: 56,
-    podium: {
-      p1: { position: 1, driver: MOCK_DRIVERS[7], time_or_gap: "1:33:15.607", points: 26, fastest_lap: true },
-      p2: { position: 2, driver: MOCK_DRIVERS[6], time_or_gap: "+5.515", points: 18, fastest_lap: false },
-      p3: { position: 3, driver: MOCK_DRIVERS[5], time_or_gap: "+25.267", points: 15, fastest_lap: false },
-    },
-    fastest_lap: { driver: MOCK_DRIVERS[7], lap_time: "1:35.210", lap_number: 51 },
-    pole_position: { driver: MOCK_DRIVERS[7], q3_time: "1:33.402" },
-    top_finishers: [
-      { position: 1, driver: MOCK_DRIVERS[7], team_name: "Mercedes", team_color: "#27F4D2", points: 26, time_or_gap: "1:33:15.607" },
-      { position: 2, driver: MOCK_DRIVERS[6], team_name: "Mercedes", team_color: "#27F4D2", points: 18, time_or_gap: "+5.515" },
-      { position: 3, driver: MOCK_DRIVERS[5], team_name: "Ferrari", team_color: "#E80020", points: 15, time_or_gap: "+25.267" },
-    ],
-  },
-  3: {
-    race_id: 3, season: 2026, round_number: 3, race_name: "Japanese Grand Prix",
-    circuit_name: "Suzuka Circuit", country: "Japan", country_code: "JPN",
-    date: "2026-03-29", status: "COMPLETED", laps_completed: 53, total_laps: 53,
-    podium: {
-      p1: { position: 1, driver: MOCK_DRIVERS[7], time_or_gap: "1:28:03.403", points: 26, fastest_lap: true },
-      p2: { position: 2, driver: MOCK_DRIVERS[3], time_or_gap: "+13.722", points: 18, fastest_lap: false },
-      p3: { position: 3, driver: MOCK_DRIVERS[1], time_or_gap: "+15.270", points: 15, fastest_lap: false },
-    },
-    fastest_lap: { driver: MOCK_DRIVERS[7], lap_time: "1:33.109", lap_number: 48 },
-    pole_position: { driver: MOCK_DRIVERS[7], q3_time: "1:28.910" },
-    top_finishers: [
-      { position: 1, driver: MOCK_DRIVERS[7], team_name: "Mercedes", team_color: "#27F4D2", points: 26, time_or_gap: "1:28:03.403" },
-      { position: 2, driver: MOCK_DRIVERS[3], team_name: "McLaren", team_color: "#FF8000", points: 18, time_or_gap: "+13.722" },
-      { position: 3, driver: MOCK_DRIVERS[1], team_name: "Ferrari", team_color: "#E80020", points: 15, time_or_gap: "+15.270" },
-    ],
-  },
   4: {
-    race_id: 4, season: 2026, round_number: 4, race_name: "Bahrain Grand Prix",
-    circuit_name: "Bahrain International Circuit", country: "Bahrain", country_code: "BHR",
-    date: "2026-04-12", status: "COMPLETED", laps_completed: 57, total_laps: 57,
-    podium: {
-      p1: { position: 1, driver: MOCK_DRIVERS[7], time_or_gap: "1:31:44.290", points: 26, fastest_lap: true },
-      p2: { position: 2, driver: MOCK_DRIVERS[6], time_or_gap: "+4.120", points: 18, fastest_lap: false },
-      p3: { position: 3, driver: MOCK_DRIVERS[2], time_or_gap: "+12.890", points: 15, fastest_lap: false },
-    },
-    fastest_lap: { driver: MOCK_DRIVERS[7], lap_time: "1:32.410", lap_number: 52 },
-    pole_position: { driver: MOCK_DRIVERS[7], q3_time: "1:29.810" },
-    top_finishers: [
-      { position: 1, driver: MOCK_DRIVERS[7], team_name: "Mercedes", team_color: "#27F4D2", points: 26, time_or_gap: "1:31:44.290" },
-      { position: 2, driver: MOCK_DRIVERS[6], team_name: "Mercedes", team_color: "#27F4D2", points: 18, time_or_gap: "+4.120" },
-      { position: 3, driver: MOCK_DRIVERS[2], team_name: "Red Bull Racing", team_color: "#3671C6", points: 15, time_or_gap: "+12.890" },
-    ],
+    race_id: 4,
+    season: 2026,
+    round_number: 4,
+    race_name: 'Bahrain Grand Prix',
+    circuit_name: 'Bahrain International Circuit',
+    country: 'Bahrain',
+    country_code: 'BHR',
+    date: '2026-04-12',
+    status: 'CANCELLED',
+    cancellation_reason: 'OFFICIAL FIA NOTICE: The Bahrain Grand Prix was cancelled and removed from the 2026 championship calendar.',
+    laps_completed: 0,
+    total_laps: 0,
+    podium: null,
+    top_finishers: [],
+    fastest_lap: null,
+    pole_position: null,
   },
   5: {
-    race_id: 5, season: 2026, round_number: 5, race_name: "Saudi Arabian Grand Prix",
-    circuit_name: "Jeddah Corniche Circuit", country: "Saudi Arabia", country_code: "KSA",
-    date: "2026-04-19", status: "COMPLETED", laps_completed: 50, total_laps: 50,
-    podium: {
-      p1: { position: 1, driver: MOCK_DRIVERS[7], time_or_gap: "1:25:22.110", points: 26, fastest_lap: true },
-      p2: { position: 2, driver: MOCK_DRIVERS[5], time_or_gap: "+6.890", points: 18, fastest_lap: false },
-      p3: { position: 3, driver: MOCK_DRIVERS[1], time_or_gap: "+11.450", points: 15, fastest_lap: false },
-    },
-    fastest_lap: { driver: MOCK_DRIVERS[7], lap_time: "1:29.740", lap_number: 47 },
-    pole_position: { driver: MOCK_DRIVERS[7], q3_time: "1:27.420" },
-    top_finishers: [
-      { position: 1, driver: MOCK_DRIVERS[7], team_name: "Mercedes", team_color: "#27F4D2", points: 26, time_or_gap: "1:25:22.110" },
-      { position: 2, driver: MOCK_DRIVERS[5], team_name: "Ferrari", team_color: "#E80020", points: 18, time_or_gap: "+6.890" },
-      { position: 3, driver: MOCK_DRIVERS[1], team_name: "Ferrari", team_color: "#E80020", points: 15, time_or_gap: "+11.450" },
-    ],
-  },
-  6: {
-    race_id: 6, season: 2026, round_number: 6, race_name: "Miami Grand Prix",
-    circuit_name: "Miami International Autodrome", country: "United States", country_code: "USA",
-    date: "2026-05-03", status: "COMPLETED", laps_completed: 57, total_laps: 57,
-    podium: {
-      p1: { position: 1, driver: MOCK_DRIVERS[7], time_or_gap: "1:33:19.273", points: 26, fastest_lap: true },
-      p2: { position: 2, driver: MOCK_DRIVERS[0], time_or_gap: "+3.264", points: 18, fastest_lap: false },
-      p3: { position: 3, driver: MOCK_DRIVERS[3], time_or_gap: "+27.092", points: 15, fastest_lap: false },
-    },
-    fastest_lap: { driver: MOCK_DRIVERS[7], lap_time: "1:30.120", lap_number: 54 },
-    pole_position: { driver: MOCK_DRIVERS[7], q3_time: "1:27.241" },
-    top_finishers: [
-      { position: 1, driver: MOCK_DRIVERS[7], team_name: "Mercedes", team_color: "#27F4D2", points: 26, time_or_gap: "1:33:19.273" },
-      { position: 2, driver: MOCK_DRIVERS[0], team_name: "McLaren", team_color: "#FF8000", points: 18, time_or_gap: "+3.264" },
-      { position: 3, driver: MOCK_DRIVERS[3], team_name: "McLaren", team_color: "#FF8000", points: 15, time_or_gap: "+27.092" },
-    ],
-  },
-  7: {
-    race_id: 7, season: 2026, round_number: 7, race_name: "Canadian Grand Prix",
-    circuit_name: "Circuit Gilles Villeneuve", country: "Canada", country_code: "CAN",
-    date: "2026-05-24", status: "COMPLETED", laps_completed: 70, total_laps: 70,
-    podium: {
-      p1: { position: 1, driver: MOCK_DRIVERS[7], time_or_gap: "1:28:15.758", points: 25, fastest_lap: false },
-      p2: { position: 2, driver: MOCK_DRIVERS[5], time_or_gap: "+10.768", points: 18, fastest_lap: false },
-      p3: { position: 3, driver: MOCK_DRIVERS[2], time_or_gap: "+11.276", points: 15, fastest_lap: false },
-    },
-    fastest_lap: { driver: MOCK_DRIVERS[5], lap_time: "1:14.890", lap_number: 67 },
-    pole_position: { driver: MOCK_DRIVERS[7], q3_time: "1:11.980" },
-    top_finishers: [
-      { position: 1, driver: MOCK_DRIVERS[7], team_name: "Mercedes", team_color: "#27F4D2", points: 25, time_or_gap: "1:28:15.758" },
-      { position: 2, driver: MOCK_DRIVERS[5], team_name: "Ferrari", team_color: "#E80020", points: 18, time_or_gap: "+10.768" },
-      { position: 3, driver: MOCK_DRIVERS[2], team_name: "Red Bull Racing", team_color: "#3671C6", points: 15, time_or_gap: "+11.276" },
-    ],
-  },
-  8: {
-    race_id: 8, season: 2026, round_number: 8, race_name: "Monaco Grand Prix",
-    circuit_name: "Circuit de Monaco", country: "Monaco", country_code: "MON",
-    date: "2026-06-07", status: "COMPLETED", laps_completed: 78, total_laps: 78,
-    podium: {
-      p1: { position: 1, driver: MOCK_DRIVERS[7], time_or_gap: "2:23:31.243", points: 25, fastest_lap: false },
-      p2: { position: 2, driver: MOCK_DRIVERS[5], time_or_gap: "+6.271", points: 18, fastest_lap: false },
-      p3: { position: 3, driver: MOCK_DRIVERS[18], time_or_gap: "+23.394", points: 15, fastest_lap: false },
-    },
-    fastest_lap: { driver: MOCK_DRIVERS[5], lap_time: "1:13.920", lap_number: 75 },
-    pole_position: { driver: MOCK_DRIVERS[7], q3_time: "1:10.820" },
-    top_finishers: [
-      { position: 1, driver: MOCK_DRIVERS[7], team_name: "Mercedes", team_color: "#27F4D2", points: 25, time_or_gap: "2:23:31.243" },
-      { position: 2, driver: MOCK_DRIVERS[5], team_name: "Ferrari", team_color: "#E80020", points: 18, time_or_gap: "+6.271" },
-      { position: 3, driver: MOCK_DRIVERS[18], team_name: "RB", team_color: "#6692FF", points: 15, time_or_gap: "+23.394" },
-    ],
-  },
-  9: {
-    race_id: 9, season: 2026, round_number: 9, race_name: "Barcelona Grand Prix",
-    circuit_name: "Circuit de Barcelona-Catalunya", country: "Spain", country_code: "ESP",
-    date: "2026-06-14", status: "COMPLETED", laps_completed: 66, total_laps: 66,
-    podium: {
-      p1: { position: 1, driver: MOCK_DRIVERS[5], time_or_gap: "1:32:28.105", points: 25, fastest_lap: false },
-      p2: { position: 2, driver: MOCK_DRIVERS[6], time_or_gap: "+19.561", points: 18, fastest_lap: false },
-      p3: { position: 3, driver: MOCK_DRIVERS[0], time_or_gap: "+23.719", points: 15, fastest_lap: false },
-    },
-    fastest_lap: { driver: MOCK_DRIVERS[5], lap_time: "1:16.890", lap_number: 62 },
-    pole_position: { driver: MOCK_DRIVERS[5], q3_time: "1:11.940" },
-    top_finishers: [
-      { position: 1, driver: MOCK_DRIVERS[5], team_name: "Ferrari", team_color: "#E80020", points: 25, time_or_gap: "1:32:28.105" },
-      { position: 2, driver: MOCK_DRIVERS[6], team_name: "Mercedes", team_color: "#27F4D2", points: 18, time_or_gap: "+19.561" },
-      { position: 3, driver: MOCK_DRIVERS[0], team_name: "McLaren", team_color: "#FF8000", points: 15, time_or_gap: "+23.719" },
-    ],
-  },
-  10: {
-    race_id: 10, season: 2026, round_number: 10, race_name: "Austrian Grand Prix",
-    circuit_name: "Red Bull Ring", country: "Austria", country_code: "AUT",
-    date: "2026-06-28", status: "COMPLETED", laps_completed: 71, total_laps: 71,
-    podium: {
-      p1: { position: 1, driver: MOCK_DRIVERS[6], time_or_gap: "1:26:37.979", points: 25, fastest_lap: false },
-      p2: { position: 2, driver: MOCK_DRIVERS[2], time_or_gap: "+1.611", points: 18, fastest_lap: false },
-      p3: { position: 3, driver: MOCK_DRIVERS[7], time_or_gap: "+1.986", points: 15, fastest_lap: false },
-    },
-    fastest_lap: { driver: MOCK_DRIVERS[6], lap_time: "1:07.890", lap_number: 68 },
-    pole_position: { driver: MOCK_DRIVERS[6], q3_time: "1:04.560" },
-    top_finishers: [
-      { position: 1, driver: MOCK_DRIVERS[6], team_name: "Mercedes", team_color: "#27F4D2", points: 25, time_or_gap: "1:26:37.979" },
-      { position: 2, driver: MOCK_DRIVERS[2], team_name: "Red Bull Racing", team_color: "#3671C6", points: 18, time_or_gap: "+1.611" },
-      { position: 3, driver: MOCK_DRIVERS[7], team_name: "Mercedes", team_color: "#27F4D2", points: 15, time_or_gap: "+1.986" },
-    ],
-  },
-  11: {
-    race_id: 11, season: 2026, round_number: 11, race_name: "British Grand Prix",
-    circuit_name: "Silverstone Circuit", country: "United Kingdom", country_code: "GBR",
-    date: "2026-07-05", status: "COMPLETED", laps_completed: 52, total_laps: 52,
-    podium: {
-      p1: { position: 1, driver: MOCK_DRIVERS[1], time_or_gap: "1:27:11.335", points: 26, fastest_lap: true },
-      p2: { position: 2, driver: MOCK_DRIVERS[6], time_or_gap: "+0.427", points: 18, fastest_lap: false },
-      p3: { position: 3, driver: MOCK_DRIVERS[5], time_or_gap: "+0.772", points: 15, fastest_lap: false },
-    },
-    fastest_lap: { driver: MOCK_DRIVERS[1], lap_time: "1:28.120", lap_number: 50 },
-    pole_position: { driver: MOCK_DRIVERS[1], q3_time: "1:25.820" },
-    top_finishers: [
-      { position: 1, driver: MOCK_DRIVERS[1], team_name: "Ferrari", team_color: "#E80020", points: 26, time_or_gap: "1:27:11.335" },
-      { position: 2, driver: MOCK_DRIVERS[6], team_name: "Mercedes", team_color: "#27F4D2", points: 18, time_or_gap: "+0.427" },
-      { position: 3, driver: MOCK_DRIVERS[5], team_name: "Ferrari", team_color: "#E80020", points: 15, time_or_gap: "+0.772" },
-    ],
-  },
-  12: {
-    race_id: 12, season: 2026, round_number: 12, race_name: "Belgian Grand Prix",
-    circuit_name: "Circuit de Spa-Francorchamps", country: "Belgium", country_code: "BEL",
-    date: "2026-07-19", status: "COMPLETED", laps_completed: 44, total_laps: 44,
-    podium: {
-      p1: { position: 1, driver: MOCK_DRIVERS[7], time_or_gap: "1:24:42.479", points: 26, fastest_lap: true },
-      p2: { position: 2, driver: MOCK_DRIVERS[1], time_or_gap: "+1.952", points: 18, fastest_lap: false },
-      p3: { position: 3, driver: MOCK_DRIVERS[2], time_or_gap: "+11.586", points: 15, fastest_lap: false },
-    },
-    fastest_lap: { driver: MOCK_DRIVERS[7], lap_time: "1:44.820", lap_number: 41 },
-    pole_position: { driver: MOCK_DRIVERS[7], q3_time: "1:41.220" },
-    top_finishers: [
-      { position: 1, driver: MOCK_DRIVERS[7], team_name: "Mercedes", team_color: "#27F4D2", points: 26, time_or_gap: "1:24:42.479" },
-      { position: 2, driver: MOCK_DRIVERS[1], team_name: "Ferrari", team_color: "#E80020", points: 18, time_or_gap: "+1.952" },
-      { position: 3, driver: MOCK_DRIVERS[2], team_name: "Red Bull Racing", team_color: "#3671C6", points: 15, time_or_gap: "+11.586" },
-    ],
-  },
-  13: {
-    race_id: 13, season: 2026, round_number: 13, race_name: "Hungarian Grand Prix",
-    circuit_name: "Hungaroring", country: "Hungary", country_code: "HUN",
-    date: "2026-07-26", status: "COMPLETED", laps_completed: 70, total_laps: 70,
-    podium: {
-      p1: { position: 1, driver: MOCK_DRIVERS[0], time_or_gap: "1:39:56.180", points: 25, fastest_lap: false },
-      p2: { position: 2, driver: MOCK_DRIVERS[2], time_or_gap: "+15.080", points: 18, fastest_lap: false },
-      p3: { position: 3, driver: MOCK_DRIVERS[7], time_or_gap: "+18.728", points: 15, fastest_lap: false },
-    },
-    fastest_lap: { driver: MOCK_DRIVERS[0], lap_time: "1:18.910", lap_number: 66 },
-    pole_position: { driver: MOCK_DRIVERS[0], q3_time: "1:15.220" },
-    top_finishers: [
-      { position: 1, driver: MOCK_DRIVERS[0], team_name: "McLaren", team_color: "#FF8000", points: 25, time_or_gap: "1:39:56.180" },
-      { position: 2, driver: MOCK_DRIVERS[2], team_name: "Red Bull Racing", team_color: "#3671C6", points: 18, time_or_gap: "+15.080" },
-      { position: 3, driver: MOCK_DRIVERS[7], team_name: "Mercedes", team_color: "#27F4D2", points: 15, time_or_gap: "+18.728" },
-    ],
-  },
-  14: {
-    race_id: 14, season: 2026, round_number: 14, race_name: "Dutch Grand Prix",
-    circuit_name: "Circuit Zandvoort", country: "Netherlands", country_code: "NED",
-    date: "2026-08-23", status: "COMPLETED", laps_completed: 72, total_laps: 72,
-    podium: {
-      p1: { position: 1, driver: MOCK_DRIVERS[0], time_or_gap: "2:04:44.859", points: 26, fastest_lap: true },
-      p2: { position: 2, driver: MOCK_DRIVERS[7], time_or_gap: "+11.536", points: 18, fastest_lap: false },
-      p3: { position: 3, driver: MOCK_DRIVERS[6], time_or_gap: "+15.906", points: 15, fastest_lap: false },
-    },
-    fastest_lap: { driver: MOCK_DRIVERS[0], lap_time: "1:12.820", lap_number: 68 },
-    pole_position: { driver: MOCK_DRIVERS[0], q3_time: "1:09.670" },
-    top_finishers: [
-      { position: 1, driver: MOCK_DRIVERS[0], team_name: "McLaren", team_color: "#FF8000", points: 26, time_or_gap: "2:04:44.859" },
-      { position: 2, driver: MOCK_DRIVERS[7], team_name: "Mercedes", team_color: "#27F4D2", points: 18, time_or_gap: "+11.536" },
-      { position: 3, driver: MOCK_DRIVERS[6], team_name: "Mercedes", team_color: "#27F4D2", points: 15, time_or_gap: "+15.906" },
-    ],
-  },
-  15: {
-    race_id: 15, season: 2026, round_number: 15, race_name: "Italian Grand Prix",
-    circuit_name: "Autodromo Nazionale Monza", country: "Italy", country_code: "ITA",
-    date: "2026-09-06", status: "COMPLETED", laps_completed: 53, total_laps: 53,
-    podium: {
-      p1: { position: 1, driver: MOCK_DRIVERS[7], time_or_gap: "1:51:15.281", points: 26, fastest_lap: true },
-      p2: { position: 2, driver: MOCK_DRIVERS[6], time_or_gap: "+3.857", points: 18, fastest_lap: false },
-      p3: { position: 3, driver: MOCK_DRIVERS[2], time_or_gap: "+14.718", points: 15, fastest_lap: false },
-    },
-    fastest_lap: { driver: MOCK_DRIVERS[7], lap_time: "1:20.910", lap_number: 51 },
-    pole_position: { driver: MOCK_DRIVERS[7], q3_time: "1:19.210" },
-    top_finishers: [
-      { position: 1, driver: MOCK_DRIVERS[7], team_name: "Mercedes", team_color: "#27F4D2", points: 26, time_or_gap: "1:51:15.281" },
-      { position: 2, driver: MOCK_DRIVERS[6], team_name: "Mercedes", team_color: "#27F4D2", points: 18, time_or_gap: "+3.857" },
-      { position: 3, driver: MOCK_DRIVERS[2], team_name: "Red Bull Racing", team_color: "#3671C6", points: 15, time_or_gap: "+14.718" },
-    ],
-  },
-  16: {
-    race_id: 16, season: 2026, round_number: 16, race_name: "Spanish Grand Prix",
-    circuit_name: "Circuit de Barcelona-Catalunya", country: "Spain", country_code: "ESP",
-    date: "2026-09-13", status: "COMPLETED", laps_completed: 66, total_laps: 66,
-    podium: {
-      p1: { position: 1, driver: MOCK_DRIVERS[7], time_or_gap: "1:34:23.754", points: 25, fastest_lap: false },
-      p2: { position: 2, driver: MOCK_DRIVERS[2], time_or_gap: "+4.351", points: 18, fastest_lap: false },
-      p3: { position: 3, driver: MOCK_DRIVERS[0], time_or_gap: "+5.089", points: 15, fastest_lap: false },
-    },
-    fastest_lap: { driver: MOCK_DRIVERS[0], lap_time: "1:16.210", lap_number: 63 },
-    pole_position: { driver: MOCK_DRIVERS[7], q3_time: "1:12.110" },
-    top_finishers: [
-      { position: 1, driver: MOCK_DRIVERS[7], team_name: "Mercedes", team_color: "#27F4D2", points: 25, time_or_gap: "1:34:23.754" },
-      { position: 2, driver: MOCK_DRIVERS[2], team_name: "Red Bull Racing", team_color: "#3671C6", points: 18, time_or_gap: "+4.351" },
-      { position: 3, driver: MOCK_DRIVERS[0], team_name: "McLaren", team_color: "#FF8000", points: 15, time_or_gap: "+5.089" },
-    ],
+    race_id: 5,
+    season: 2026,
+    round_number: 5,
+    race_name: 'Saudi Arabian Grand Prix',
+    circuit_name: 'Jeddah Corniche Circuit',
+    country: 'Saudi Arabia',
+    country_code: 'KSA',
+    date: '2026-04-19',
+    status: 'CANCELLED',
+    cancellation_reason: 'OFFICIAL FIA NOTICE: The Saudi Arabian Grand Prix was cancelled and removed from the 2026 championship calendar.',
+    laps_completed: 0,
+    total_laps: 0,
+    podium: null,
+    top_finishers: [],
+    fastest_lap: null,
+    pole_position: null,
   },
 };
 
@@ -3525,68 +3291,130 @@ export function getHistoricalRaceResult(season: number, roundNumber: number, tar
 
 export const f1Api = {
   async getRaces(season: number = 2026): Promise<Race[]> {
-    if (season === 2026) {
-      return MOCK_RACES;
-    }
     if (season === 2024) {
       return SEASON_2024_RACES;
     }
-    // 1. Return verified pre-seeded dataset if available (2000-2025)
-    if (HISTORICAL_RACES[season] && HISTORICAL_RACES[season].length > 0) {
+    // 1. Return verified pre-seeded dataset if available (2000-2023, 2025)
+    if (season < 2026 && HISTORICAL_RACES[season] && HISTORICAL_RACES[season].length > 0) {
       return HISTORICAL_RACES[season];
     }
-    // 2. Try fetching live Jolpica API for any additional seasons
+    // 2. Fetch live Jolpica API for 2026 and dynamic seasons
     try {
-      const data = await fetchJolpicaClient(`/${season}.json`);
+      const data = await fetchJolpicaClient(`/${season}.json?limit=100`);
       const races = data?.MRData?.RaceTable?.Races;
       if (Array.isArray(races) && races.length > 0) {
-        return races.map((r: any) => {
+        const mappedRaces: Race[] = races.map((r: any) => {
           const roundNum = Number(r.round) || 1;
           const circuitName = r.Circuit?.circuitName || 'Grand Prix Circuit';
           const locality = r.Circuit?.Location?.locality || 'Host City';
           const country = r.Circuit?.Location?.country || 'FIA';
           const countryCode = country.slice(0, 3).toUpperCase();
-          const circuitId = absHash(`${circuitName}-${country}`) || roundNum;
+          const matchedCircuit = MOCK_CIRCUITS.find(c =>
+            c.circuit_name.toLowerCase().includes(circuitName.toLowerCase()) ||
+            circuitName.toLowerCase().includes(c.circuit_name.toLowerCase()) ||
+            c.country.toLowerCase() === country.toLowerCase() ||
+            c.location.toLowerCase() === locality.toLowerCase()
+          ) || {
+            id: absHash(`${circuitName}-${country}`) || roundNum,
+            circuit_name: circuitName,
+            location: locality,
+            country,
+            country_code: countryCode,
+            lat: Number(r.Circuit?.Location?.lat) || 0,
+            lng: Number(r.Circuit?.Location?.long) || 0,
+            length_km: 5.4,
+            corners_count: 16,
+            drs_zones: 2,
+            full_throttle_pct: 65,
+            downforce_level: 'MEDIUM' as const,
+            tyre_stress_level: 3 as const,
+            brake_wear_index: 'MEDIUM' as const,
+            gear_shifts_per_lap: 48,
+            pit_loss_time_sec: 22,
+            first_grand_prix_year: season,
+            elevation_gain_m: 20,
+            description: `Official Formula 1 Grand Prix host venue: ${circuitName}.`,
+            svg_path: 'M100 100 L400 100 L400 400 L100 400 Z',
+            corners: [],
+          };
+
+          const raceDate = r.date;
+          const isPast = raceDate && new Date(raceDate).getTime() < Date.now();
+
           return {
             id: absHash(`${season}-${roundNum}`) || roundNum,
             season,
             round_number: roundNum,
             race_name: r.raceName,
             official_event_name: `${season} Formula 1 ${r.raceName}`,
-            circuit: {
-              id: circuitId,
-              circuit_name: circuitName,
-              location: locality,
-              country,
-              country_code: countryCode,
-              lat: Number(r.Circuit?.Location?.lat) || 0,
-              lng: Number(r.Circuit?.Location?.long) || 0,
-              length_km: 5.4,
-              corners_count: 16,
-              drs_zones: 2,
-              full_throttle_pct: 65,
-              downforce_level: 'MEDIUM' as const,
-              tyre_stress_level: 3 as const,
-              brake_wear_index: 'MEDIUM' as const,
-              gear_shifts_per_lap: 48,
-              pit_loss_time_sec: 22,
-              first_grand_prix_year: season,
-              elevation_gain_m: 20,
-              description: `Official Formula 1 Grand Prix host venue: ${circuitName}.`,
-              svg_path: 'M100 100 L400 100 L400 400 L100 400 Z',
-              corners: [],
-            },
-            date: r.date,
-            status: 'COMPLETED' as const,
+            circuit: matchedCircuit,
+            date: raceDate,
+            status: (isPast ? 'COMPLETED' : 'UPCOMING') as 'COMPLETED' | 'UPCOMING',
             sessions: [
-              { id: 1, race_id: roundNum, session_type: 'FP1' as const, session_name: 'Practice 1', date: r.FirstPractice?.date || r.date },
-              { id: 2, race_id: roundNum, session_type: 'FP2' as const, session_name: 'Practice 2', date: r.SecondPractice?.date || r.date },
-              { id: 3, race_id: roundNum, session_type: 'FP3' as const, session_name: 'Practice 3', date: r.ThirdPractice?.date || r.date },
-              { id: 4, race_id: roundNum, session_type: 'Q' as const, session_name: 'Qualifying', date: r.Qualifying?.date || r.date },
-              { id: 5, race_id: roundNum, session_type: 'R' as const, session_name: 'Grand Prix Race', date: r.date },
+              { id: 1, race_id: roundNum, session_type: 'FP1' as const, session_name: 'Practice 1', date: r.FirstPractice?.date || raceDate },
+              { id: 2, race_id: roundNum, session_type: 'FP2' as const, session_name: 'Practice 2', date: r.SecondPractice?.date || raceDate },
+              { id: 3, race_id: roundNum, session_type: 'FP3' as const, session_name: 'Practice 3', date: r.ThirdPractice?.date || raceDate },
+              { id: 4, race_id: roundNum, session_type: 'Q' as const, session_name: 'Qualifying', date: r.Qualifying?.date || raceDate },
+              { id: 5, race_id: roundNum, session_type: 'R' as const, session_name: 'Grand Prix Race', date: raceDate },
             ],
           };
         });
+
+        // For 2026: The original April Bahrain and Saudi Arabian Grands Prix were officially cancelled.
+        // Explicitly include them marked CANCELLED with official notice so the calendar reflects their true cancellation status.
+        if (season === 2026) {
+          const hasBahrain = mappedRaces.some(r => r.race_name.toLowerCase().includes('bahrain') && !r.race_name.toLowerCase().includes('malaysia'));
+          const hasSaudi = mappedRaces.some(r => r.race_name.toLowerCase().includes('saudi'));
+
+          const cancelledRaces: Race[] = [];
+          if (!hasBahrain) {
+            cancelledRaces.push({
+              id: 9004,
+              season: 2026,
+              round_number: 4,
+              race_name: 'Bahrain Grand Prix',
+              official_event_name: 'Formula 1 Gulf Air Bahrain Grand Prix 2026',
+              circuit: MOCK_CIRCUITS.find(c => c.id === 13) || MOCK_CIRCUITS[0],
+              status: 'CANCELLED',
+              cancellation_reason: 'OFFICIAL FIA NOTICE: The Bahrain Grand Prix at Sakhir was cancelled and removed from the 2026 championship calendar.',
+              date: '2026-04-12',
+              sessions: [
+                { id: 10, race_id: 9004, session_type: 'Q', session_name: 'Qualifying (Cancelled)', date: '2026-04-11' },
+                { id: 11, race_id: 9004, session_type: 'R', session_name: 'Race (Cancelled)', date: '2026-04-12' },
+              ],
+            });
+          }
+          if (!hasSaudi) {
+            cancelledRaces.push({
+              id: 9005,
+              season: 2026,
+              round_number: 5,
+              race_name: 'Saudi Arabian Grand Prix',
+              official_event_name: 'Formula 1 STC Saudi Arabian Grand Prix 2026',
+              circuit: MOCK_CIRCUITS.find(c => c.id === 14) || MOCK_CIRCUITS[0],
+              status: 'CANCELLED',
+              cancellation_reason: 'OFFICIAL FIA NOTICE: The Saudi Arabian Grand Prix at Jeddah was cancelled and removed from the 2026 championship calendar.',
+              date: '2026-04-19',
+              sessions: [
+                { id: 12, race_id: 9005, session_type: 'Q', session_name: 'Qualifying (Cancelled)', date: '2026-04-18' },
+                { id: 13, race_id: 9005, session_type: 'R', session_name: 'Race (Cancelled)', date: '2026-04-19' },
+              ],
+            });
+          }
+
+          const all2026 = [...mappedRaces, ...cancelledRaces].sort((a, b) => {
+            const dateA = a.date ? new Date(a.date).getTime() : 0;
+            const dateB = b.date ? new Date(b.date).getTime() : 0;
+            return dateA - dateB;
+          });
+
+          return all2026.map((r, idx) => ({
+            ...r,
+            round_number: idx + 1,
+          }));
+        }
+
+        return mappedRaces;
       }
     } catch (e) {
       console.warn(`[getRaces] Error fetching ${season} from Jolpica:`, e);
@@ -3595,7 +3423,6 @@ export const f1Api = {
   },
 
   async getNextRace(): Promise<Race> {
-    // The genuine upcoming round in 2026 is Round 17: Azerbaijan Grand Prix (Baku) on 2026-09-26
     const upcoming = MOCK_RACES.find((r) => r.status === 'UPCOMING') || MOCK_RACES[16];
     return upcoming;
   },
@@ -3610,81 +3437,133 @@ export const f1Api = {
 
     const roundNumber = targetRace?.round_number || (roundOrRaceId < 100 ? roundOrRaceId : 1);
 
-    // 2024 Verified Official Historical Results
+    // 1. Immediately return authentic CANCELLED status for cancelled races (Bahrain, Saudi Arabia, or any race flagged CANCELLED)
+    if (
+      targetRace?.status === 'CANCELLED' ||
+      (season === 2026 && targetRace?.race_name.toLowerCase().includes('bahrain') && !targetRace?.race_name.toLowerCase().includes('malaysia')) ||
+      (season === 2026 && targetRace?.race_name.toLowerCase().includes('saudi')) ||
+      (season === 2026 && SEASON_2026_RESULTS[roundNumber]?.status === 'CANCELLED')
+    ) {
+      const reason = targetRace?.cancellation_reason ||
+        SEASON_2026_RESULTS[roundNumber]?.cancellation_reason ||
+        `OFFICIAL FIA NOTICE: The ${targetRace?.race_name || 'Grand Prix'} was cancelled and removed from the ${season} championship calendar.`;
+      return {
+        race_id: targetRace?.id || roundOrRaceId,
+        season,
+        round_number: roundNumber,
+        race_name: targetRace?.race_name || 'Grand Prix',
+        circuit_name: targetRace?.circuit?.circuit_name || 'Grand Prix Circuit',
+        country: targetRace?.circuit?.country || 'FIA',
+        country_code: targetRace?.circuit?.country_code || 'FIA',
+        date: targetRace?.date || '',
+        status: 'CANCELLED',
+        cancellation_reason: reason,
+        laps_completed: 0,
+        total_laps: 0,
+        podium: null,
+        top_finishers: [],
+        fastest_lap: null,
+        pole_position: null,
+      };
+    }
+
+    // 2. 2024 Verified Official Historical Results
     if (season === 2024) {
       const match = SEASON_2024_RESULTS[roundNumber] || Object.values(SEASON_2024_RESULTS).find(r => r.race_id === roundOrRaceId || r.round_number === roundNumber);
       if (match) return match;
     }
 
-    // 2026 Completed Results for Rounds 1 - 16
-    if (season === 2026 && SEASON_2026_RESULTS[roundNumber]) {
-      return SEASON_2026_RESULTS[roundNumber];
+    // 3. Try fetching live results from Jolpica API with strict race validation
+    try {
+      let liveRace: any = null;
+
+      // First query by round number
+      const liveRes = await fetchJolpicaClient(`/${season}/${roundNumber}/results.json`);
+      const candidate = liveRes?.MRData?.RaceTable?.Races?.[0];
+
+      if (candidate && candidate.Results && candidate.Results.length >= 3) {
+        const targetClean = (targetRace?.race_name || '').toLowerCase().replace('grand prix', '').trim();
+        const candClean = (candidate.raceName || '').toLowerCase().replace('grand prix', '').trim();
+        if (candClean.includes(targetClean) || targetClean.includes(candClean)) {
+          liveRace = candidate;
+        }
+      }
+
+      // If direct round was shifted due to calendar changes, lookup by race name from season results
+      if (!liveRace) {
+        const seasonResultsRes = await fetchJolpicaClient(`/${season}/results.json?limit=1000`);
+        const allRaces = seasonResultsRes?.MRData?.RaceTable?.Races || [];
+        const targetClean = (targetRace?.race_name || '').toLowerCase().replace('grand prix', '').trim();
+        liveRace = allRaces.find((ar: any) => {
+          const arClean = (ar.raceName || '').toLowerCase().replace('grand prix', '').trim();
+          return arClean.includes(targetClean) || targetClean.includes(arClean) || (targetRace?.date && ar.date === targetRace.date);
+        });
+      }
+
+      if (liveRace && liveRace.Results && liveRace.Results.length >= 3) {
+        const r1 = liveRace.Results[0];
+        const r2 = liveRace.Results[1];
+        const r3 = liveRace.Results[2];
+
+        const driverP1 = makeDriverFromResult(r1, 901);
+        const driverP2 = makeDriverFromResult(r2, 902);
+        const driverP3 = makeDriverFromResult(r3, 903);
+
+        const fastestLapRes = liveRace.Results.find((r: any) => r.FastestLap?.rank === '1') || liveRace.Results[0];
+        const flDriver = makeDriverFromResult(fastestLapRes, 900);
+        const poleRes = liveRace.Results.find((r: any) => r.grid === '1') || liveRace.Results[0];
+        const poleDriver = makeDriverFromResult(poleRes, 900);
+
+        const lapsCount = Number(r1.laps) || 53;
+
+        return {
+          race_id: targetRace?.id || roundOrRaceId,
+          season,
+          round_number: roundNumber,
+          race_name: liveRace.raceName,
+          circuit_name: liveRace.Circuit?.circuitName || targetRace?.circuit?.circuit_name || 'Grand Prix Circuit',
+          country: liveRace.Circuit?.Location?.country || targetRace?.circuit?.country || 'FIA',
+          country_code: (liveRace.Circuit?.Location?.country?.slice(0, 3) || targetRace?.circuit?.country_code || 'FIA').toUpperCase(),
+          date: liveRace.date || targetRace?.date || '2026-09-01',
+          status: 'COMPLETED',
+          laps_completed: lapsCount,
+          total_laps: lapsCount,
+          podium: {
+            p1: { position: 1, driver: driverP1, time_or_gap: r1.Time?.time || 'WIN', points: Number(r1.points) || 25, fastest_lap: fastestLapRes === r1 },
+            p2: { position: 2, driver: driverP2, time_or_gap: r2.Time?.time || '+2.5s', points: Number(r2.points) || 18, fastest_lap: fastestLapRes === r2 },
+            p3: { position: 3, driver: driverP3, time_or_gap: r3.Time?.time || '+5.0s', points: Number(r3.points) || 15, fastest_lap: fastestLapRes === r3 },
+          },
+          fastest_lap: {
+            driver: flDriver,
+            lap_time: fastestLapRes.FastestLap?.Time?.time || '1:21.000',
+            lap_number: Number(fastestLapRes.FastestLap?.lap) || 50,
+          },
+          pole_position: {
+            driver: poleDriver,
+            q3_time: '1:19.500',
+          },
+          top_finishers: liveRace.Results.slice(0, 10).map((r: any, idx: number) => ({
+            position: Number(r.position) || (idx + 1),
+            driver: makeDriverFromResult(r, 910 + idx),
+            team_name: r.Constructor?.name || 'Formula 1 Team',
+            team_color: getTeamColorHex(r.Constructor?.name),
+            points: Number(r.points) || 0,
+            time_or_gap: r.Time?.time || r.status || 'Finished',
+          })),
+        };
+      }
+    } catch (e) {
+      console.warn(`[getRaceResult] Error fetching live results for ${season} round ${roundNumber}:`, e);
     }
 
-    // Try fetching live results from Jolpica for completed rounds
-    const liveRes = await fetchJolpicaClient(`/${season}/${roundNumber}/results.json`);
-    const liveRace = liveRes?.MRData?.RaceTable?.Races?.[0];
-    if (liveRace && liveRace.Results && liveRace.Results.length >= 3) {
-      const r1 = liveRace.Results[0];
-      const r2 = liveRace.Results[1];
-      const r3 = liveRace.Results[2];
-
-      const driverP1 = makeDriverFromResult(r1, 901);
-      const driverP2 = makeDriverFromResult(r2, 902);
-      const driverP3 = makeDriverFromResult(r3, 903);
-
-      const fastestLapRes = liveRace.Results.find((r: any) => r.FastestLap?.rank === '1') || liveRace.Results[0];
-      const flDriver = makeDriverFromResult(fastestLapRes, 900);
-      const poleRes = liveRace.Results.find((r: any) => r.grid === '1') || liveRace.Results[0];
-      const poleDriver = makeDriverFromResult(poleRes, 900);
-
-      const lapsCount = Number(r1.laps) || 53;
-
-      return {
-        race_id: targetRace?.id || roundOrRaceId,
-        season,
-        round_number: roundNumber,
-        race_name: liveRace.raceName,
-        circuit_name: liveRace.Circuit?.circuitName || targetRace?.circuit?.circuit_name || 'Grand Prix Circuit',
-        country: liveRace.Circuit?.Location?.country || targetRace?.circuit?.country || 'FIA',
-        country_code: (liveRace.Circuit?.Location?.country?.slice(0, 3) || targetRace?.circuit?.country_code || 'FIA').toUpperCase(),
-        date: liveRace.date || targetRace?.date || '2026-09-01',
-        status: 'COMPLETED',
-        laps_completed: lapsCount,
-        total_laps: lapsCount,
-        podium: {
-          p1: { position: 1, driver: driverP1, time_or_gap: r1.Time?.time || 'WIN', points: Number(r1.points) || 25, fastest_lap: fastestLapRes === r1 },
-          p2: { position: 2, driver: driverP2, time_or_gap: r2.Time?.time || '+2.5s', points: Number(r2.points) || 18, fastest_lap: fastestLapRes === r2 },
-          p3: { position: 3, driver: driverP3, time_or_gap: r3.Time?.time || '+5.0s', points: Number(r3.points) || 15, fastest_lap: fastestLapRes === r3 },
-        },
-        fastest_lap: {
-          driver: flDriver,
-          lap_time: fastestLapRes.FastestLap?.Time?.time || '1:21.000',
-          lap_number: Number(fastestLapRes.FastestLap?.lap) || 50,
-        },
-        pole_position: {
-          driver: poleDriver,
-          q3_time: '1:19.500',
-        },
-        top_finishers: liveRace.Results.slice(0, 10).map((r: any, idx: number) => ({
-          position: Number(r.position) || (idx + 1),
-          driver: makeDriverFromResult(r, 910 + idx),
-          team_name: r.Constructor?.name || 'Formula 1 Team',
-          team_color: getTeamColorHex(r.Constructor?.name),
-          points: Number(r.points) || 0,
-          time_or_gap: r.Time?.time || r.status || 'Finished',
-        })),
-      };
-    }
-
-    // If historical or completed race and live timing is unavailable: Return authentic historical classification & grid standings
-    const isHistorical = season < 2026 || (targetRace?.date && new Date(targetRace.date).getTime() < Date.now());
-    if (isHistorical) {
+    // 4. For historical seasons (< 2026), fallback to historical archive
+    if (season < 2026) {
       return getHistoricalRaceResult(season, roundNumber, targetRace);
     }
 
-    // Default Upcoming: Clean structure without fake podium
-    const race = targetRace || seasonRaces[0];
+    // 5. For 2026 or future seasons without live results: It is an UPCOMING race!
+    // NEVER invent or fabricate fake podiums or winners!
+    const race = targetRace || (seasonRaces as Race[])[0];
     const totalLaps = Math.max(44, Math.round(305 / (race.circuit.length_km || 5.0)));
 
     return {
@@ -3696,7 +3575,8 @@ export const f1Api = {
       country: race.circuit.country,
       country_code: race.circuit.country_code,
       date: race.date || '2026-09-26',
-      status: 'UPCOMING',
+      status: (race.status === 'CANCELLED' ? 'CANCELLED' : 'UPCOMING'),
+      cancellation_reason: race.cancellation_reason,
       laps_completed: 0,
       total_laps: totalLaps,
       podium: null,
