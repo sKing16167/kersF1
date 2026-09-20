@@ -1880,15 +1880,35 @@ export const f1Api = {
     };
   },
 
-  async getMicroSectors(circuitIdOrSessionId: number = 1, driverAId?: number, driverBId?: number): Promise<TrackMicroSectorsResponse> {
+  async getMicroSectors(
+    circuitIdOrSessionId: number = 1,
+    driverAInput?: number | Driver,
+    driverBInput?: number | Driver
+  ): Promise<TrackMicroSectorsResponse> {
     const circuit = CIRCUIT_MAP_BY_ID.get(circuitIdOrSessionId) || MOCK_CIRCUITS[0];
     const totalDist = Math.round(circuit.length_km * 1000);
     const count = 60;
     const step = totalDist / count;
     const sectors: MicroSector[] = [];
 
-    const driverA = MOCK_DRIVERS.find((d) => d.id === driverAId) || MOCK_DRIVERS[0];
-    const driverB = MOCK_DRIVERS.find((d) => d.id === driverBId) || MOCK_DRIVERS[1];
+    const resolveDriver = (input?: number | Driver, fallbackIndex: number = 0): Driver => {
+      if (input && typeof input === 'object' && 'broadcast_name' in input) {
+        return input as Driver;
+      }
+      if (typeof input === 'number') {
+        const modern = MOCK_DRIVERS.find((d) => d.id === input);
+        if (modern) return modern;
+        for (const yr of Object.keys(HISTORICAL_DRIVER_STANDINGS)) {
+          const list = (HISTORICAL_DRIVER_STANDINGS as Record<number, any[]>)[Number(yr)];
+          const found = list?.find((item) => item.driver && item.driver.id === input);
+          if (found) return found.driver;
+        }
+      }
+      return MOCK_DRIVERS[fallbackIndex];
+    };
+
+    const driverA = resolveDriver(driverAInput, 0);
+    const driverB = resolveDriver(driverBInput, 5);
 
     const corners = circuit.corners || [];
     const numCorners = corners.length;

@@ -26,6 +26,7 @@ export default function TrackMapPage() {
     setDriverA,
     setDriverB,
     drivers,
+    season,
   } = useTelemetryStore();
 
   // 23 Official Circuits State
@@ -36,7 +37,6 @@ export default function TrackMapPage() {
   );
 
   const [microSectorData, setMicroSectorData] = useState<TrackMicroSectorsResponse | null>(null);
-  const [hoveredSector, setHoveredSector] = useState<MicroSector | null>(null);
   const [selectedSector, setSelectedSector] = useState<MicroSector | null>(null);
   const [filterMode, setFilterMode] = useState<'ALL' | 'DRIVER_A' | 'DRIVER_B' | 'SLOW' | 'FAST'>('ALL');
 
@@ -44,7 +44,7 @@ export default function TrackMapPage() {
   useEffect(() => {
     let isCancelled = false;
     async function loadData() {
-      const res = await f1Api.getMicroSectors(activeCircuit.id, driverA.id, driverB.id);
+      const res = await f1Api.getMicroSectors(activeCircuit.id, driverA, driverB);
       if (!isCancelled) {
         setMicroSectorData(res);
         if (res.sectors.length > 0) {
@@ -56,7 +56,7 @@ export default function TrackMapPage() {
     return () => {
       isCancelled = true;
     };
-  }, [activeCircuit.id, driverA.id, driverB.id]);
+  }, [activeCircuit.id, driverA, driverB]);
 
   // Filtered micro-sectors
   const filteredSectors = useMemo(() => {
@@ -144,6 +144,17 @@ export default function TrackMapPage() {
           })}
         </div>
       </div>
+
+      {/* Historical Era Telemetry Scope Banner */}
+      {season && season < 2018 && (
+        <div className="flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/10 border border-amber-500/25 text-amber-200 text-xs font-mono">
+          <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0" />
+          <div>
+            <span className="font-bold text-amber-300 uppercase">Historical Telemetry Scope Note (Season {season}): </span>
+            Official FIA high-resolution 60-micro-sector GPS transponders were introduced in modern regulations (2018+). In earlier seasons like {season}, official FIA timing was limited to Macro-Sectors 1, 2, and 3. The 60-apex micro-sector speeds shown below are calibrated historical lap pace simulations for {driverA.full_name} and {driverB.full_name}.
+          </div>
+        </div>
+      )}
 
       {/* 
         ========================================================================
@@ -316,8 +327,7 @@ export default function TrackMapPage() {
         <MicroSectorSvgMap
           circuit={activeCircuit}
           microSectorData={microSectorData}
-          hoveredSector={hoveredSector}
-          onHoverSector={setHoveredSector}
+          selectedSector={selectedSector}
           onSelectSector={setSelectedSector}
         />
       )}
@@ -352,8 +362,8 @@ export default function TrackMapPage() {
           {/* Micro-Sector Grid Matrix */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 max-h-[360px] overflow-y-auto pr-1">
             {filteredSectors.map((sec) => {
+              const isSelected = selectedSector?.sector_index === sec.sector_index;
               const isCurrent = Math.abs(sec.apex_distance_m - activeDistanceM) < (activeCircuit.length_km * 1000) / 60;
-              const isHovered = hoveredSector?.sector_index === sec.sector_index;
               const isDriverAWinner = sec.fastest_driver_id === driverA.id;
 
               return (
@@ -363,10 +373,8 @@ export default function TrackMapPage() {
                     setSelectedSector(sec);
                     setActiveDistanceM(sec.apex_distance_m);
                   }}
-                  onMouseEnter={() => setHoveredSector(sec)}
-                  onMouseLeave={() => setHoveredSector(null)}
                   className={`p-3 rounded-md transition-all cursor-pointer flex flex-col justify-between border font-mono ${
-                    isCurrent || isHovered
+                    isSelected || isCurrent
                       ? 'bg-white/[0.14] border-[#E10600] shadow-md shadow-red-950/40 translate-y-[-1px]'
                       : 'bg-white/[0.02] border-white/[0.06] hover:bg-white/[0.06] hover:border-white/[0.12]'
                   }`}

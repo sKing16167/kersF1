@@ -8,21 +8,20 @@ import { MapPin } from 'lucide-react';
 interface MicroSectorSvgMapProps {
   circuit: Circuit;
   microSectorData: TrackMicroSectorsResponse;
-  hoveredSector: MicroSector | null;
-  onHoverSector: (sector: MicroSector | null) => void;
+  selectedSector?: MicroSector | null;
   onSelectSector: (sector: MicroSector) => void;
 }
 
 export function MicroSectorSvgMap({
   circuit,
   microSectorData,
-  hoveredSector,
-  onHoverSector,
+  selectedSector,
   onSelectSector,
 }: MicroSectorSvgMapProps) {
   const { activeDistanceM, setActiveDistanceM, driverA, driverB } = useTelemetryStore();
 
   const { sectors, total_distance_m } = microSectorData;
+  const activeSector = selectedSector || (sectors && sectors.length > 0 ? sectors[0] : null);
 
   // Dynamically calculate 60 accurate path segments along the true SVG path of ANY of the 23 circuits
   const [pathSegments, setPathSegments] = useState<
@@ -161,23 +160,21 @@ export function MicroSectorSvgMap({
 
           {/* 2. Precision 60 Colored Micro-Sector Segments */}
           {pathSegments.map((seg, i) => {
-            const isHovered = hoveredSector?.sector_index === seg.sector.sector_index;
+            const isSelected = activeSector?.sector_index === seg.sector.sector_index;
             return (
               <path
                 key={`micro-seg-${i}`}
                 d={seg.pathD}
                 fill="none"
                 stroke={seg.color}
-                strokeWidth={isHovered ? 10 : 5.5}
+                strokeWidth={isSelected ? 9 : 5.5}
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="cursor-pointer transition-all duration-150"
+                className="cursor-pointer transition-all duration-150 hover:brightness-125"
                 style={{
-                  filter: isHovered ? 'url(#sectorGlow)' : undefined,
-                  opacity: hoveredSector ? (isHovered ? 1 : 0.45) : 0.95,
+                  filter: isSelected ? 'url(#sectorGlow)' : undefined,
+                  opacity: activeSector ? (isSelected ? 1 : 0.75) : 0.95,
                 }}
-                onMouseEnter={() => onHoverSector(seg.sector)}
-                onMouseLeave={() => onHoverSector(null)}
                 onClick={() => {
                   onSelectSector(seg.sector);
                   setActiveDistanceM(seg.sector.apex_distance_m);
@@ -250,17 +247,17 @@ export function MicroSectorSvgMap({
           )}
         </svg>
 
-        {/* Floating Telemetry Glass Tooltip */}
-        {hoveredSector && (
-          <div className="absolute top-4 right-4 f1-glass p-4 rounded-lg min-w-[240px] pointer-events-none text-xs space-y-2 border border-white/[0.14] shadow-2xl animate-fadeIn z-20 font-mono">
+        {/* Active Selected Telemetry Glass Card */}
+        {activeSector && (
+          <div className="absolute top-4 right-4 f1-glass p-4 rounded-lg min-w-[240px] text-xs space-y-2 border border-white/[0.14] shadow-2xl z-20 font-mono">
             <div className="flex items-center justify-between border-b border-white/[0.08] pb-1.5 text-[11px] text-neutral-400">
-              <span className="font-bold text-white">MICRO-SECTOR #{hoveredSector.sector_index} / 60</span>
-              <span className="text-neutral-300 font-bold">{hoveredSector.apex_distance_m}m</span>
+              <span className="font-bold text-white">MICRO-SECTOR #{activeSector.sector_index} / 60</span>
+              <span className="text-neutral-300 font-bold">{activeSector.apex_distance_m}m</span>
             </div>
 
-            {hoveredSector.nearest_corner && (
+            {activeSector.nearest_corner && (
               <div className="text-[10px] text-[#FF1801] font-bold">
-                APEX: {hoveredSector.nearest_corner}
+                APEX: {activeSector.nearest_corner}
               </div>
             )}
 
@@ -271,8 +268,8 @@ export function MicroSectorSvgMap({
                   <span className="w-2 h-2 rounded-none" style={{ backgroundColor: driverA.color_hex }} />
                   {driverA.broadcast_name}
                 </span>
-                <span className={`font-bold ${hoveredSector.fastest_driver_id === driverA.id ? 'text-white' : 'text-neutral-400'}`}>
-                  {hoveredSector.driver_a_apex_speed_kmh} km/h
+                <span className={`font-bold ${activeSector.fastest_driver_id === driverA.id ? 'text-white' : 'text-neutral-400'}`}>
+                  {activeSector.driver_a_apex_speed_kmh} km/h
                 </span>
               </div>
 
@@ -281,8 +278,8 @@ export function MicroSectorSvgMap({
                   <span className="w-2 h-2 rounded-none" style={{ backgroundColor: driverB.color_hex }} />
                   {driverB.broadcast_name}
                 </span>
-                <span className={`font-bold ${hoveredSector.fastest_driver_id === driverB.id ? 'text-white' : 'text-neutral-400'}`}>
-                  {hoveredSector.driver_b_apex_speed_kmh} km/h
+                <span className={`font-bold ${activeSector.fastest_driver_id === driverB.id ? 'text-white' : 'text-neutral-400'}`}>
+                  {activeSector.driver_b_apex_speed_kmh} km/h
                 </span>
               </div>
             </div>
@@ -290,8 +287,12 @@ export function MicroSectorSvgMap({
             <div className="pt-2 border-t border-white/[0.08] flex justify-between items-center text-[10px]">
               <span className="text-neutral-400">Advantage:</span>
               <span className="font-bold text-emerald-400">
-                {hoveredSector.fastest_driver_name} (+{hoveredSector.delta_kmh} km/h)
+                {activeSector.fastest_driver_name} (+{activeSector.delta_kmh} km/h)
               </span>
+            </div>
+
+            <div className="pt-1 text-[9px] text-neutral-500 text-center">
+              Click any sector or corner to inspect
             </div>
           </div>
         )}
