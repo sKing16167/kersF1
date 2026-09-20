@@ -51,8 +51,9 @@ export function RaceCalendarWithPodium({ initialSeason = 2026 }: RaceCalendarWit
         if (raceList.length > 0) {
           const match = raceList.find((r) => r.id === activeRaceId);
           if (!match) {
-            setActiveRaceId(raceList[0].id);
-            setSelectedRace(raceList[0]);
+            const defaultRace = raceList.find((r) => r.status === 'UPCOMING') || raceList[0];
+            setActiveRaceId(defaultRace.id);
+            setSelectedRace(defaultRace);
           }
         }
       }

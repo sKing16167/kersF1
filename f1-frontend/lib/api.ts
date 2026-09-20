@@ -1,6 +1,7 @@
 import { HISTORICAL_DRIVER_STANDINGS, HISTORICAL_CONSTRUCTOR_STANDINGS } from './historical-standings-data';
 import { HISTORICAL_RACES } from './historical-races-data';
 import { HISTORICAL_CONSTRUCTORS, ACTIVE_CONSTRUCTORS, ALL_CONSTRUCTORS } from './historical-constructors-data';
+import { OFFICIAL_2026_RESULTS } from './season-2026-data';
 
 /**
  * Parse Formula 1 lap time string ("1:44.701" or "84.701") into milliseconds for comparison
@@ -2013,7 +2014,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Chinese Grand Prix',
     official_event_name: 'Formula 1 Lenovo Chinese Grand Prix 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 16) || MOCK_CIRCUITS[0], // Shanghai
-    status: 'UPCOMING',
+    status: 'COMPLETED',
     date: '2026-03-15',
     sessions: [
       { id: 6, race_id: 2, session_type: 'Q', session_name: 'Qualifying', date: '2026-03-14' },
@@ -2027,7 +2028,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Japanese Grand Prix',
     official_event_name: 'Formula 1 MSC Cruises Japanese Grand Prix 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 5) || MOCK_CIRCUITS[0], // Suzuka
-    status: 'UPCOMING',
+    status: 'COMPLETED',
     date: '2026-03-29',
     sessions: [
       { id: 8, race_id: 3, session_type: 'Q', session_name: 'Qualifying', date: '2026-03-28' },
@@ -2071,7 +2072,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Miami Grand Prix',
     official_event_name: 'Formula 1 Crypto.com Miami Grand Prix 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 17) || MOCK_CIRCUITS[0], // Miami
-    status: 'UPCOMING',
+    status: 'COMPLETED',
     date: '2026-05-03',
     sessions: [
       { id: 14, race_id: 6, session_type: 'Q', session_name: 'Qualifying', date: '2026-05-02' },
@@ -2085,7 +2086,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Canadian Grand Prix',
     official_event_name: 'Formula 1 AWS Grand Prix du Canada 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 11) || MOCK_CIRCUITS[0], // Montreal
-    status: 'UPCOMING',
+    status: 'COMPLETED',
     date: '2026-05-24',
     sessions: [
       { id: 16, race_id: 7, session_type: 'Q', session_name: 'Qualifying', date: '2026-05-23' },
@@ -2099,7 +2100,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Monaco Grand Prix',
     official_event_name: 'Formula 1 Grand Prix de Monaco 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 4) || MOCK_CIRCUITS[0], // Monaco
-    status: 'UPCOMING',
+    status: 'COMPLETED',
     date: '2026-06-07',
     sessions: [
       { id: 18, race_id: 8, session_type: 'Q', session_name: 'Qualifying', date: '2026-06-06' },
@@ -2113,7 +2114,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Barcelona Grand Prix',
     official_event_name: 'Formula 1 AWS Gran Premio de España 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 18) || MOCK_CIRCUITS[0], // Barcelona
-    status: 'UPCOMING',
+    status: 'COMPLETED',
     date: '2026-06-14',
     sessions: [
       { id: 20, race_id: 9, session_type: 'Q', session_name: 'Qualifying', date: '2026-06-13' },
@@ -2127,7 +2128,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Austrian Grand Prix',
     official_event_name: 'Formula 1 Qatar Airways Großer Preis von Österreich 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 10) || MOCK_CIRCUITS[0], // Red Bull Ring
-    status: 'UPCOMING',
+    status: 'COMPLETED',
     date: '2026-06-28',
     sessions: [
       { id: 22, race_id: 10, session_type: 'Q', session_name: 'Qualifying', date: '2026-06-27' },
@@ -2141,7 +2142,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'British Grand Prix',
     official_event_name: 'Formula 1 Qatar Airways British Grand Prix 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 3) || MOCK_CIRCUITS[0], // Silverstone
-    status: 'UPCOMING',
+    status: 'COMPLETED',
     date: '2026-07-05',
     sessions: [
       { id: 24, race_id: 11, session_type: 'Q', session_name: 'Qualifying', date: '2026-07-04' },
@@ -2155,7 +2156,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Belgian Grand Prix',
     official_event_name: 'Formula 1 Rolex Belgian Grand Prix 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 2) || MOCK_CIRCUITS[0], // Spa
-    status: 'UPCOMING',
+    status: 'COMPLETED',
     date: '2026-07-19',
     sessions: [
       { id: 26, race_id: 12, session_type: 'Q', session_name: 'Qualifying', date: '2026-07-18' },
@@ -2169,7 +2170,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Hungarian Grand Prix',
     official_event_name: 'Formula 1 Hungarian Grand Prix 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 19) || MOCK_CIRCUITS[0], // Hungaroring
-    status: 'UPCOMING',
+    status: 'COMPLETED',
     date: '2026-07-26',
     sessions: [
       { id: 28, race_id: 13, session_type: 'Q', session_name: 'Qualifying', date: '2026-07-25' },
@@ -2183,7 +2184,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Dutch Grand Prix',
     official_event_name: 'Formula 1 Heineken Dutch Grand Prix 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 12) || MOCK_CIRCUITS[0], // Zandvoort
-    status: 'UPCOMING',
+    status: 'COMPLETED',
     date: '2026-08-23',
     sessions: [
       { id: 30, race_id: 14, session_type: 'Q', session_name: 'Qualifying', date: '2026-08-22' },
@@ -2197,7 +2198,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Italian Grand Prix',
     official_event_name: 'Formula 1 Pirelli Gran Premio d\'Italia 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 1) || MOCK_CIRCUITS[0], // Monza
-    status: 'UPCOMING',
+    status: 'COMPLETED',
     date: '2026-09-06',
     sessions: [
       { id: 32, race_id: 15, session_type: 'FP1', session_name: 'Practice 1', date: '2026-09-04' },
@@ -2214,7 +2215,7 @@ export const MOCK_RACES: Race[] = [
     race_name: 'Spanish Grand Prix',
     official_event_name: 'Formula 1 Gran Premio de España (Madrid) 2026',
     circuit: MOCK_CIRCUITS.find(c => c.id === 39) || MOCK_CIRCUITS[0], // Madring
-    status: 'UPCOMING',
+    status: 'COMPLETED',
     date: '2026-09-13',
     sessions: [
       { id: 37, race_id: 16, session_type: 'Q', session_name: 'Qualifying', date: '2026-09-12' },
@@ -2845,44 +2846,7 @@ export const SEASON_2024_RESULTS: Record<number, RaceResult> = {
 
 export const AVAILABLE_SEASONS = Array.from({ length: 27 }, (_, i) => 2026 - i); // 2026 down to 2000
 
-export const SEASON_2026_RESULTS: Record<number, RaceResult> = {
-  4: {
-    race_id: 4,
-    season: 2026,
-    round_number: 4,
-    race_name: 'Bahrain Grand Prix',
-    circuit_name: 'Bahrain International Circuit',
-    country: 'Bahrain',
-    country_code: 'BHR',
-    date: '2026-04-12',
-    status: 'CANCELLED',
-    cancellation_reason: 'OFFICIAL FIA NOTICE: The Bahrain Grand Prix was cancelled and removed from the 2026 championship calendar.',
-    laps_completed: 0,
-    total_laps: 0,
-    podium: null,
-    top_finishers: [],
-    fastest_lap: null,
-    pole_position: null,
-  },
-  5: {
-    race_id: 5,
-    season: 2026,
-    round_number: 5,
-    race_name: 'Saudi Arabian Grand Prix',
-    circuit_name: 'Jeddah Corniche Circuit',
-    country: 'Saudi Arabia',
-    country_code: 'KSA',
-    date: '2026-04-19',
-    status: 'CANCELLED',
-    cancellation_reason: 'OFFICIAL FIA NOTICE: The Saudi Arabian Grand Prix was cancelled and removed from the 2026 championship calendar.',
-    laps_completed: 0,
-    total_laps: 0,
-    podium: null,
-    top_finishers: [],
-    fastest_lap: null,
-    pole_position: null,
-  },
-};
+export const SEASON_2026_RESULTS: Record<number, RaceResult> = OFFICIAL_2026_RESULTS;
 
 
 // Verified Official World Drivers' & Constructors' Champions Archive (2000 - 2026)
@@ -3408,10 +3372,22 @@ export const f1Api = {
             return dateA - dateB;
           });
 
-          return all2026.map((r, idx) => ({
-            ...r,
-            round_number: idx + 1,
-          }));
+          return all2026.map((r, idx) => {
+            const roundNum = idx + 1;
+            const isCancelled = roundNum === 4 || roundNum === 5 || r.status === 'CANCELLED';
+            const isCompleted = !isCancelled && roundNum <= 16;
+            const status: 'COMPLETED' | 'CANCELLED' | 'UPCOMING' = isCancelled
+              ? 'CANCELLED'
+              : isCompleted
+              ? 'COMPLETED'
+              : 'UPCOMING';
+
+            return {
+              ...r,
+              round_number: roundNum,
+              status,
+            };
+          });
         }
 
         return mappedRaces;
@@ -3423,7 +3399,8 @@ export const f1Api = {
   },
 
   async getNextRace(): Promise<Race> {
-    const upcoming = MOCK_RACES.find((r) => r.status === 'UPCOMING') || MOCK_RACES[16];
+    const races = await this.getRaces(2026);
+    const upcoming = races.find((r) => r.status === 'UPCOMING') || races[16] || MOCK_RACES[16];
     return upcoming;
   },
 
@@ -3467,13 +3444,18 @@ export const f1Api = {
       };
     }
 
-    // 2. 2024 Verified Official Historical Results
+    // 2. 2026 Official Verified Results from Jolpica
+    if (season === 2026 && SEASON_2026_RESULTS[roundNumber]) {
+      return SEASON_2026_RESULTS[roundNumber];
+    }
+
+    // 3. 2024 Verified Official Historical Results
     if (season === 2024) {
       const match = SEASON_2024_RESULTS[roundNumber] || Object.values(SEASON_2024_RESULTS).find(r => r.race_id === roundOrRaceId || r.round_number === roundNumber);
       if (match) return match;
     }
 
-    // 3. Try fetching live results from Jolpica API with strict race validation
+    // 4. Try fetching live results from Jolpica API with strict race validation
     try {
       let liveRace: any = null;
 
