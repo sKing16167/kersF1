@@ -121,13 +121,14 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico?v=kers2', sizes: 'any' },
-      { url: '/icon.svg?v=kers2', type: 'image/svg+xml' },
-      { url: '/icon.png?v=kers2', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon.png', sizes: '512x512', type: 'image/png' },
     ],
-    shortcut: ['/favicon.ico?v=kers2'],
+    shortcut: ['/favicon.ico'],
     apple: [
-      { url: '/apple-touch-icon.png?v=kers2', sizes: '180x180', type: 'image/png' },
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
     ],
   },
   manifest: '/manifest.json',
@@ -145,10 +146,11 @@ export default function RootLayout({
       className={`${orbitron.variable} ${chakraPetch.variable} ${shareTechMono.variable} ${plusJakarta.variable} ${syne.variable} ${spaceMono.variable} ${inter.variable}`}
     >
       <head>
-        <link rel="icon" href="/favicon.ico?v=kers2" sizes="any" />
-        <link rel="icon" href="/icon.svg?v=kers2" type="image/svg+xml" />
-        <link rel="icon" href="/icon.png?v=kers2" type="image/png" sizes="32x32" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=kers2" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
+        <link rel="icon" href="/icon.png" type="image/png" sizes="512x512" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </head>
       <body className="font-sans antialiased min-h-screen flex flex-col text-white selection:bg-white/20 selection:text-white relative bg-[#07080B]">
         {/* Optical Glass Refraction & Light-Bending SVG Filter Pipeline */}
