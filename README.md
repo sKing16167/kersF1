@@ -1,123 +1,123 @@
 <div align="center">
 
-# 🏎️ KERS — Formula 1 Telemetry & Race Engineering Platform
+# KERS — Formula 1 Telemetry & Race Engineering Platform
 
-**A professional, high-performance Formula 1 analytics and pit-wall telemetry web platform.**  
-Featuring 60-apex micro-sector mapping, dual-car ghosting arena, undercut/overcut race strategy modeling, and synchronized team radio feeds.
+**A high-performance Formula 1 data analytics and pit-wall telemetry web platform.**  
+Engineered with sub-second timing precision, 60-apex micro-sector mapping, dual-car ghosting arena, undercut/overcut strategy modeling, and synchronized team radio feeds.
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-kersf1.vercel.app-E10600?style=for-the-badge&logo=vercel&logoColor=white)](https://kersf1.vercel.app)
 [![Next.js 16](https://img.shields.io/badge/Next.js-16.3-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![React 19](https://img.shields.io/badge/React-19.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-gray.svg?style=for-the-badge)](LICENSE)
 
-[**Explore Live Platform**](https://kersf1.vercel.app) • [**Report Bug**](https://github.com/sKing16167/kersF1/issues) • [**Request Feature**](https://github.com/sKing16167/kersF1/issues)
+[**Explore Live Platform**](https://kersf1.vercel.app) • [**Issue Tracker**](https://github.com/sKing16167/kersF1/issues) • [**Documentation**](https://github.com/sKing16167/kersF1#core-modules--features)
 
 </div>
 
 ---
 
-## 📖 Overview
+## Overview
 
-**KERS** (named after Formula 1's legendary *Kinetic Energy Recovery System*) is a modern motorsport data platform designed to bring professional F1 race engineering and telemetry analytics directly to the browser. 
+**KERS** (named after the motorsport *Kinetic Energy Recovery System*) is an open-source race engineering and telemetry analytics platform designed for high-fidelity Formula 1 data visualization in modern web browsers.
 
-Traditional Formula 1 broadcasts provide limited high-level timing intervals. KERS bridges this gap by transforming raw telemetry streams, transponder mini-sectors, and historical race logs into interactive, beautiful, and actionable visualizations with sub-second precision.
-
----
-
-## ⚡ Key Sections & Features
-
-### 1. 🗺️ Micro-Sector Velocity Analysis (`/track-map`)
-* **60-Apex Dynamic Sub-Sectors**: Each circuit is sampled along its true homologated SVG Bezier spline into 60 discrete micro-sectors, highlighting corner entry, apex apex minimum velocity, and exit acceleration.
-* **Direct Duel Color-Mapping**: The circuit is dynamically painted in the official livery colors of Driver A and Driver B (e.g., Papaya Orange `#FF8000` for McLaren vs. Scuderia Red `#E80020` for Ferrari), visualizing instant sector dominance.
-* **Rock-Solid Click-to-Inspect**: Click any track segment or corner node (e.g., Monza's *Variante del Rettifilo* or *Curva Grande*) to jump the distance scrubber and inspect telemetry delta speeds, braking zones, and split margins.
-* **Multi-Era Transponder Scope**: Includes intelligent historical scope detection, distinguishing between modern high-frequency GPS telemetry (2018–2026) and classic 3-macro-sector timing eras (e.g., 2007).
-
-### 2. 🎮 Telemetry Ghosting Arena (`/ghosting-arena`)
-* **Interactive HTML5 Canvas Duel**: Simulates two cars battling on track in real-time with synchronized distance scrubbers.
-* **Speed Delta & Throttle Telemetry**: Visualizes telemetry curves, gear shifts, DRS activation zones, and braking traces across an entire Grand Prix lap.
-* **Pole Lap vs. Race Pace Comparison**: Compare a driver’s flat-out qualifying pole position lap against simulated full-fuel race stints.
-
-### 3. ⏱️ Pit Stop & Undercut / Overcut Predictor (`/strategy`)
-* **Compound Degradation Curves**: Mathematical tyre wear modeling for Soft (C5–C4), Medium (C3–C2), and Hard (C1–C0) compounds.
-* **Optimal Pit Window Calculation**: Computes the crossover lap where fresher rubber offsets pit lane transit loss (e.g., 21.4s at Monza).
-* **Undercut Probability Matrix**: Calculates the real-time probability of executing a successful undercut based on out-lap delta, tyre warmup characteristics, and traffic windows.
-
-### 4. 🏎️ Driver & Constructor Hub (`/drivers`)
-* **Head-to-Head Duel Matrix**: In-depth side-by-side comparison between any two drivers covering qualifying pace gaps, race head-to-head finishes, podium tallies, and points.
-* **Full Historical Season Archive (1950–2026)**: Switch between modern 2026 championship rosters and iconic classic seasons (such as the 2007 Räikkönen vs. Hamilton vs. Alonso title showdown).
-* **Constructor Championship Profiles**: Real-time team standings, official chassis codes, power unit suppliers, and historical milestone tracking.
-
-### 5. 🏁 Circuit Encyclopedia (`/circuits`)
-* **Full World Championship Calendar**: Detailed architectural profiles for all 24 Grand Prix circuits on the official calendar.
-* **Homologated Track Data**: Track length (km), number of turns, DRS detection and activation zones, historical weather probability, and safety car likelihood.
-* **Official Lap Records**: Verified all-time lap records, record holders, and recorded year.
-
-### 6. 📻 Team Radio & Transponder Hub (`/radio`)
-* **Synchronized Audio & Transcripts**: Listen to authentic team radio transmissions between drivers and race engineers.
-* **Session Phase Tagging**: Filter communications by qualifying, race start, safety car periods, strategy changes, and post-race cooldown laps.
+Broadcast television feeds provide aggregate timing deltas and sector splits. KERS surfaces granular, sub-second telemetry streams, transponder mini-sectors, and multi-era historical records, translating complex motorsport data into actionable engineering visual models.
 
 ---
 
-## 🌐 APIs & Data Sources
+## Core Modules & Features
 
-KERS leverages a combination of public motorsport APIs, open-source python data frameworks, and FIA homologation archives:
+### 1. Micro-Sector Velocity Analysis (`/track-map`)
+* **60-Apex Arc Segmentation**: Evaluates circuits along mathematically sampled Bezier arcs into 60 discrete sub-sectors, providing granular telemetry at corner approach, minimum apex speed, and traction-limited corner exit.
+* **Direct Duel Color-Mapping**: The track ribbon dynamically renders the livery colors of Driver A and Driver B (such as Papaya Orange `#FF8000` for McLaren against Scuderia Red `#E80020` for Ferrari), visualizing regional circuit dominance.
+* **Non-Jitter Selection Architecture**: Click-to-inspect geometry eliminates SVG hover reflows, locking telemetry scrubbers to exact track coordinates with continuous readouts of split margins and apex speed traps.
+* **Transponder Era Scoping**: Distinguishes between modern high-frequency GPS telemetry (2018–2026) and classic macro-sector timing eras (e.g., 2007), maintaining authentic historical representations.
 
-| API / Service | Purpose in KERS |
+### 2. Telemetry Ghosting Arena (`/ghosting-arena`)
+* **HTML5 Canvas Lap Synchronization**: Simulates dual-vehicle on-track engagements with distance-synchronized scrubbers.
+* **Velocity Delta & Pedal Traces**: Maps speed deltas, brake thresholds, throttle application percentages, and DRS deployment zones across a full Grand Prix lap.
+* **Qualifying vs. Race Stint Modeling**: Directly overlays flat-out qualifying pole position runs against full-fuel race pace runs.
+
+### 3. Pit Stop & Undercut Strategy Engine (`/strategy`)
+* **Mathematical Tyre Degradation**: Models non-linear performance decline for Soft, Medium, and Hard dry-weather compounds based on track abrasiveness and thermal stress.
+* **Optimal Pit Window Calculation**: Computes the crossover lap where out-lap pace delta offsets pit lane transit loss (e.g., 21.4s at Monza).
+* **Undercut Probability Matrix**: Calculates the statistical feasibility of executing an undercut considering clean air availability, traffic deltas, and tyre warmup lag.
+
+### 4. Driver & Constructor Analytics Hub (`/drivers`)
+* **Direct Head-to-Head Comparison**: Quantifies qualifying deltas, head-to-head race finishes, podium tallies, and championship points between any two drivers.
+* **Historical Championship Archive (1950–2026)**: Supports exploration across seven decades of Formula 1 history, including the 2007 three-way title battle and classic turbo-era lineups.
+* **Constructor Performance Metrics**: Displays team standings, chassis codes, engine specifications, and historical points distributions.
+
+### 5. Circuit Architecture & Records (`/circuits`)
+* **Homologated Track Database**: Profiles all 24 Grand Prix circuits on the official World Championship calendar.
+* **Track Geometries**: Length (km), corner counts, DRS detection/activation boundaries, weather probability profiles, and safety car likelihood metrics.
+* **Official Lap Records**: Reference data for all-time circuit records, record holders, and setting years.
+
+### 6. Team Radio & Race Control Feed (`/radio`)
+* **Audio Playback & Transcripts**: Integrates verified team radio transmissions between drivers and race engineers.
+* **Contextual Filtering**: Segments communications by session phase (qualifying, race start, safety car interventions, pit strategy, and chequered flag).
+
+---
+
+## Data Sources & Upstream APIs
+
+KERS integrates multiple public motorsport APIs, open-source python libraries, and official FIA homologation records:
+
+| Service / Source | Technical Role |
 | :--- | :--- |
-| **[OpenF1 API](https://openf1.org/)** | High-frequency telemetry streams, real-time car transponder data, lap intervals, and synchronized team radio audio feeds. |
-| **[Jolpica F1 API](https://github.com/jolpica/jolpica-f1)** *(Ergast Successor)* | Verified historical Grand Prix race results, qualifying classifications, driver standings, and constructor points dating from **1950 through 2026**. |
-| **[FastF1](https://github.com/theOehrly/Fast-F1)** | Python data processing framework used on the backend to ingest, synchronize, and serialize official FIA timing logs and car sensor arrays into Parquet telemetry files. |
-| **FIA Official Homologation & Timing** | Official track geometries, turn coordinates, DRS zone boundaries, and official all-time lap records. |
+| **[OpenF1 API](https://openf1.org/)** | High-frequency telemetry streams, car sensor feeds, transponder sector intervals, and team radio audio assets. |
+| **[Jolpica F1 API](https://github.com/jolpica/jolpica-f1)** *(Ergast Successor)* | Historical race results, qualifying classifications, and driver/constructor standings from **1950 through 2026**. |
+| **[FastF1](https://github.com/theOehrly/Fast-F1)** | Backend Python ingestion framework that compiles official FIA timing logs into columnar Apache Parquet telemetry assets. |
+| **FIA Official Homologation & Timing** | Circuit coordinates, track dimensions, DRS zones, and verified all-time lap records. |
 
 ---
 
-## 🛠️ Architecture & Tech Stack
+## Architecture & Technology Stack
 
 ```
 KERS/
 ├── f1-frontend/              # Next.js 16 Web Application
-│   ├── app/                  # Next.js App Router (20 routes: track-map, ghosting-arena, drivers, strategy, radio, etc.)
-│   ├── components/           # Reusable UI components & interactive canvases
-│   │   ├── tracks/           # MicroSectorSvgMap & SVG track renderers
+│   ├── app/                  # Next.js App Router (20 static & dynamic routes)
+│   ├── components/           # UI components, canvas engines, & SVG renderers
+│   │   ├── tracks/           # MicroSectorSvgMap & track vector pipelines
 │   │   ├── drivers/          # HeadToHeadCard & StandingsTable
-│   │   └── intro/            # Ambient background & layout components
-│   ├── lib/                  # Core client libraries
-│   │   ├── api.ts            # Client API connector & Jolpica/OpenF1 services
-│   │   ├── circuits-data.ts  # True-to-scale SVG geometries & apex coordinates
+│   │   └── intro/            # Contextual UI wrappers & layout primitives
+│   ├── lib/                  # Application runtime libraries
+│   │   ├── api.ts            # Client API adapters for Jolpica & OpenF1
+│   │   ├── circuits-data.ts  # Homologated track SVG paths & corner matrices
 │   │   ├── store.ts          # Zustand cross-component state synchronization
-│   │   └── types.ts          # Strict TypeScript domain models
+│   │   └── types.ts          # TypeScript type contracts
 ├── f1-backend/               # Optional Python Microservice Backend
-│   ├── app/                  # FastAPI REST endpoints & star schema
-│   ├── db/                   # SQLAlchemy PostgreSQL models
+│   ├── app/                  # FastAPI endpoints & database routing
+│   ├── db/                   # SQLAlchemy Star Schema models
 │   ├── services/             # FastF1 ingestion, OpenF1 adapters, & telemetry compression
-│   └── Dockerfile            # Hardened unprivileged container specification
+│   └── Dockerfile            # Hardened unprivileged container definition
 ```
 
-### Frontend
+### Frontend Architecture
 * **Framework**: [Next.js 16](https://nextjs.org/) (App Router, Turbopack)
-* **Library**: [React 19](https://react.dev/)
-* **Language**: [TypeScript 5](https://www.typescriptlang.org/)
-* **Styling**: [Tailwind CSS](https://tailwindcss.com/) with custom motorsport design tokens (`f1-glass-card`, `f1-pill`)
-* **State Management**: [Zustand](https://github.com/pmndrs/zustand) with client storage persistence
+* **View Layer**: [React 19](https://react.dev/)
+* **Type System**: [TypeScript 5](https://www.typescriptlang.org/)
+* **CSS & Design System**: [Tailwind CSS](https://tailwindcss.com/) with custom dark motorsport UI primitives
+* **State Management**: [Zustand](https://github.com/pmndrs/zustand) with client-side storage persistence
 * **Icons**: [Lucide React](https://lucide.dev/)
 
-### Backend *(Optional Microservice)*
-* **Web Framework**: [FastAPI](https://fastapi.tiangolo.com/) (Python 3.11)
+### Backend Architecture *(Optional Microservice)*
+* **API Framework**: [FastAPI](https://fastapi.tiangolo.com/) (Python 3.11)
 * **Database**: [PostgreSQL 16](https://www.postgresql.org/) with star schema relational models
-* **Task Worker**: [Celery](https://docs.celeryq.dev/) + [Redis](https://redis.io/)
-* **Telemetry Serialization**: Apache Parquet with Snappy compression
+* **Task Queue**: [Celery](https://docs.celeryq.dev/) backed by [Redis](https://redis.io/)
+* **Data Serialization**: Apache Parquet with Snappy compression
 
 ---
 
-## 🚀 Getting Started
+## Installation & Local Development
 
-### Prerequisites
-* **Node.js**: v18.18.0 or higher (Node 20+ recommended)
-* **npm**, **pnpm**, or **yarn**
+### System Requirements
+* Node.js v18.18.0+ (Node 20+ LTS recommended)
+* npm, pnpm, or yarn
 
-### Quickstart (Frontend)
+### Frontend Setup
 
 1. **Clone the repository**:
    ```bash
@@ -130,15 +130,15 @@ KERS/
    npm install
    ```
 
-3. **Start the development server**:
+3. **Start local development server**:
    ```bash
    npm run dev
    ```
 
-4. **Open your browser**:
-   Navigate to [http://localhost:3000](http://localhost:3000) to explore KERS.
+4. **Access the application**:
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-5. **Build for production**:
+5. **Production build**:
    ```bash
    npm run build
    npm start
@@ -146,25 +146,26 @@ KERS/
 
 ---
 
-## 🛡️ Security & Performance
+## Security & Performance Audit
 
-KERS undergoes strict security and performance auditing:
-* **Zero Secret Exposure**: Public client architecture requires zero floating API keys; all external data APIs (OpenF1, Jolpica) are public endpoints.
-* **Timing-Attack Immune**: Backend authentication utilizes `hmac.compare_digest` for constant-time API token evaluation.
-* **Hardened Containerization**: Backend Docker containers drop root privileges and run under a dedicated unprivileged user (`appuser`, UID 1000).
-* **Modularized Bundling**: Track SVG geometries are split from the API client, reducing initial parse times by **~65%** and achieving sub-4s Next.js Turbopack compilation.
+KERS enforces strict production security and performance standards:
+* **Zero Secret Leakage**: The client-side application contains no hardcoded private keys; all upstream data endpoints (OpenF1, Jolpica) are public.
+* **Constant-Time Verification**: Server-side admin verification implements `hmac.compare_digest` to eliminate timing side-channel attacks.
+* **Non-Root Container Hardening**: Backend Docker containers drop privileges and execute under an unprivileged user (`appuser`, UID 1000).
+* **Database Loopback Isolation**: PostgreSQL ports in container orchestrations are bound strictly to `127.0.0.1`.
+* **Modularized Asset Bundling**: Track SVG geometries are isolated into specialized modules, reducing API payload sizes by 65% and enabling sub-4-second Turbopack compilation.
 
 ---
 
-## 📄 License
+## License
 
-Distributed under the **MIT License**. See `LICENSE` for more information.
+This project is licensed under the terms of the **MIT License**. See the [LICENSE](LICENSE) file for details.
 
 ---
 
 <div align="center">
 
-**Crafted for Formula 1 fans, data analysts, and race engineers.**  
-🏁 *Keep pushing on the out-lap!*
+**KERS Formula 1 Telemetry Platform**  
+Maintained for motorsport data analysts, developers, and race engineers.
 
 </div>
