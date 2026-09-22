@@ -13,6 +13,7 @@ import { TopHeader } from '@/components/layout/TopHeader';
 import { Footer } from '@/components/ui/Footer';
 import { CookieConsentBanner } from '@/components/ui/CookieConsentBanner';
 import { AnalyticsProvider } from '@/components/analytics/AnalyticsProvider';
+import { Analytics } from '@vercel/analytics/react';
 import { BackgroundAtmosphere } from '@/components/layout/BackgroundAtmosphere';
 import { KersIntroExperience } from '@/components/intro/KersIntroExperience';
 import { GlassRefractionDefs } from '@/components/ui/GlassRefractionDefs';
@@ -196,6 +197,9 @@ export default function RootLayout({
 
         {/* Consent-Gated Privacy-Preserving Analytics */}
         <AnalyticsProvider />
+
+        {/* Vercel Native Cookieless Web Analytics */}
+        <Analytics />
       </body>
     </html>
   );
